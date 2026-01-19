@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="metafactory agent studio｜生成AIを“定着する運用”にする伴走。Agent/Dify/Copilot agent mode。" />
+  <title>metafactory agent studio | 生成AIシステム設計・運用伴走</title>
+  <style>
+    :root{
+      --bg:#0b0f19;
+      --card:#111827;
+      --muted:#9ca3af;
+      --text:#e5e7eb;
+      --accent:#60a5fa;
+      --accent2:#34d399;
+      --line:#1f2937;
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif;
+      background: radial-gradient(1200px 800px at 10% 0%, rgba(96,165,250,.18), transparent 60%),
+                  radial-gradient(900px 600px at 90% 10%, rgba(52,211,153,.14), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:1080px; margin:0 auto; padding:28px 20px 64px;}
+    header{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px; padding:10px 0 18px;
+    }
+    .brand{display:flex; flex-direction:column; gap:4px;}
+    .brand strong{font-size:16px; letter-spacing:.4px}
+    .brand span{font-size:12px; color:var(--muted)}
+    nav{display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-end}
+    nav a{font-size:13px; color:var(--muted)}
+    nav a:hover{color:var(--text)}
+
+    .hero{
+      margin-top:12px;
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(17,24,39,.78), rgba(17,24,39,.56));
+      border-radius: var(--radius);
+      padding:26px;
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:-120px -120px auto auto;
+      width:280px; height:280px;
+      background: radial-gradient(circle at 30% 30%, rgba(96,165,250,.35), transparent 60%);
+      filter: blur(0px);
+      transform: rotate(15deg);
+      pointer-events:none;
+    }
+    .hero-grid{display:grid; grid-template-columns: 1.2fr .8fr; gap:22px; align-items:start}
+    @media (max-width: 900px){
+      .hero-grid{grid-template-columns:1fr}
+    }
+    .kicker{display:inline-flex; gap:8px; align-items:center; font-size:12px; color:var(--muted)}
+    .dot{width:8px; height:8px; border-radius:999px; background:var(--accent2); box-shadow:0 0 0 5px rgba(52,211,153,.12)}
+    h1{margin:10px 0 10px; font-size:34px; line-height:1.15; letter-spacing:.2px}
+    .sub{color:var(--muted); margin:0 0 18px; font-size:15px}
+    .pillrow{display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 0}
+    .pill{
+      border:1px solid var(--line);
+      background: rgba(15,23,42,.55);
+      padding:7px 10px;
+      border-radius:999px;
+      font-size:12px;
+      color:#d1d5db;
+    }
+
+    .cta{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:8px;
+      padding:11px 14px;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      background: rgba(17,24,39,.65);
+      font-weight:600;
+      font-size:13px;
+    }
+    .btn.primary{background: linear-gradient(135deg, rgba(96,165,250,.9), rgba(52,211,153,.68)); border-color: transparent; color:#071019}
+    .btn:hover{transform: translateY(-1px)}
+
+    .card{
+      border:1px solid var(--line);
+      background: rgba(17,24,39,.55);
+      border-radius: var(--radius);
+      padding:18px;
+    }
+    .card h3{margin:0 0 8px; font-size:15px}
+    .card p{margin:0; color:var(--muted); font-size:13px}
+
+    .grid3{display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; margin-top:14px}
+    @media (max-width: 900px){.grid3{grid-template-columns:1fr}}
+
+    section{margin-top:26px}
+    .section-title{display:flex; align-items:end; justify-content:space-between; gap:12px}
+    .section-title h2{margin:0; font-size:18px}
+    .section-title span{color:var(--muted); font-size:12px}
+    .list{margin:10px 0 0; padding:0; list-style:none}
+    .list li{
+      margin:10px 0;
+      padding:12px 12px;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background: rgba(15,23,42,.45);
+    }
+    .list li strong{display:block; margin-bottom:4px}
+    .list li small{color:var(--muted)}
+
+    .two{
+      display:grid; grid-template-columns: 1fr 1fr; gap:14px;
+    }
+    @media (max-width: 900px){.two{grid-template-columns:1fr}}
+
+    footer{
+      margin-top:32px;
+      padding-top:18px;
+      border-top:1px solid var(--line);
+      color:var(--muted);
+      font-size:12px;
+      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    }
+
+    /* tiny icons */
+    .icon{width:16px; height:16px; display:inline-block}
+    .muted{color:var(--muted)}
+    code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 12px;}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <strong>metafactory agent studio</strong>
+        <span>LLM Systems / Governance / Enablement</span>
+      </div>
+      <nav>
+        <a href="#services">提供メニュー</a>
+        <a href="#approach">進め方</a>
+        <a href="#cred">実績</a>
+        <a href="#contact">連絡</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="hero">
+        <div class="hero-grid">
+          <div>
+            <div class="kicker"><span class="dot"></span><span>生成AIを「定着する運用」にする伴走</span></div>
+            <h1>PoCで終わらせない。<br>証拠・再現性・運用まで設計します。</h1>
+            <p class="sub">Agentワークフロー / Dify / GitHub Copilot agent mode を前提に、<br>「作る」だけでなく「使い続けられる」形まで伴走します。</p>
+
+            <div class="cta">
+              <a class="btn primary" href="#contact">相談する（初回ヒアリング）</a>
+              <a class="btn" href="#services">提供メニューを見る</a>
+            </div>
+
+            <div class="pillrow" aria-label="keywords">
+              <div class="pill">LLM Governance（Evidence / Idempotency）</div>
+              <div class="pill">Agentic Workflow</div>
+              <div class="pill">Dify Enablement</div>
+              <div class="pill">Copilot Agent Mode</div>
+              <div class="pill">Python / C++</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>こんな課題に</h3>
+            <p class="muted">「導入したけど使われない」「属人化」「品質が不安」「変更で壊れる」</p>
+            <ul class="list" style="margin-top:10px">
+              <li><strong>運用が回らない</strong><small>更新手順・権限・監視・引き継ぎまで</small></li>
+              <li><strong>根拠が追えない</strong><small>推測を排し、Evidenceを出力・記録</small></li>
+              <li><strong>中断・再開が怖い</strong><small>べき等性（Idempotency）で安全に改善</small></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <section id="services">
+        <div class="section-title">
+          <h2>提供メニュー</h2>
+          <span>買える形にして、最小差分で導入します</span>
+        </div>
+
+        <div class="grid3">
+          <div class="card">
+            <h3>① 定着の仕組み化（Train-the-Trainer）</h3>
+            <p>座学＋ハンズオン設計に加え、<b>メンターが次のメンターを育てる</b>仕組み（Mentor-of-Mentors）で育成をスケールさせます。</p>
+          </div>
+          <div class="card">
+            <h3>② Agentワークフロー / Dify 伴走</h3>
+            <p>要件整理、フロー設計、ツール連携、ガードレール、評価、運用手順まで。<b>変更に強い更新設計</b>も含めて伴走します。</p>
+          </div>
+          <div class="card">
+            <h3>③ Copilot agent mode 定着支援</h3>
+            <p>「計画→実装→実行→修正」のループを安全に回す運用設計。チームのルール・レビュー観点・事故防止まで整備します。</p>
+          </div>
+        </div>
+
+        <div class="two" style="margin-top:14px">
+          <div class="card">
+            <h3>成果物の例</h3>
+            <ul class="list">
+              <li><strong>運用ルール / チェックリスト</strong><small>権限・更新・監視・引き継ぎ</small></li>
+              <li><strong>評価設計</strong><small>テストケース / 指標 / 逸脱・未検証の可視化</small></li>
+              <li><strong>ワークフロー実装</strong><small>Difyフロー / Tool-use / ガードレール</small></li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>得意領域（例）</h3>
+            <ul class="list">
+              <li><strong>LLM Governance</strong><small>Evidence-based / Minimum intervention / Idempotency</small></li>
+              <li><strong>仕様化されたプロンプト/DSL運用</strong><small>キー正規化、差分吸収、preferred選定、warnings設計</small></li>
+              <li><strong>複雑系の実装</strong><small>大規模組込みSWのテックリード経験を活かした堅牢設計</small></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="approach">
+        <div class="section-title">
+          <h2>進め方</h2>
+          <span>“壊れない”ためのプロセス設計</span>
+        </div>
+
+        <ul class="list">
+          <li>
+            <strong>Step 1｜現状把握（1〜2回）</strong>
+            <small>業務フロー、制約、利用シーン、リスクを整理。PoCで終わる要因を先に潰します。</small>
+          </li>
+          <li>
+            <strong>Step 2｜運用設計（Governance）</strong>
+            <small>Single Source of Truth、Evidenceレベル、べき等性、最小差分導入、警告/ブロックを設計します。</small>
+          </li>
+          <li>
+            <strong>Step 3｜実装・評価・定着</strong>
+            <small>Dify/Agent実装→評価→改善ループ。必要に応じてTrain-the-Trainerで社内に“教えられる人”を増やします。</small>
+          </li>
+        </ul>
+
+        <div class="card" style="margin-top:14px">
+          <h3>スタンス</h3>
+          <p>
+            ・推測で埋めない（不明は不明と明記）<br>
+            ・既存資産を壊さない（Minimum intervention）<br>
+            ・中断・再開しても品質が落ちない（Idempotency）<br>
+          </p>
+        </div>
+      </section>
+
+      <section id="cred">
+        <div class="section-title">
+          <h2>実績（本業）</h2>
+          <span>※公開できる範囲で記載。詳細は個別に共有します。</span>
+        </div>
+
+        <div class="two" style="margin-top:14px">
+          <div class="card">
+            <h3>大規模組込みソフトウェア｜Tech Lead</h3>
+            <p>品質・境界条件・保守性を重視した開発をリード。Python / C++ を含む実装経験。</p>
+          </div>
+          <div class="card">
+            <h3>社内育成｜延べ300名規模</h3>
+            <p>座学・ハンズオンを設計・実施。<b>Mentor-of-Mentors（Train-the-Trainer）</b>でメンター育成をスケール。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="section-title">
+          <h2>連絡</h2>
+          <span>まずは課題と現状を教えてください</span>
+        </div>
+
+        <div class="card" style="margin-top:14px">
+          <p style="margin:0 0 10px">以下はプレースホルダです。メール/URLは差し替えて使ってください。</p>
+          <ul class="list" style="margin:0">
+            <li><strong>名前</strong><small>山田 太郎（個人事業主 / 業務委託）</small></li>
+            <li><strong>屋号</strong><small>metafactory agent studio</small></li>
+            <li><strong>メール</strong><small><a class="muted" href="mailto:hello@example.com">hello@example.com</a></small></li>
+            <li><strong>Web / Portfolio</strong><small><a class="muted" href="#">https://example.com</a></small></li>
+          </ul>
+          <div class="cta" style="margin-top:14px">
+            <a class="btn primary" href="mailto:hello@example.com?subject=metafactory%20agent%20studio%20%E7%9B%B8%E8%AB%87&body=%E7%9B%B8%E8%AB%87%E5%86%85%E5%AE%B9%EF%BC%9A%0A%E7%8F%BE%E7%8A%B6%EF%BC%9A%0A%E6%9C%9F%E5%BE%85%E3%81%99%E3%82%8B%E6%88%90%E6%9E%9C%EF%BC%9A%0A">メールで相談</a>
+            <a class="btn" href="#services">提供メニュー</a>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div>© <span id="y"></span> metafactory agent studio</div>
+        <div>Build: LLM Systems / Governance / Enablement</div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById('y').textContent = String(new Date().getFullYear());
+  </script>
+</body>
+</html>
