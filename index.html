@@ -1,10 +1,27 @@
+了解。いまのHTMLをベースに、「中小企業向けに“通じる言葉”へ翻訳」「A/B/Cをあなた版に差別化」「気になる英語/特殊語を薄める」「FAQ追加」「ヒーローからツール名を下げる」まで入れた **全文（差し替え用完成版）**を出します。
+
+```html
 <!doctype html>
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="metafactory agent studio｜再現性・根拠が追える・回帰で壊れないAI活用。導入から定着まで伴走（Dify / 開発支援（Copilot）ほか）。" />
-  <title>metafactory agent studio | 生成AIシステム設計・運用伴走</title>
+  <meta name="description" content="metafactory agent studio｜再現性・根拠が追える・回帰で壊れないAI活用。中小企業のAI導入を「試して終わり」にせず、業務に定着する形まで伴走します。" />
+
+  <!-- SEO / Social -->
+  <title>再現性・根拠が追える・回帰で壊れないAI活用 | metafactory agent studio</title>
+  <link rel="canonical" href="https://metatsfactory-rgb.github.io/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="metafactory agent studio" />
+  <meta property="og:title" content="再現性・根拠が追える・回帰で壊れないAI活用 | metafactory agent studio" />
+  <meta property="og:description" content="AI導入を「試して終わり」にせず、業務に定着する形まで伴走。根拠が追える、更新しても壊れにくい、属人化しにくい運用へ。" />
+  <meta property="og:url" content="https://metatsfactory-rgb.github.io/" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="再現性・根拠が追える・回帰で壊れないAI活用 | metafactory agent studio" />
+  <meta name="twitter:description" content="AI導入を「試して終わり」にせず、業務に定着する形まで伴走。根拠が追える、更新しても壊れにくい、属人化しにくい運用へ。" />
+
   <style>
     :root{
       --bg:#0b0f19;
@@ -25,7 +42,7 @@
                   radial-gradient(900px 600px at 90% 10%, rgba(52,211,153,.14), transparent 55%),
                   var(--bg);
       color:var(--text);
-      line-height:1.6;
+      line-height:1.65;
     }
     a{color:inherit; text-decoration:none}
     .wrap{max-width:1080px; margin:0 auto; padding:28px 20px 64px;}
@@ -55,11 +72,10 @@
       position:absolute; inset:-120px -120px auto auto;
       width:280px; height:280px;
       background: radial-gradient(circle at 30% 30%, rgba(96,165,250,.35), transparent 60%);
-      filter: blur(0px);
       transform: rotate(15deg);
       pointer-events:none;
     }
-    .hero-grid{display:grid; grid-template-columns: 1.2fr .8fr; gap:22px; align-items:start}
+    .hero-grid{display:grid; grid-template-columns: 1.25fr .75fr; gap:22px; align-items:start}
     @media (max-width: 900px){
       .hero-grid{grid-template-columns:1fr}
     }
@@ -87,6 +103,7 @@
       background: rgba(17,24,39,.65);
       font-weight:600;
       font-size:13px;
+      transition: transform .12s ease;
     }
     .btn.primary{background: linear-gradient(135deg, rgba(96,165,250,.9), rgba(52,211,153,.68)); border-color: transparent; color:#071019}
     .btn:hover{transform: translateY(-1px)}
@@ -99,6 +116,7 @@
     }
     .card h3{margin:0 0 8px; font-size:15px}
     .card p{margin:0; color:var(--muted); font-size:13px}
+    .card .lead{color:#d1d5db; font-size:14px; margin-top:6px}
 
     .grid3{display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; margin-top:14px}
     @media (max-width: 900px){.grid3{grid-template-columns:1fr}}
@@ -118,9 +136,7 @@
     .list li strong{display:block; margin-bottom:4px}
     .list li small{color:var(--muted)}
 
-    .two{
-      display:grid; grid-template-columns: 1fr 1fr; gap:14px;
-    }
+    .two{display:grid; grid-template-columns: 1fr 1fr; gap:14px;}
     @media (max-width: 900px){.two{grid-template-columns:1fr}}
 
     footer{
@@ -132,8 +148,6 @@
       display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
     }
 
-    /* tiny icons */
-    .icon{width:16px; height:16px; display:inline-block}
     .muted{color:var(--muted)}
     code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 12px;}
   </style>
@@ -143,13 +157,13 @@
     <header>
       <div class="brand">
         <strong>metafactory agent studio</strong>
-        <span>AI Systems / Quality / Enablement</span>
+        <span>AI導入・運用・定着の伴走</span>
       </div>
       <nav>
+        <a href="#usecases">導入イメージ</a>
         <a href="#services">提供メニュー</a>
         <a href="#approach">進め方</a>
-        <a href="#constitution">品質アプローチ</a>
-        <a href="#cred">実績</a>
+        <a href="#faq">FAQ</a>
         <a href="#contact">連絡</a>
       </nav>
     </header>
@@ -159,55 +173,99 @@
         <div class="hero-grid">
           <div>
             <div class="kicker"><span class="dot"></span><span>再現性・根拠が追える・回帰で壊れないAI活用</span></div>
-            <h1>再現性・根拠が追える・回帰で壊れない<br>AI活用を、導入から定着まで伴走。</h1>
-            <p class="sub">ワークフロー設計 / Dify / 開発支援（Copilot）などを前提に、<br>「作る」だけでなく「使い続けられる」形まで支援します。公開情報は要点のみとし、詳細は個別相談で共有します。</p>
+            <h1>AI導入を「試して終わり」にしない。<br>業務に定着する形まで伴走します。</h1>
+            <p class="sub">まずは小さく始めて、効果が出たところから安全に広げます。<br>
+            “回答の根拠が追える”形と、“更新しても壊れにくい”運用を重視します（詳細は個別相談で共有）。</p>
 
             <div class="cta">
-              <a class="btn primary" href="#contact">相談する（初回ヒアリング）</a>
-              <a class="btn" href="#services">提供メニューを見る</a>
+              <a class="btn primary" href="#contact">まず相談する（30分）</a>
+              <a class="btn" href="#usecases">導入イメージを見る</a>
             </div>
 
             <div class="pillrow" aria-label="keywords">
-              <div class="pill">再現性（再現できる手順）</div>
-              <div class="pill">根拠が追える（説明可能）</div>
-              <div class="pill">回帰（悪化を検知）</div>
-              <div class="pill">運用設計・定着支援</div>
-              <div class="pill">ワークフロー設計</div>
-              <div class="pill">Dify</div>
-              <div class="pill">開発支援（Copilot）</div>
+              <div class="pill">根拠が追える</div>
+              <div class="pill">更新しても壊れにくい</div>
+              <div class="pill">属人化しにくい</div>
+              <div class="pill">小さく始める</div>
+              <div class="pill">段階導入</div>
             </div>
           </div>
 
           <div class="card">
-            <h3>こんな課題に</h3>
-            <p class="muted">「導入したけど使われない」「属人化」「品質が不安」「変更で壊れる」</p>
+            <h3>よくある不安</h3>
+            <p class="muted">中小企業のAI導入で止まりがちなポイントを、最初に潰します。</p>
             <ul class="list" style="margin-top:10px">
-              <li><strong>運用が回らない</strong><small>更新手順・権限・監視・引き継ぎまで</small></li>
-              <li><strong>根拠が追えない</strong><small>推測を排し、根拠と判断材料を明示</small></li>
-              <li><strong>中断・再開が怖い</strong><small>べき等性（Idempotency）で安全に改善</small></li>
+              <li><strong>回答が信用できる？</strong><small>根拠（参照先）を残せる形を重視</small></li>
+              <li><strong>更新したら壊れない？</strong><small>改善のたびに悪化を検知できる運用へ</small></li>
+              <li><strong>結局、回らないのでは？</strong><small>属人化を減らす手順・教育・運用を整備</small></li>
             </ul>
           </div>
         </div>
       </div>
 
+      <section id="usecases">
+        <div class="section-title">
+          <h2>導入イメージ（よくある3パターン）</h2>
+          <span>“どこでも言える”ではなく、運用で成立させるのが強みです</span>
+        </div>
+
+        <div class="grid3">
+          <div class="card">
+            <h3>A｜問い合わせ一次対応（根拠つき）</h3>
+            <p class="lead">規程・契約・FAQに沿って、回答に参照先を添える形で一次対応を支援。</p>
+            <ul class="list" style="margin-top:10px">
+              <li><strong>言った言わないを減らす</strong><small>出典を示し、説明できる形に</small></li>
+              <li><strong>事故りにくい</strong><small>禁止事項・例外を踏み抜きにくい設計</small></li>
+              <li><strong>更新が回る</strong><small>内容が変わっても運用で追随しやすい</small></li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>B｜社内ナレッジ検索（出典つき）</h3>
+            <p class="lead">マニュアル・手順書・議事録などから「どこに書いてあるか」まで辿れる検索へ。</p>
+            <ul class="list" style="margin-top:10px">
+              <li><strong>探す時間を減らす</strong><small>必要な箇所に案内し、引用も添付</small></li>
+              <li><strong>矛盾に強い</strong><small>古い情報が混ざっても破綻しにくい</small></li>
+              <li><strong>劣化を検知</strong><small>更新後に悪化したら気づける仕組み</small></li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>C｜文書作成支援（社内ルール準拠）</h3>
+            <p class="lead">報告書・手順書・説明文などを、レビューしやすい“たたき台”として安定生成。</p>
+            <ul class="list" style="margin-top:10px">
+              <li><strong>表現のブレを抑える</strong><small>用語・書式の揺れを減らす</small></li>
+              <li><strong>レビュー工数を減らす</strong><small>前提・注意点を明示してチェックしやすく</small></li>
+              <li><strong>属人化を減らす</strong><small>テンプレ化して社内で回せる形へ</small></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:14px">
+          <h3>対象になりやすい社内文書（例）</h3>
+          <p class="muted">社内規程、品質マニュアル、手順書、FAQ、契約ひな形、設計/運用ドキュメント、議事録など。<br>
+          ※具体内容は公開しません。必要に応じてNDA締結のうえ詳細共有します。</p>
+        </div>
+      </section>
+
       <section id="services">
         <div class="section-title">
           <h2>提供メニュー</h2>
-          <span>買える形にして、最小差分で導入します</span>
+          <span>小さく始めて、効果が出たら広げます（段階導入）</span>
         </div>
 
         <div class="grid3">
           <div class="card">
             <h3>① 定着の仕組み化（Train-the-Trainer）</h3>
-            <p>座学＋ハンズオン設計に加え、<b>メンターが次のメンターを育てる</b>仕組み（Mentor-of-Mentors）で育成をスケールさせます。</p>
+            <p>座学＋ハンズオンに加え、<b>教えられる人を増やす</b>仕組みで、導入後も社内で回る状態を作ります。</p>
           </div>
           <div class="card">
             <h3>② ワークフロー設計 / Dify 伴走</h3>
-            <p>要件整理、フロー設計、ツール連携、ガードレール、評価、運用手順まで。<b>変更に強い更新設計</b>も含めて伴走します。</p>
+            <p>要件整理、フロー設計、連携、ガードレール、評価、運用手順まで。<b>更新に強い運用</b>も含めて伴走します。</p>
           </div>
           <div class="card">
             <h3>③ 開発支援の定着（Copilot）</h3>
-            <p>「計画→実装→検証→修正」のループを安全に回す運用設計。チームのルール・レビュー観点・事故防止まで整備します。</p>
+            <p>開発を速くするだけでなく、<b>品質を落とさず継続できる</b>やり方（ルール・レビュー観点・事故防止）まで整備します。</p>
           </div>
         </div>
 
@@ -215,16 +273,16 @@
           <div class="card">
             <h3>成果物の例</h3>
             <ul class="list">
-              <li><strong>運用ルール / チェックリスト</strong><small>権限・更新・監視・引き継ぎ</small></li>
-              <li><strong>評価設計</strong><small>テストケース / 指標 / 逸脱・未検証の可視化</small></li>
-              <li><strong>ワークフロー実装</strong><small>Difyフロー / 連携 / ガードレール</small></li>
+              <li><strong>運用ルール / チェックリスト</strong><small>更新、監視、引き継ぎ（属人化を減らす）</small></li>
+              <li><strong>評価（回帰）</strong><small>代表ケースで、更新後の悪化を検知</small></li>
+              <li><strong>ワークフロー実装</strong><small>社内文書/ツール連携、ガード設計</small></li>
             </ul>
           </div>
           <div class="card">
             <h3>得意領域（例）</h3>
             <ul class="list">
-              <li><strong>品質設計</strong><small>再現性 / 根拠が追える設計 / 回帰（悪化検知）</small></li>
-              <li><strong>設定・仕様変更に強い運用</strong><small>差分での更新、破壊的変更の影響を抑える運用設計</small></li>
+              <li><strong>品質設計</strong><small>根拠が追える形 / 更新しても壊れにくい運用 / 悪化検知</small></li>
+              <li><strong>段階導入</strong><small>小さく始め、効果が出たところから広げる</small></li>
               <li><strong>複雑系の実装</strong><small>大規模組込みSWのテックリード経験を活かした堅牢設計</small></li>
             </ul>
           </div>
@@ -234,66 +292,62 @@
       <section id="approach">
         <div class="section-title">
           <h2>進め方</h2>
-          <span>“壊れない”ためのプロセス設計</span>
+          <span>中小企業でも無理なく進む、現実的な進め方</span>
         </div>
 
         <ul class="list">
           <li>
             <strong>Step 1｜現状把握（1〜2回）</strong>
-            <small>業務フロー、制約、利用シーン、リスクを整理。PoCで終わる要因を先に潰します。</small>
+            <small>目的、現場の痛み、使う文書・データ、制約（セキュリティ等）を整理します。</small>
           </li>
           <li>
-            <strong>Step 2｜運用設計（Governance）</strong>
-            <small>状態の置き場所、根拠の扱い、やり直しても壊れない設計、最小差分導入などを整理します。</small>
+            <strong>Step 2｜設計（運用まで含めて）</strong>
+            <small>根拠を残す形、更新手順、教育・引き継ぎなど、“回る”前提で設計します。</small>
           </li>
           <li>
-            <strong>Step 3｜実装・評価・定着</strong>
-            <small>Dify/ワークフロー実装→評価→改善ループ。必要に応じてTrain-the-Trainerで社内に“教えられる人”を増やします。</small>
+            <strong>Step 3｜小さく導入 → 評価 → 改善</strong>
+            <small>まずは限定範囲で導入し、代表ケースで評価。良いところを伸ばし、悪化は早めに検知します。</small>
           </li>
         </ul>
 
         <div class="card" style="margin-top:14px">
-          <h3>スタンス</h3>
-          <p>
-            ・推測で埋めない（不明は不明と明記）<br>
-            ・既存資産を壊さない（Minimum intervention）<br>
-            ・中断・再開しても品質が落ちない（Idempotency）<br>
+          <h3>約束すること</h3>
+          <p class="muted">
+            ・分からないことは「分からない」と明記します（推測で埋めません）<br>
+            ・今の業務やツールを大きく変えずに導入できる形を優先します<br>
+            ・更新しても壊れにくく、やり直しても品質が落ちにくい進め方にします<br>
           </p>
         </div>
       </section>
 
-      <section id="constitution">
+      <section id="faq">
         <div class="section-title">
-          <h2>品質アプローチ</h2>
-          <span>再現性・根拠が追える・運用性を重視して、安心して使い続けられる形へ</span>
+          <h2>FAQ</h2>
+          <span>よくある質問（中小企業向け）</span>
         </div>
 
-        <div class="two" style="margin-top:14px">
-          <div class="card">
-            <h3>最初に「ぶれない方針」を定めます</h3>
-            <p>複雑な領域ほど、初期段階で<strong>判断基準・禁止事項・成果物の型</strong>を決めてから進めます。途中で方向性が揺れて品質が落ちるのを防ぎます。</p>
-            <ul class="list" style="margin-top:10px">
-              <li><strong>対象を分解して扱う</strong><small>大きいものを小さくし、検証可能な単位で進めます</small></li>
-              <li><strong>根拠を残す</strong><small>あとから追える形で、参照・判断材料を明示します</small></li>
-              <li><strong>最小差分で導入</strong><small>既存資産を壊さず、段階的に改善します</small></li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <h3>「検証と回帰」で改善を積み上げます</h3>
-            <p>単発の賢さに依存せず、<strong>テスト（回帰）とチェック</strong>で品質を保ちます。改善は仕組みに書き戻し、同じ失敗を繰り返さないようにします。</p>
-            <ul class="list" style="margin-top:10px">
-              <li><strong>チェックの仕組み化</strong><small>抜け漏れ・矛盾・表記揺れなどを早期に検知</small></li>
-              <li><strong>回帰テスト</strong><small>現場の代表的な質問/操作で、悪化を検出</small></li>
-              <li><strong>運用に耐えるドキュメント</strong><small>更新手順・引き継ぎ・例外対応まで整理</small></li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="card" style="margin-top:14px">
-          <h3>外部公開は「抽象度を上げて」記載します</h3>
-          <p>本ページは意図的に具体名や内部仕様を省き、要点のみを記載しています。詳細は個別相談（必要に応じてNDA後）で共有します。</p>
-        </div>
+        <ul class="list">
+          <li>
+            <strong>Q. 何から始めればいいですか？</strong>
+            <small>まずは「よく聞かれる質問」「探すのに時間がかかる情報」など、小さく効果が出やすいところから始めます。</small>
+          </li>
+          <li>
+            <strong>Q. 期間の目安は？</strong>
+            <small>対象範囲と目的によりますが、まずは小さな範囲で試し、結果を見ながら段階的に広げます。</small>
+          </li>
+          <li>
+            <strong>Q. 費用感は？</strong>
+            <small>範囲と体制によります。初回ヒアリングで目的と制約を整理したうえで、段階導入のプランとして提示します。</small>
+          </li>
+          <li>
+            <strong>Q. 社内データの扱いが不安です。</strong>
+            <small>利用するデータ範囲・権限・保管・アクセス方法などを前提条件として整理します。必要に応じてNDAも対応します。</small>
+          </li>
+          <li>
+            <strong>Q. 社内に担当者がいなくても進められますか？</strong>
+            <small>可能です。導入後に社内で回るように、手順・教育・引き継ぎを含めて整備します（属人化を減らす方針）。</small>
+          </li>
+        </ul>
       </section>
 
       <section id="cred">
@@ -309,7 +363,7 @@
           </div>
           <div class="card">
             <h3>社内育成｜延べ300名規模</h3>
-            <p>座学・ハンズオンを設計・実施。<b>Mentor-of-Mentors（Train-the-Trainer）</b>でメンター育成をスケール。</p>
+            <p>座学・ハンズオンを設計・実施。<b>メンターがメンターを育てる</b>仕組みで育成をスケール。</p>
           </div>
         </div>
       </section>
@@ -321,23 +375,33 @@
         </div>
 
         <div class="card" style="margin-top:14px">
-          <p style="margin:0 0 10px">以下はプレースホルダです。メール/URLは差し替えて使ってください。</p>
+          <p style="margin:0 0 10px">お問い合わせはメールにてお願いします（必要に応じてNDA後に詳細共有します）。</p>
           <ul class="list" style="margin:0">
             <li><strong>名前</strong><small>柴田 朝史（個人事業主 / 業務委託）</small></li>
             <li><strong>屋号</strong><small>metafactory agent studio</small></li>
-            <li><strong>メール</strong><small><a class="muted" href="mailto:hello@example.com">hello@example.com</a></small></li>
-            <li><strong>Web / Portfolio</strong><small><a class="muted" href="#">https://metatsfactory-rgb.github.io/</a></small></li>
+            <li><strong>メール</strong><small>
+              <a class="muted" href="mailto:meta.tsfactory@gmail.com">meta.tsfactory@gmail.com</a>
+            </small></li>
+            <li><strong>Web</strong><small>
+              <a class="muted" href="https://metatsfactory-rgb.github.io/" target="_blank" rel="noopener noreferrer">
+                https://metatsfactory-rgb.github.io/
+              </a>
+            </small></li>
           </ul>
+
           <div class="cta" style="margin-top:14px">
-            <a class="btn primary" href="mailto:hello@example.com?subject=metafactory%20agent%20studio%20%E7%9B%B8%E8%AB%87&body=%E7%9B%B8%E8%AB%87%E5%86%85%E5%AE%B9%EF%BC%9A%0A%E7%8F%BE%E7%8A%B6%EF%BC%9A%0A%E6%9C%9F%E5%BE%85%E3%81%99%E3%82%8B%E6%88%90%E6%9E%9C%EF%BC%9A%0A">メールで相談</a>
-            <a class="btn" href="#services">提供メニュー</a>
+            <a
+              class="btn primary"
+              href="mailto:meta.tsfactory@gmail.com?subject=metafactory%20agent%20studio%20%E7%9B%B8%E8%AB%87&body=%E7%9B%B8%E8%AB%87%E5%86%85%E5%AE%B9%EF%BC%9A%0A%E7%8F%BE%E7%8A%B6%EF%BC%9A%0A%E6%83%B3%E5%AE%9A%E3%81%99%E3%82%8B%E5%88%A9%E7%94%A8%E3%82%B7%E3%83%BC%E3%83%B3%EF%BC%9A%0A%E5%88%B6%E7%B4%84%EF%BC%88%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E7%AD%89%EF%BC%89%EF%BC%9A%0A"
+            >メールで相談</a>
+            <a class="btn" href="#usecases">導入イメージ</a>
           </div>
         </div>
       </section>
 
       <footer>
         <div>© <span id="y"></span> metafactory agent studio</div>
-        <div>Build: AI Systems / Quality / Enablement</div>
+        <div>Build: AI導入・運用・定着の伴走</div>
       </footer>
     </main>
   </div>
@@ -347,3 +411,6 @@
   </script>
 </body>
 </html>
+```
+
+このまま `index.html` を置き換えればOKです。
