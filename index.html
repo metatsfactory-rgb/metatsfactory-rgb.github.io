@@ -435,7 +435,7 @@
     }
     
     .comparison-table {
-      max-width: 950px;
+      max-width: 850px;
       margin: 0 auto;
       background: var(--bg-card);
       border-radius: 20px;
@@ -454,23 +454,25 @@
     
     .comparison-header {
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
       background: var(--bg-secondary);
-      font-weight: 700;
-      padding: 24px 28px;
+      font-weight: 800;
+      padding: 32px 36px;
       border-bottom: 2px solid var(--border);
-      font-size: 15px;
+      font-size: 18px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
+      align-items: center;
     }
     
     .comparison-row {
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      padding: 24px 28px;
+      grid-template-columns: 1fr 1fr 1fr;
+      padding: 26px 36px;
       border-bottom: 1px solid var(--border);
       transition: all 0.3s ease;
-      font-size: 16px;
+      font-size: 17px;
+      align-items: center;
     }
     
     .comparison-row:hover {
@@ -479,6 +481,12 @@
     
     .comparison-row:last-child {
       border-bottom: none;
+    }
+    
+    .comparison-row > div:first-child {
+      font-weight: 700;
+      color: var(--text-primary);
+      font-size: 18px;
     }
     
     .comparison-fail {
@@ -492,7 +500,7 @@
       content: "✗";
       color: var(--danger);
       font-weight: 700;
-      font-size: 18px;
+      font-size: 20px;
     }
     
     .comparison-success {
@@ -507,7 +515,7 @@
       content: "✓";
       color: var(--success);
       font-weight: 700;
-      font-size: 18px;
+      font-size: 20px;
     }
     
     /* Services Section */
