@@ -1,767 +1,1492 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="AI導入で失敗したくない中小企業へ。従来の開発で起こる失敗を構造的に防ぎ、確実に動くシステムを構築します。" />
-  <title>metafactory agent studio - AI開発失敗を防ぐ開発支援</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI開発の失敗を、もう繰り返さない | metafactory agent studio</title>
+  <meta name="description" content="大規模開発のプロが、あなたのAI導入を確実に成功させます。3年間のノウハウを凝縮したフレームワークで、失敗リスクをゼロに。">
   <style>
     :root {
-      --bg: #0f172a;
-      --card: #1e293b;
-      --text: #f1f5f9;
+      --bg-primary: #0a0e1a;
+      --bg-secondary: #0f172a;
+      --bg-card: #1e293b;
+      --bg-card-hover: #2d3a52;
+      --text-primary: #f1f5f9;
+      --text-secondary: #cbd5e1;
       --text-muted: #94a3b8;
-      --accent: #3b82f6;
-      --accent-light: #60a5fa;
+      --accent: #06b6d4;
+      --accent-hover: #0891b2;
+      --accent-light: rgba(6, 182, 212, 0.1);
+      --accent-glow: rgba(6, 182, 212, 0.3);
       --success: #10b981;
       --warning: #f59e0b;
       --danger: #ef4444;
-      --border: #334155;
+      --border: rgba(148, 163, 184, 0.2);
+      --shadow: rgba(0, 0, 0, 0.4);
     }
     
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
     
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP", "Hiragino Sans", sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
       line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
     
     .container {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 0 24px;
     }
     
+    /* Progress Bar */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--success));
+      z-index: 1001;
+      transform-origin: left;
+      transition: transform 0.1s ease;
+    }
+    
+    /* Header */
     header {
-      padding: 20px 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(10, 14, 26, 0.98);
+      backdrop-filter: blur(12px);
+      z-index: 1000;
       border-bottom: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+    
+    header.scrolled {
+      box-shadow: 0 4px 20px var(--shadow);
     }
     
     .header-content {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
+      padding: 18px 0;
     }
     
     .logo {
-      font-size: 18px;
-      font-weight: 600;
-    }
-    
-    .tagline {
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-    
-    nav a {
-      color: var(--text-muted);
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--accent);
       text-decoration: none;
-      font-size: 14px;
-      margin-left: 24px;
-      transition: color 0.2s;
+      letter-spacing: -0.03em;
+      transition: all 0.3s ease;
     }
     
-    nav a:hover {
-      color: var(--text);
+    .logo:hover {
+      color: var(--accent-hover);
+      letter-spacing: -0.01em;
     }
     
+    .cta-button {
+      background: var(--accent);
+      color: white;
+      padding: 12px 36px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      box-shadow: 0 2px 8px rgba(6, 182, 212, 0.2);
+    }
+    
+    .cta-button:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(6, 182, 212, 0.4);
+    }
+    
+    /* Hero Section */
     .hero {
-      padding: 60px 0;
+      padding: 160px 0 120px;
       text-align: center;
+      background: radial-gradient(ellipse at 50% 0%, rgba(6, 182, 212, 0.15), transparent 60%);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.08) 0%, transparent 50%);
+      animation: heroGlow 10s ease-in-out infinite;
+    }
+    
+    @keyframes heroGlow {
+      0%, 100% { opacity: 0.4; transform: translateX(-50%) scale(1) rotate(0deg); }
+      50% { opacity: 0.8; transform: translateX(-50%) scale(1.2) rotate(180deg); }
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .hero-tag {
+      display: inline-block;
+      background: var(--accent-light);
+      color: var(--accent);
+      padding: 10px 24px;
+      border-radius: 24px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 32px;
+      border: 1px solid var(--accent);
+      box-shadow: 0 4px 12px rgba(6, 182, 212, 0.2);
+      animation: tagFloat 3s ease-in-out infinite;
+    }
+    
+    @keyframes tagFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
     }
     
     .hero h1 {
-      font-size: 42px;
-      font-weight: 700;
-      line-height: 1.3;
-      margin-bottom: 20px;
-      letter-spacing: -0.02em;
+      font-size: 64px;
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 32px;
+      letter-spacing: -0.04em;
     }
     
-    .hero .subtitle {
-      font-size: 19px;
-      color: var(--text-muted);
-      max-width: 700px;
-      margin: 0 auto 32px;
-    }
-    
-    .cta-buttons {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    
-    .btn {
-      padding: 13px 28px;
-      border-radius: 8px;
-      font-size: 15px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.2s;
+    .hero h1 .highlight {
+      color: var(--accent);
+      position: relative;
       display: inline-block;
     }
     
-    .btn-primary {
+    .hero h1 .highlight::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--success));
+      border-radius: 2px;
+      animation: underlineExpand 2s ease-in-out infinite;
+    }
+    
+    @keyframes underlineExpand {
+      0%, 100% { transform: scaleX(0.8); opacity: 0.6; }
+      50% { transform: scaleX(1); opacity: 1; }
+    }
+    
+    .hero-subtitle {
+      font-size: 24px;
+      color: var(--text-secondary);
+      margin-bottom: 56px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.7;
+      font-weight: 400;
+    }
+    
+    .hero-cta-group {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 72px;
+    }
+    
+    .cta-primary {
       background: var(--accent);
       color: white;
+      padding: 20px 56px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 19px;
+      transition: all 0.4s ease;
+      box-shadow: 0 6px 24px rgba(6, 182, 212, 0.35);
+      border: 2px solid var(--accent);
     }
     
-    .btn-primary:hover {
-      background: var(--accent-light);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3);
+    .cta-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 36px rgba(6, 182, 212, 0.5);
     }
     
-    .btn-secondary {
-      background: transparent;
-      color: var(--text);
-      border: 1px solid var(--border);
+    .cta-secondary {
+      color: var(--text-primary);
+      padding: 20px 56px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 19px;
+      border: 2px solid var(--border);
+      transition: all 0.4s ease;
+      background: rgba(30, 41, 59, 0.5);
     }
     
-    .btn-secondary:hover {
+    .cta-secondary:hover {
       border-color: var(--accent);
       color: var(--accent);
+      background: rgba(6, 182, 212, 0.05);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px var(--shadow);
     }
     
-    section {
-      padding: 60px 0;
+    /* Hero Stats */
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .hero-stat {
+      padding: 24px;
+      background: rgba(30, 41, 59, 0.6);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+      transition: all 0.4s ease;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    
+    .hero-stat.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .hero-stat:hover {
+      background: rgba(30, 41, 59, 0.9);
+      border-color: var(--accent);
+      transform: translateY(-6px);
+      box-shadow: 0 12px 32px var(--shadow);
+    }
+    
+    .hero-stat-number {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--accent);
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    
+    .hero-stat-label {
+      font-size: 14px;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    
+    /* Pain Points Section */
+    .pain-points {
+      padding: 120px 0;
+      background: var(--bg-secondary);
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 72px;
+    }
+    
+    .section-tag {
+      display: inline-block;
+      background: rgba(239, 68, 68, 0.12);
+      color: var(--danger);
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      border: 1px solid var(--danger);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
     
     .section-title {
-      font-size: 32px;
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 12px;
+      font-size: 48px;
+      font-weight: 900;
+      margin-bottom: 24px;
+      line-height: 1.25;
+      letter-spacing: -0.03em;
     }
     
     .section-subtitle {
-      font-size: 17px;
-      color: var(--text-muted);
-      text-align: center;
-      margin-bottom: 40px;
+      font-size: 20px;
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.8;
     }
     
-    /* Comparison Table */
-    .comparison {
-      background: rgba(30, 41, 59, 0.5);
-      border-radius: 12px;
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    .pain-card {
+      background: var(--bg-card);
+      padding: 40px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
       overflow: hidden;
-      margin: 32px 0;
+    }
+    
+    .pain-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--danger);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .pain-card:hover::before {
+      opacity: 1;
+    }
+    
+    .pain-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .pain-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--danger);
+      transform: translateY(-8px);
+      box-shadow: 0 16px 48px var(--shadow);
+    }
+    
+    .pain-icon {
+      width: 56px;
+      height: 56px;
+      background: rgba(239, 68, 68, 0.12);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      font-size: 28px;
+      transition: all 0.3s ease;
+    }
+    
+    .pain-card:hover .pain-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+    
+    .pain-card h3 {
+      font-size: 22px;
+      margin-bottom: 14px;
+      color: var(--text-primary);
+      font-weight: 700;
+    }
+    
+    .pain-card p {
+      color: var(--text-secondary);
+      line-height: 1.8;
+      font-size: 16px;
+    }
+    
+    /* Solution Section */
+    .solution {
+      padding: 120px 0;
+      background: radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.04), transparent 70%);
+    }
+    
+    .solution .section-tag {
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--success);
+      border-color: var(--success);
+    }
+    
+    .comparison-table {
+      max-width: 950px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      opacity: 0;
+      transform: scale(0.96);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 8px 32px var(--shadow);
+    }
+    
+    .comparison-table.visible {
+      opacity: 1;
+      transform: scale(1);
     }
     
     .comparison-header {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--border);
-    }
-    
-    .comparison-header > div {
-      padding: 20px;
-      text-align: center;
-      font-weight: 600;
-      font-size: 18px;
-    }
-    
-    .comparison-header .bad {
-      background: rgba(239, 68, 68, 0.1);
-      color: var(--danger);
-    }
-    
-    .comparison-header .good {
-      background: rgba(16, 185, 129, 0.1);
-      color: var(--success);
+      grid-template-columns: 2fr 1fr 1fr;
+      background: var(--bg-secondary);
+      font-weight: 700;
+      padding: 24px 28px;
+      border-bottom: 2px solid var(--border);
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
     
     .comparison-row {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--border);
-      min-height: 120px;
-    }
-    
-    .comparison-cell {
-      padding: 24px;
-      background: var(--card);
-    }
-    
-    .comparison-cell h4 {
+      grid-template-columns: 2fr 1fr 1fr;
+      padding: 24px 28px;
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s ease;
       font-size: 16px;
-      margin-bottom: 8px;
     }
     
-    .comparison-cell.bad h4 {
-      color: var(--danger);
+    .comparison-row:hover {
+      background: rgba(6, 182, 212, 0.05);
     }
     
-    .comparison-cell.good h4 {
-      color: var(--success);
+    .comparison-row:last-child {
+      border-bottom: none;
     }
     
-    .comparison-cell p {
-      font-size: 14px;
+    .comparison-fail {
       color: var(--text-muted);
-      line-height: 1.6;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     
-    /* Service Cards */
-    .service-grid {
+    .comparison-fail::before {
+      content: "✗";
+      color: var(--danger);
+      font-weight: 700;
+      font-size: 18px;
+    }
+    
+    .comparison-success {
+      color: var(--success);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .comparison-success::before {
+      content: "✓";
+      color: var(--success);
+      font-weight: 700;
+      font-size: 18px;
+    }
+    
+    /* Services Section */
+    .services {
+      padding: 120px 0;
+      background: var(--bg-secondary);
+    }
+    
+    .service-cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
-      margin: 32px 0;
+      grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+      gap: 40px;
+      margin-top: 64px;
     }
     
     .service-card {
-      background: var(--card);
-      padding: 28px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      transition: transform 0.2s, border-color 0.2s;
+      background: var(--bg-card);
+      padding: 48px;
+      border-radius: 24px;
+      border: 2px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .service-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--accent), var(--success));
     }
     
     .service-card:hover {
-      transform: translateY(-4px);
       border-color: var(--accent);
+      transform: translateY(-12px);
+      box-shadow: 0 24px 56px var(--shadow);
+      background: var(--bg-card-hover);
+    }
+    
+    .service-badge {
+      display: inline-block;
+      background: var(--accent-light);
+      color: var(--accent);
+      padding: 8px 18px;
+      border-radius: 14px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      border: 1px solid var(--accent);
     }
     
     .service-card h3 {
-      font-size: 20px;
-      font-weight: 600;
-      margin-bottom: 12px;
+      font-size: 30px;
+      margin-bottom: 18px;
+      color: var(--text-primary);
+      font-weight: 800;
+      letter-spacing: -0.02em;
     }
     
-    .service-card p {
-      color: var(--text-muted);
-      font-size: 15px;
-      margin-bottom: 16px;
+    .service-card > p {
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+      line-height: 1.9;
+      font-size: 17px;
     }
     
-    .service-card ul {
+    .service-features {
       list-style: none;
+      margin-bottom: 32px;
     }
     
-    .service-card li {
-      padding: 6px 0;
-      color: var(--text-muted);
-      font-size: 14px;
-      padding-left: 20px;
-      position: relative;
+    .service-features li {
+      padding: 12px 0;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: start;
+      gap: 14px;
+      font-size: 16px;
+      line-height: 1.7;
     }
     
-    .service-card li:before {
+    .service-features li::before {
       content: "✓";
       color: var(--success);
       font-weight: 700;
-      position: absolute;
-      left: 0;
+      font-size: 20px;
+      flex-shrink: 0;
+      margin-top: 2px;
     }
     
-    /* Pricing */
+    .service-cta {
+      background: var(--accent);
+      color: white;
+      padding: 16px 40px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 17px;
+      display: inline-block;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 16px rgba(6, 182, 212, 0.3);
+    }
+    
+    .service-cta:hover {
+      background: var(--accent-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(6, 182, 212, 0.5);
+    }
+    
+    /* Pricing Section */
+    .pricing {
+      padding: 120px 0;
+    }
+    
+    .pricing-container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    
+    .pricing-model {
+      margin-bottom: 96px;
+    }
+    
+    .pricing-model:last-child {
+      margin-bottom: 0;
+    }
+    
+    .model-title {
+      text-align: center;
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 48px;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+    }
+    
     .pricing-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-      margin: 32px 0;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 28px;
     }
     
     .pricing-card {
-      background: var(--card);
-      padding: 32px;
-      border-radius: 12px;
-      border: 2px solid var(--border);
-      text-align: center;
+      background: var(--bg-card);
+      padding: 40px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0;
+      transform: translateY(30px);
     }
     
-    .pricing-card.featured {
+    .pricing-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .pricing-card:hover {
       border-color: var(--accent);
-      position: relative;
+      transform: translateY(-10px);
+      box-shadow: 0 16px 48px var(--shadow);
+      background: var(--bg-card-hover);
     }
     
-    .pricing-badge {
-      background: var(--accent);
-      color: white;
-      padding: 4px 12px;
-      border-radius: 12px;
-      font-size: 12px;
-      font-weight: 600;
-      display: inline-block;
-      margin-bottom: 12px;
-    }
-    
-    .pricing-card h3 {
-      font-size: 22px;
-      margin-bottom: 8px;
+    .pricing-card h4 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: var(--text-primary);
+      font-weight: 700;
     }
     
     .pricing-card .price {
-      font-size: 36px;
-      font-weight: 700;
+      font-size: 20px;
       color: var(--accent);
-      margin: 16px 0;
+      margin-bottom: 20px;
+      font-weight: 600;
     }
     
-    .pricing-card .price small {
-      font-size: 16px;
+    .pricing-card p {
       color: var(--text-muted);
-      font-weight: 400;
+      font-size: 15px;
+      line-height: 1.7;
     }
     
-    .pricing-card ul {
-      list-style: none;
-      text-align: left;
-      margin: 24px 0;
+    /* Process Section */
+    .process {
+      padding: 120px 0;
+      background: var(--bg-secondary);
     }
     
-    .pricing-card li {
-      padding: 8px 0;
-      color: var(--text-muted);
-      font-size: 14px;
-      padding-left: 24px;
+    .process-model {
+      margin-bottom: 96px;
+    }
+    
+    .process-model:last-child {
+      margin-bottom: 0;
+    }
+    
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
       position: relative;
     }
     
-    .pricing-card li:before {
-      content: "✓";
-      color: var(--success);
-      font-weight: 700;
+    .process-steps::before {
+      content: '';
       position: absolute;
-      left: 0;
-    }
-    
-    /* Process Steps */
-    .process-steps {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 24px;
-      margin: 32px 0;
+      top: 28px;
+      left: 8%;
+      right: 8%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--success));
+      z-index: 0;
+      border-radius: 2px;
     }
     
     .step {
-      background: var(--card);
-      padding: 24px;
-      border-radius: 12px;
+      background: var(--bg-card);
+      padding: 36px 28px;
+      border-radius: 20px;
       border: 1px solid var(--border);
       position: relative;
+      z-index: 1;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .step.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .step:hover {
+      background: var(--bg-card-hover);
+      transform: translateY(-8px);
+      box-shadow: 0 16px 48px var(--shadow);
     }
     
     .step-number {
       display: inline-block;
-      width: 36px;
-      height: 36px;
-      background: var(--accent);
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--accent), var(--success));
       color: white;
       border-radius: 50%;
       text-align: center;
-      line-height: 36px;
-      font-weight: 700;
-      margin-bottom: 12px;
+      line-height: 56px;
+      font-weight: 900;
+      font-size: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 6px 16px rgba(6, 182, 212, 0.4);
+      transition: all 0.3s ease;
+    }
+    
+    .step:hover .step-number {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 8px 24px rgba(6, 182, 212, 0.6);
     }
     
     .step h4 {
-      font-size: 18px;
-      margin-bottom: 8px;
+      font-size: 20px;
+      margin-bottom: 14px;
+      color: var(--text-primary);
+      font-weight: 700;
     }
     
     .step p {
-      color: var(--text-muted);
-      font-size: 14px;
-      line-height: 1.6;
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.7;
     }
     
-    /* Case Study - Simplified */
-    .case-simple {
-      background: var(--card);
-      padding: 24px;
-      border-radius: 8px;
-      border-left: 3px solid var(--accent);
-      margin: 16px 0;
+    /* Trust Section */
+    .trust {
+      padding: 120px 0;
     }
     
-    .case-simple h4 {
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 36px;
+      margin-top: 64px;
+    }
+    
+    .trust-card {
+      background: var(--bg-card);
+      padding: 40px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .trust-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .trust-card:hover {
+      background: var(--bg-card-hover);
+      transform: translateY(-8px);
+      box-shadow: 0 16px 48px var(--shadow);
+      border-color: var(--accent);
+    }
+    
+    .trust-icon {
+      width: 64px;
+      height: 64px;
+      background: var(--accent-light);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      font-size: 32px;
+      transition: all 0.3s ease;
+      border: 1px solid var(--accent);
+    }
+    
+    .trust-card:hover .trust-icon {
+      transform: scale(1.1) rotate(-5deg);
+      background: rgba(6, 182, 212, 0.2);
+    }
+    
+    .trust-card h3 {
+      font-size: 24px;
+      margin-bottom: 14px;
+      color: var(--text-primary);
+      font-weight: 700;
+    }
+    
+    .trust-card p {
+      color: var(--text-secondary);
+      line-height: 1.8;
       font-size: 16px;
-      margin-bottom: 8px;
     }
     
-    .case-simple p {
-      color: var(--text-muted);
-      font-size: 14px;
-      line-height: 1.6;
+    /* FAQ Section */
+    .faq {
+      padding: 120px 0;
+      background: var(--bg-secondary);
     }
     
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 32px 0;
-      margin-top: 60px;
+    .faq-list {
+      max-width: 850px;
+      margin: 64px auto 0;
     }
     
-    .footer-content {
+    .faq-item {
+      background: var(--bg-card);
+      border-radius: 16px;
+      margin-bottom: 20px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .faq-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .faq-item:hover {
+      border-color: var(--accent);
+    }
+    
+    .faq-question {
+      padding: 28px;
+      font-weight: 600;
+      font-size: 19px;
+      cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      transition: all 0.3s ease;
+    }
+    
+    .faq-question:hover {
+      background: rgba(6, 182, 212, 0.05);
+    }
+    
+    .faq-icon {
+      font-size: 28px;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      color: var(--accent);
+      font-weight: 700;
+    }
+    
+    .faq-item.active .faq-icon {
+      transform: rotate(180deg);
+    }
+    
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .faq-answer-content {
+      padding: 0 28px 28px;
+      color: var(--text-secondary);
+      line-height: 1.9;
+      font-size: 17px;
+    }
+    
+    .faq-item.active .faq-answer {
+      max-height: 600px;
+    }
+    
+    /* Profile Section */
+    .profile {
+      padding: 120px 0;
+    }
+    
+    .profile-content {
+      max-width: 750px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      padding: 56px;
+      border-radius: 24px;
+      border: 2px solid var(--border);
+      text-align: center;
+      box-shadow: 0 8px 32px var(--shadow);
+    }
+    
+    .profile-name {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 10px;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+    
+    .profile-title {
+      font-size: 19px;
+      color: var(--accent);
+      margin-bottom: 28px;
+      font-weight: 600;
+    }
+    
+    .profile-description {
+      color: var(--text-secondary);
+      line-height: 1.9;
+      margin-bottom: 36px;
+      font-size: 17px;
+    }
+    
+    .profile-highlights {
+      list-style: none;
+      text-align: left;
+    }
+    
+    .profile-highlights li {
+      padding: 16px 0;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+    
+    .profile-highlights li:hover {
+      color: var(--text-primary);
+      padding-left: 8px;
+    }
+    
+    .profile-highlights li:last-child {
+      border-bottom: none;
+    }
+    
+    .profile-highlights li::before {
+      content: "→";
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 20px;
+    }
+    
+    /* CTA Section */
+    .final-cta {
+      padding: 140px 0;
+      text-align: center;
+      background: radial-gradient(ellipse at 50% 50%, rgba(6, 182, 212, 0.12), transparent 70%);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .final-cta::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 150%;
+      height: 150%;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.06) 0%, transparent 60%);
+      animation: ctaPulse 8s ease-in-out infinite;
+    }
+    
+    @keyframes ctaPulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+      50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+    }
+    
+    .final-cta-content {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .final-cta h2 {
+      font-size: 52px;
+      font-weight: 900;
+      margin-bottom: 28px;
+      line-height: 1.3;
+      letter-spacing: -0.03em;
+    }
+    
+    .final-cta p {
+      font-size: 22px;
+      color: var(--text-secondary);
+      margin-bottom: 56px;
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.7;
+    }
+    
+    .cta-benefits {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 56px;
       flex-wrap: wrap;
-      gap: 16px;
-      font-size: 14px;
+    }
+    
+    .cta-benefit {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-secondary);
+      font-size: 17px;
+      font-weight: 500;
+    }
+    
+    .cta-benefit::before {
+      content: "✓";
+      color: var(--success);
+      font-weight: 700;
+      font-size: 22px;
+    }
+    
+    .final-cta-button {
+      background: var(--accent);
+      color: white;
+      padding: 24px 72px;
+      border-radius: 16px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 21px;
+      display: inline-block;
+      transition: all 0.4s ease;
+      box-shadow: 0 8px 32px rgba(6, 182, 212, 0.4);
+      border: 2px solid var(--accent);
+    }
+    
+    .final-cta-button:hover {
+      background: var(--accent-hover);
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 16px 48px rgba(6, 182, 212, 0.6);
+    }
+    
+    .final-cta-note {
+      margin-top: 32px;
+      font-size: 15px;
       color: var(--text-muted);
     }
     
+    .final-cta-note a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .final-cta-note a:hover {
+      color: var(--accent-hover);
+      text-decoration: underline;
+    }
+    
+    /* Footer */
+    footer {
+      padding: 56px 0;
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    
+    .footer-content {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+    
+    .footer-links {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+    
+    .footer-links a:hover {
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+    
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
     @media (max-width: 768px) {
+      .hero {
+        padding: 120px 0 80px;
+      }
+      
       .hero h1 {
-        font-size: 32px;
+        font-size: 40px;
       }
-      .comparison-header, .comparison-row {
+      
+      .hero-subtitle {
+        font-size: 18px;
+      }
+      
+      .hero-stats {
         grid-template-columns: 1fr;
       }
-      .pricing-grid, .service-grid, .process-steps {
+      
+      .section-title {
+        font-size: 36px;
+      }
+      
+      .section-subtitle {
+        font-size: 17px;
+      }
+      
+      .pain-grid {
         grid-template-columns: 1fr;
+      }
+      
+      .comparison-header,
+      .comparison-row {
+        grid-template-columns: 2fr 1fr 1fr;
+        font-size: 13px;
+        padding: 20px 16px;
+      }
+      
+      .service-cards {
+        grid-template-columns: 1fr;
+      }
+      
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .process-steps {
+        grid-template-columns: 1fr;
+      }
+      
+      .process-steps::before {
+        display: none;
+      }
+      
+      .trust-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .hero-cta-group {
+        flex-direction: column;
+      }
+      
+      .cta-primary,
+      .cta-secondary {
+        width: 100%;
+        padding: 18px 32px;
+      }
+      
+      .cta-benefits {
+        flex-direction: column;
+        gap: 16px;
+      }
+      
+      .final-cta h2 {
+        font-size: 36px;
       }
     }
   </style>
 </head>
 <body>
-  <header>
+  <div class="progress-bar" id="progressBar"></div>
+  
+  <header id="header">
     <div class="container">
       <div class="header-content">
-        <div>
-          <div class="logo">metafactory agent studio</div>
-          <div class="tagline">柴田 朝史（個人事業主）</div>
-        </div>
-        <nav>
-          <a href="#comparison">失敗vs成功</a>
-          <a href="#service">サービス内容</a>
-          <a href="#pricing">料金</a>
-          <a href="#contact">お問い合わせ</a>
-        </nav>
+        <a href="#" class="logo">metafactory agent studio</a>
+        <a href="#contact" class="cta-button">無料相談する</a>
       </div>
     </div>
   </header>
 
-  <main>
-    <section class="hero">
-      <div class="container">
-        <h1>AI導入を、<br>確実に成功させる</h1>
-        <p class="subtitle">
-          従来の開発で起こる「途中で止まる」「動かない」「運用できない」を構造的に防ぎ、<br>
-          確実に動くシステムを構築します。
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-tag">3年間の実戦で磨き上げた確実性</div>
+        <h1>
+          AI開発の失敗を、<br>
+          <span class="highlight">もう繰り返さない</span>
+        </h1>
+        <p class="hero-subtitle">
+          大規模開発のプロが、あなたのAI導入を確実に成功させます。<br>
+          300名以上の育成実績と独自フレームワークで、失敗リスクをゼロに。
         </p>
-        <div class="cta-buttons">
-          <a href="#contact" class="btn btn-primary">無料相談する</a>
-          <a href="#comparison" class="btn btn-secondary">何が違うのか見る</a>
+        <div class="hero-cta-group">
+          <a href="#contact" class="cta-primary">無料相談を予約する</a>
+          <a href="#services" class="cta-secondary">サービスを見る</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="hero-stat-number">3年</div>
+            <div class="hero-stat-label">実戦で磨いたノウハウ</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-number">300+</div>
+            <div class="hero-stat-label">技術者育成実績</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-number">v5.0</div>
+            <div class="hero-stat-label">独自フレームワーク</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-number">100%</div>
+            <div class="hero-stat-label">成功への追求</div>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="comparison">
-      <div class="container">
-        <h2 class="section-title">なぜ従来の方法では失敗するのか</h2>
+  <!-- Pain Points Section -->
+  <section class="pain-points">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">よくある失敗パターン</div>
+        <h2 class="section-title">こんな悩み、ありませんか？</h2>
         <p class="section-subtitle">
-          多くのAI導入プロジェクトが失敗する原因と、私たちの解決策を比較します
+          多くの企業がAI導入で同じ壁にぶつかります。<br>
+          あなたも心当たりはありませんか？
         </p>
-
-        <div class="comparison">
-          <div class="comparison-header">
-            <div class="bad">❌ 従来の開発</div>
-            <div class="good">✅ 私たちの開発</div>
-          </div>
-
-          <div class="comparison-row">
-            <div class="comparison-cell bad">
-              <h4>途中で止まる</h4>
-              <p>要件があいまいなまま進み、途中で「できない」と判明。予算と時間が無駄に。</p>
-            </div>
-            <div class="comparison-cell good">
-              <h4>迅速にPoCを作成</h4>
-              <p>まず動くものを短期間で作成。実際に触って試せるから、本当に必要かすぐ判断できる。</p>
-            </div>
-          </div>
-
-          <div class="comparison-row">
-            <div class="comparison-cell bad">
-              <h4>文字化けやエラーで動かない</h4>
-              <p>日本語処理でトラブル。本番投入後にエラー頻発し、現場が混乱。</p>
-            </div>
-            <div class="comparison-cell good">
-              <h4>エラーを構造的に防止</h4>
-              <p>AI開発専用フレームワークで文字化け・エラーを事前に防止。変更しても壊れない設計。</p>
-            </div>
-          </div>
-
-          <div class="comparison-row">
-            <div class="comparison-cell bad">
-              <h4>作った後、運用できない</h4>
-              <p>マニュアルなし、担当者不在。結局使われず放置される。</p>
-            </div>
-            <div class="comparison-cell good">
-              <h4>運用まで設計</h4>
-              <p>運用手順、エラー対応、引き継ぎまで設計。社内で回せる状態にする。</p>
-            </div>
-          </div>
-
-          <div class="comparison-row">
-            <div class="comparison-cell bad">
-              <h4>PoCで終わる</h4>
-              <p>「とりあえず試した」で終わり。本番化の道筋が見えず、投資が無駄に。</p>
-            </div>
-            <div class="comparison-cell good">
-              <h4>段階的に本番化</h4>
-              <p>PoCから本番への道筋を明確に設計。小さく始めて確実に拡張。</p>
-            </div>
-          </div>
+      </div>
+      <div class="pain-grid">
+        <div class="pain-card">
+          <div class="pain-icon">⚠️</div>
+          <h3>PoC止まりで終わる</h3>
+          <p>試作はできたが、本番環境で動かず、結局使えない。投資が無駄になってしまった。</p>
+        </div>
+        <div class="pain-card">
+          <div class="pain-icon">🔥</div>
+          <h3>品質が不安定</h3>
+          <p>AIの出力が予測不能。同じ入力でも結果が変わり、業務に組み込めない。</p>
+        </div>
+        <div class="pain-card">
+          <div class="pain-icon">💸</div>
+          <h3>コストが膨張</h3>
+          <p>想定の3倍以上の費用がかかり、ROIが見えない。追加投資の判断もできない。</p>
+        </div>
+        <div class="pain-card">
+          <div class="pain-icon">🚫</div>
+          <h3>社内で回せない</h3>
+          <p>開発会社に依存し続け、ブラックボックス化。改善も保守も自分たちでできない。</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="service" style="background: rgba(30, 41, 59, 0.3);">
-      <div class="container">
-        <h2 class="section-title">2つの提供モデル</h2>
+  <!-- Solution Section -->
+  <section class="solution">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">私たちの解決策</div>
+        <h2 class="section-title">確実に成功させる理由</h2>
         <p class="section-subtitle">
-          企業の状況に応じて、最適な支援方法を選べます
-        </p>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 32px; margin: 48px 0;">
-          
-          <!-- モデル1: フルサポート開発 -->
-          <div style="background: var(--card); padding: 32px; border-radius: 12px; border: 2px solid var(--accent);">
-            <h3 style="font-size: 24px; margin-bottom: 16px;">モデル1: フルサポート開発</h3>
-            <p style="color: var(--text-muted); margin-bottom: 24px;">
-              <strong style="color: var(--text);">私たちが開発します。</strong><br>
-              技術知識不要。課題を伝えるだけで、動くシステムを納品します。
-            </p>
-            
-            <div style="background: rgba(59, 130, 246, 0.1); padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-              <h4 style="font-size: 16px; margin-bottom: 12px;">含まれるもの</h4>
-              <ul style="list-style: none; padding: 0;">
-                <li style="padding: 6px 0; padding-left: 20px; position: relative;">
-                  <span style="position: absolute; left: 0; color: var(--success); font-weight: 700;">✓</span>
-                  PoC開発（動くシステム納品）
-                </li>
-                <li style="padding: 6px 0; padding-left: 20px; position: relative;">
-                  <span style="position: absolute; left: 0; color: var(--success); font-weight: 700;">✓</span>
-                  本番システム開発
-                </li>
-                <li style="padding: 6px 0; padding-left: 20px; position: relative;">
-                  <span style="position: absolute; left: 0; color: var(--success); font-weight: 700;">✓</span>
-                  運用マニュアル作成
-                </li>
-                <li style="padding: 6px 0; padding-left: 20px; position: relative;">
-                  <span style="position: absolute; left: 0; color: var(--success); font-weight: 700;">✓</span>
-                  保守・トラブル対応
-                </li>
-              </ul>
-            </div>
-
-            <p style="font-size: 14px; color: var(--text-muted);">
-              <strong style="color: var(--text);">こんな企業に最適：</strong><br>
-              ・IT人材がいない<br>
-              ・とにかく早く結果が欲しい<br>
-              ・開発は専門家に任せたい
-            </p>
-          </div>
-
-          <!-- モデル2: フレームワーク導入 -->
-          <div style="background: var(--card); padding: 32px; border-radius: 12px; border: 2px solid var(--success);">
-            <h3 style="font-size: 24px; margin-bottom: 16px;">モデル2: フレームワーク導入</h3>
-            <p style="color: var(--text-muted); margin-bottom: 24px;">
-              <strong style="color: var(--text);">御社が開発できるようにします。</strong><br>
-              APCフレームワークを導入し、社内で信頼性の高いAIシステムを量産できる体制を構築します。
-            </p>
-            
-            <div style="background: rgba(16, 185, 129, 0.1); padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-              <h4 style="font-size: 16px; margin-bottom: 12px;">含まれるもの</h4>
-              <ul style="list-style: none; padding: 0;">
-                <li style="padding: 6px 0; padding-left: 20px; position: relative;">
-                  <span style="position: absolute; left: 0; color: var(--success); font-weight: 700;">✓</span>
-                  APCフレームワーク導入
-                </li>
-                <li style="padding: 6px 0; padding-left: 20px; position: relative;">
-                  <span style="position: absolute; left: 0; color: var(--success); font-weight: 700;">✓</span>
-                  社内エンジニア育成
-                </li>
-                <li style="padding: 6px 0; padding-left: 20px; position: relative;">
-                  <span style="position: absolute; left: 0; color: var(--success); font-weight: 700;">✓</span>
-                  開発プロセス標準化
-                </li>
-                <li style="padding: 6px 0; padding-left: 20px; position: relative;">
-                  <span style="position: absolute; left: 0; color: var(--success); font-weight: 700;">✓</span>
-                  継続的な技術支援
-                </li>
-              </ul>
-            </div>
-
-            <p style="font-size: 14px; color: var(--text-muted);">
-              <strong style="color: var(--text);">こんな企業に最適：</strong><br>
-              ・IT人材がいる（または採用予定）<br>
-              ・複数のAIシステムを展開したい<br>
-              ・内製化してノウハウを蓄積したい
-            </p>
-          </div>
-
-        </div>
-
-        <p style="text-align: center; color: var(--text-muted); margin-top: 32px; font-size: 15px;">
-          どちらのモデルも、まずは<strong style="color: var(--text);">無料相談</strong>から。<br>
-          御社の状況に最適な方法をご提案します。
+          大規模システム開発で培った品質管理手法を、AI開発に適用しています
         </p>
       </div>
-    </section>
+      <div class="comparison-table">
+        <div class="comparison-header">
+          <div>課題</div>
+          <div>従来の開発</div>
+          <div>私たちの方法</div>
+        </div>
+        <div class="comparison-row">
+          <div>本番稼働</div>
+          <div class="comparison-fail">PoCで終了</div>
+          <div class="comparison-success">確実に本番へ</div>
+        </div>
+        <div class="comparison-row">
+          <div>品質</div>
+          <div class="comparison-fail">不安定な出力</div>
+          <div class="comparison-success">検証済み品質</div>
+        </div>
+        <div class="comparison-row">
+          <div>コスト</div>
+          <div class="comparison-fail">見通せず膨張</div>
+          <div class="comparison-success">段階的で明確</div>
+        </div>
+        <div class="comparison-row">
+          <div>自律性</div>
+          <div class="comparison-fail">ベンダー依存</div>
+          <div class="comparison-success">社内で自走可能</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <section id="pricing">
-      <div class="container">
-        <h2 class="section-title">料金体系</h2>
+  <!-- Services Section -->
+  <section id="services" class="services">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">2つの選択肢から選べます</h2>
         <p class="section-subtitle">
-          2つのモデルそれぞれに、明確な料金体系をご用意しています
-        </p>
-
-        <!-- モデル1の料金 -->
-        <h3 style="text-align: center; margin: 48px 0 24px; font-size: 24px;">モデル1: フルサポート開発</h3>
-        <div class="pricing-grid">
-          <div class="pricing-card">
-            <h3>PoC開発</h3>
-            <div class="price">要相談</div>
-            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 24px;">
-              課題をヒアリング後、<br>
-              お見積もりを提示します
-            </p>
-            <ul>
-              <li>初回ヒアリング（無料）</li>
-              <li>迅速な開発</li>
-              <li>動作するシステム納品</li>
-              <li>検証サポート</li>
-              <li>本番化の見積もり提示</li>
-            </ul>
-          </div>
-
-          <div class="pricing-card featured">
-            <div class="pricing-badge">おすすめ</div>
-            <h3>本番システム開発</h3>
-            <div class="price">要相談</div>
-            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 24px;">
-              PoCの結果を見てから<br>
-              お見積もりを提示します
-            </p>
-            <ul>
-              <li>PoCベースの本番化</li>
-              <li>エラー対策・品質保証</li>
-              <li>運用マニュアル作成</li>
-              <li>担当者育成</li>
-              <li>3ヶ月の保守サポート</li>
-            </ul>
-          </div>
-
-          <div class="pricing-card">
-            <h3>継続保守</h3>
-            <div class="price">要相談</div>
-            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 24px;">
-              月額または年間契約<br>
-              ご要望に応じて設計
-            </p>
-            <ul>
-              <li>トラブル対応</li>
-              <li>機能改善・追加開発</li>
-              <li>定期レビュー</li>
-              <li>技術相談</li>
-              <li>セキュリティ対応</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- モデル2の料金 -->
-        <h3 style="text-align: center; margin: 64px 0 24px; font-size: 24px;">モデル2: フレームワーク導入</h3>
-        <div class="pricing-grid">
-          <div class="pricing-card">
-            <h3>導入支援</h3>
-            <div class="price">要相談</div>
-            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 24px;">
-              企業規模・体制により<br>
-              お見積もりを提示します
-            </p>
-            <ul>
-              <li>APCフレームワーク導入</li>
-              <li>開発環境構築</li>
-              <li>プロセス標準化</li>
-              <li>初期トレーニング</li>
-              <li>最初のPoC開発支援</li>
-            </ul>
-          </div>
-
-          <div class="pricing-card featured">
-            <div class="pricing-badge">人気</div>
-            <h3>技術者育成</h3>
-            <div class="price">要相談</div>
-            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 24px;">
-              育成人数・期間により<br>
-              お見積もりを提示します
-            </p>
-            <ul>
-              <li>エンジニア研修</li>
-              <li>ハンズオン開発支援</li>
-              <li>コードレビュー</li>
-              <li>ベストプラクティス指導</li>
-              <li>自走可能レベルまで伴走</li>
-            </ul>
-          </div>
-
-          <div class="pricing-card">
-            <h3>継続サポート</h3>
-            <div class="price">要相談</div>
-            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 24px;">
-              月額または年間契約<br>
-              サポート内容に応じて設計
-            </p>
-            <ul>
-              <li>技術相談・質問対応</li>
-              <li>フレームワーク更新</li>
-              <li>定期レビュー</li>
-              <li>トラブルシューティング</li>
-              <li>新機能追加支援</li>
-            </ul>
-          </div>
-        </div>
-
-        <p style="text-align: center; color: var(--text-muted); margin-top: 48px; font-size: 15px;">
-          まずは無料相談で、御社の状況をお聞かせください。<br>
-          最適なモデルとプランをご提案します。
+          あなたの状況に合わせて、最適なサービスをご提案します
         </p>
       </div>
-    </section>
+      <div class="service-cards">
+        <div class="service-card">
+          <div class="service-badge">モデル1</div>
+          <h3>フルサポート開発</h3>
+          <p>
+            AIシステムの企画から運用まで、全てを代行。あなたは業務に集中し、私たちが確実に動くシステムを納品します。
+          </p>
+          <ul class="service-features">
+            <li>要件定義から本番稼働まで完全代行</li>
+            <li>段階的な開発で投資リスクを最小化</li>
+            <li>社内で運用できる状態まで伴走</li>
+            <li>マニュアル作成・育成サポート付き</li>
+            <li>保守・改善も継続サポート</li>
+          </ul>
+          <a href="#contact" class="service-cta">相談する</a>
+        </div>
+        <div class="service-card">
+          <div class="service-badge">モデル2</div>
+          <h3>フレームワーク導入</h3>
+          <p>
+            APCフレームワークを導入し、貴社の開発チームが自らAIシステムを構築できる体制を整備。内製化を実現します。
+          </p>
+          <ul class="service-features">
+            <li>実戦で証明された開発フレームワーク</li>
+            <li>ハンズオン研修で確実に習得</li>
+            <li>貴社の技術レベルに合わせた育成</li>
+            <li>開発支援・コードレビュー付き</li>
+            <li>継続的な技術サポート体制</li>
+          </ul>
+          <a href="#contact" class="service-cta">相談する</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <section id="process" style="background: rgba(30, 41, 59, 0.3);">
-      <div class="container">
+  <!-- Pricing Section -->
+  <section class="pricing">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">明確な料金体系</h2>
+        <p class="section-subtitle">
+          段階的な投資で、リスクを最小化します
+        </p>
+      </div>
+      
+      <div class="pricing-container">
+        <!-- Model 1 Pricing -->
+        <div class="pricing-model">
+          <h3 class="model-title">モデル1：フルサポート開発</h3>
+          <div class="pricing-grid">
+            <div class="pricing-card">
+              <h4>PoC開発</h4>
+              <div class="price">ご相談</div>
+              <p>まずは動くものを短期間で作成。投資判断の材料を提供します。</p>
+            </div>
+            <div class="pricing-card">
+              <h4>本番開発</h4>
+              <div class="price">ご相談</div>
+              <p>PoCを本番システムに拡張。段階的に機能を追加し確実に稼働。</p>
+            </div>
+            <div class="pricing-card">
+              <h4>運用・保守</h4>
+              <div class="price">月額 ご相談</div>
+              <p>継続的な改善、トラブル対応、機能追加をサポート。</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Model 2 Pricing -->
+        <div class="pricing-model">
+          <h3 class="model-title">モデル2：フレームワーク導入</h3>
+          <div class="pricing-grid">
+            <div class="pricing-card">
+              <h4>導入支援</h4>
+              <div class="price">ご相談</div>
+              <p>APCフレームワークの導入と環境構築を支援。</p>
+            </div>
+            <div class="pricing-card">
+              <h4>研修・育成</h4>
+              <div class="price">ご相談</div>
+              <p>貴社開発者向けのハンズオン研修で、確実に習得。</p>
+            </div>
+            <div class="pricing-card">
+              <h4>継続サポート</h4>
+              <div class="price">月額 ご相談</div>
+              <p>技術サポート、コードレビュー、ベストプラクティス共有。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section class="process">
+    <div class="container">
+      <div class="section-header">
         <h2 class="section-title">導入の流れ</h2>
         <p class="section-subtitle">
-          4つのステップで、確実に進めます
+          それぞれのモデルに応じた確実なステップ
         </p>
+      </div>
 
+      <!-- Model 1 Process -->
+      <div class="process-model">
+        <h3 class="model-title">モデル1：フルサポート開発</h3>
         <div class="process-steps">
           <div class="step">
             <div class="step-number">1</div>
             <h4>無料相談</h4>
             <p>現状の課題、制約、目標をヒアリング。AI導入の可否と方向性を一緒に考えます。</p>
           </div>
-
           <div class="step">
             <div class="step-number">2</div>
             <h4>PoC開発</h4>
             <p>短期間で動くシステムを作成。実際に触って試せるから、投資判断がしやすい。</p>
           </div>
-
           <div class="step">
             <div class="step-number">3</div>
             <h4>本番開発</h4>
             <p>PoCを本番システムに拡張。段階的に機能を追加し、確実に稼働させます。</p>
           </div>
-
           <div class="step">
             <div class="step-number">4</div>
             <h4>運用・保守</h4>
@@ -769,69 +1494,296 @@
           </div>
         </div>
       </div>
-    </section>
 
-    <section style="background: rgba(30, 41, 59, 0.3);">
-      <div class="container">
-        <h2 class="section-title">開発者</h2>
-        <div class="service-card" style="max-width: 700px; margin: 32px auto;">
-          <h3>柴田 朝史（個人事業主）</h3>
-          <p style="margin: 12px 0;">
-            大規模組込みソフトウェアのTech Lead経験。品質・保守性を重視した開発手法を、AI開発に適用しています。
-          </p>
-          <ul style="margin-top: 16px;">
-            <li>Tech Lead 実績（大規模組込みSW）</li>
-            <li>技術者育成 延べ300名規模</li>
-            <li>AI開発専用フレームワーク（APC v5.0）開発</li>
-            <li>Python / C++ 実装</li>
-          </ul>
+      <!-- Model 2 Process -->
+      <div class="process-model">
+        <h3 class="model-title">モデル2：フレームワーク導入</h3>
+        <div class="process-steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h4>無料相談</h4>
+            <p>開発体制、技術レベル、育成目標をヒアリング。フレームワーク活用の方向性を確認。</p>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h4>導入・環境構築</h4>
+            <p>APCフレームワークを貴社環境に導入。開発環境を整備し、動作確認を実施。</p>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <h4>研修・育成</h4>
+            <p>貴社開発者向けにハンズオン研修。実際のユースケースで開発体験しながら習得。</p>
+          </div>
+          <div class="step">
+            <div class="step-number">4</div>
+            <h4>継続サポート</h4>
+            <p>自走開始後も技術サポート。質問対応、コードレビュー、ベストプラクティス共有。</p>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="contact">
-      <div class="container">
-        <h2 class="section-title">まずは無料相談から</h2>
+  <!-- Trust Section -->
+  <section class="trust">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">なぜ信頼できるのか</h2>
         <p class="section-subtitle">
-          AI導入の課題をお聞かせください
+          大規模開発の現場で培った確実性
         </p>
+      </div>
+      <div class="trust-grid">
+        <div class="trust-card">
+          <div class="trust-icon">🎯</div>
+          <h3>大規模開発のTech Lead実績</h3>
+          <p>数百名規模のプロジェクトで品質・スケジュールを守り抜いた経験。その手法をAI開発に適用しています。</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-icon">👥</div>
+          <h3>300名以上の育成実績</h3>
+          <p>技術者を育て、自走できる組織を作ってきました。あなたのチームも同じように育成します。</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-icon">⚙️</div>
+          <h3>独自フレームワーク APC v5.0</h3>
+          <p>3年間の実戦で磨き上げた開発フレームワーク。失敗パターンを徹底的に潰しています。</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-icon">🔒</div>
+          <h3>品質へのこだわり</h3>
+          <p>組込みソフトウェアで培った品質管理の思想。動かないものは納品しません。</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-icon">🤝</div>
+          <h3>長期的なパートナーシップ</h3>
+          <p>納品して終わりではなく、あなたの事業が成長するまで伴走します。</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-icon">💡</div>
+          <h3>現実的な提案</h3>
+          <p>できないことは「できない」と正直に伝えます。無理な案件は受けません。</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <div class="service-card" style="max-width: 600px; margin: 32px auto;">
-          <h3 style="margin-bottom: 16px;">こんな方におすすめ</h3>
-          <ul style="margin-bottom: 24px;">
-            <li>AI導入を検討しているが、失敗したくない</li>
-            <li>過去にPoCで終わった経験がある</li>
-            <li>本当に動くのか、まず試したい</li>
-            <li>運用できるか不安</li>
-          </ul>
-
-          <div style="background: rgba(59, 130, 246, 0.1); padding: 20px; border-radius: 8px; border: 1px solid rgba(59, 130, 246, 0.3); margin-bottom: 20px;">
-            <p style="margin: 0; font-size: 14px; color: var(--text-muted);">
-              <strong style="color: var(--text);">連絡先</strong><br>
-              <strong>メール:</strong> meta.tsfactory@gmail.com<br>
-              <strong>Web:</strong> https://metatsfactory-rgb.github.io/
-            </p>
+  <!-- FAQ Section -->
+  <section class="faq">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">よくある質問</h2>
+        <p class="section-subtitle">
+          まずは疑問を解消してください
+        </p>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>どんな規模の企業が対象ですか？</span>
+            <span class="faq-icon">▼</span>
           </div>
-
-          <div class="cta-buttons" style="justify-content: center;">
-            <a href="mailto:meta.tsfactory@gmail.com?subject=AI導入相談&body=お名前：%0A会社名：%0Aご相談内容：%0A" class="btn btn-primary">メールで相談する</a>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              主に中小企業を対象としていますが、大企業の部門単位での導入も歓迎です。重要なのは企業規模ではなく、「本気でAI導入を成功させたい」という意志です。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>AI導入の知識がなくても大丈夫ですか？</span>
+            <span class="faq-icon">▼</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              はい、問題ありません。むしろ、専門知識がない方のほうが、本質的な課題に集中できます。技術的な部分は全てサポートしますので、「何を実現したいか」だけ教えてください。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>費用はどのくらいかかりますか？</span>
+            <span class="faq-icon">▼</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              プロジェクトの規模や内容によって大きく異なります。まずは無料相談で要件をヒアリングし、概算をお伝えします。段階的な投資が可能なので、一度に大きな予算を用意する必要はありません。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>どのくらいの期間で稼働しますか？</span>
+            <span class="faq-icon">▼</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              PoCなら短期間で、本番システムは数ヶ月から半年程度が目安です。ただし、確実性を優先するため、無理なスケジュールは組みません。現実的な計画を一緒に立てましょう。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>他社で失敗したプロジェクトも相談できますか？</span>
+            <span class="faq-icon">▼</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              はい、むしろ歓迎します。失敗の原因を分析し、リカバリーの方法を提案します。過去の投資を無駄にしない方法を一緒に考えましょう。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>個人事業主で大丈夫ですか？</span>
+            <span class="faq-icon">▼</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              大規模な組織ではないからこそ、意思決定が早く、柔軟に対応できます。また、責任者が直接対応するため、伝言ゲームによる齟齬もありません。むしろ、これは強みだと考えています。
+            </div>
           </div>
         </div>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
 
+  <!-- Profile Section -->
+  <section class="profile">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">開発者プロフィール</h2>
+      </div>
+      <div class="profile-content">
+        <div class="profile-name">柴田 朝史</div>
+        <div class="profile-title">個人事業主 / AI開発エンジニア</div>
+        <p class="profile-description">
+          大規模組込みソフトウェアのTech Leadとして、品質とスケジュールを守り抜く開発手法を確立。その経験をAI開発に応用し、「確実に動くAIシステム」の構築を追求しています。技術者育成にも注力し、延べ300名以上の育成実績があります。
+        </p>
+        <ul class="profile-highlights">
+          <li>大規模組込みソフトウェア Tech Lead 実績</li>
+          <li>技術者育成 延べ300名規模</li>
+          <li>AI開発専用フレームワーク（APC v5.0）開発</li>
+          <li>Python / C++ 実装スキル</li>
+          <li>品質・保守性重視の開発思想</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Section -->
+  <section id="contact" class="final-cta">
+    <div class="container">
+      <div class="final-cta-content">
+        <h2>まずは無料相談から<br>始めませんか？</h2>
+        <p>
+          あなたの課題をお聞かせください。<br>
+          AI導入が本当に必要か、どう進めるべきか、一緒に考えます。
+        </p>
+        <div class="cta-benefits">
+          <div class="cta-benefit">相談無料</div>
+          <div class="cta-benefit">オンライン対応</div>
+          <div class="cta-benefit">30分程度</div>
+          <div class="cta-benefit">押し売り一切なし</div>
+        </div>
+        <a href="mailto:meta.tsfactory@gmail.com?subject=AI導入相談&body=お名前：%0A会社名：%0A相談内容：%0A%0A【以下、該当するものをチェック】%0A□ モデル1（フルサポート開発）に興味がある%0A□ モデル2（フレームワーク導入）に興味がある%0A□ 過去に失敗したプロジェクトがある%0A□ まだ具体的には決まっていない" class="final-cta-button">無料相談を予約する</a>
+        <p class="final-cta-note">
+          または直接メール: meta.tsfactory@gmail.com<br>
+          GitHub: <a href="https://metatsfactory-rgb.github.io/">https://metatsfactory-rgb.github.io</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
   <footer>
     <div class="container">
       <div class="footer-content">
-        <div>© <span id="year"></span> metafactory agent studio（柴田 朝史）</div>
-        <div>AI導入失敗を防ぐ開発支援</div>
+        <p>&copy; 2026 metafactory agent studio. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="mailto:meta.tsfactory@gmail.com">お問い合わせ</a>
+          <a href="https://metatsfactory-rgb.github.io/">GitHub</a>
+        </div>
       </div>
     </div>
   </footer>
 
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+    // Progress Bar
+    window.addEventListener('scroll', () => {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight - windowHeight;
+      const scrolled = window.scrollY;
+      const progress = (scrolled / documentHeight) * 100;
+      document.getElementById('progressBar').style.transform = `scaleX(${progress / 100})`;
+    });
+
+    // Header Shadow on Scroll
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -80px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, index * 100);
+        }
+      });
+    }, observerOptions);
+
+    // Observe all animated elements
+    document.querySelectorAll('.hero-stat, .pain-card, .service-card, .pricing-card, .step, .trust-card, .faq-item, .comparison-table').forEach(el => {
+      observer.observe(el);
+    });
+
+    // FAQ toggle
+    document.querySelectorAll('.faq-item').forEach(item => {
+      const question = item.querySelector('.faq-question');
+      question.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+        
+        // Close all FAQ items
+        document.querySelectorAll('.faq-item').forEach(faq => {
+          faq.classList.remove('active');
+        });
+        
+        // Toggle current item
+        if (!isActive) {
+          item.classList.add('active');
+        }
+      });
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          const headerOffset = 90;
+          const elementPosition = target.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
   </script>
 </body>
 </html>
