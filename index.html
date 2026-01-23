@@ -3,408 +3,835 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="metafactory agent studio｜再現性・根拠が追える・回帰で壊れないAI活用。中小企業のAI導入を「試して終わり」にせず、業務に定着する形まで伴走します。" />
-
-  <!-- SEO / Social -->
-  <title>再現性・根拠が追える・回帰で壊れないAI活用 | metafactory agent studio</title>
-  <link rel="canonical" href="https://metatsfactory-rgb.github.io/" />
-
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="metafactory agent studio" />
-  <meta property="og:title" content="再現性・根拠が追える・回帰で壊れないAI活用 | metafactory agent studio" />
-  <meta property="og:description" content="AI導入を「試して終わり」にせず、業務に定着する形まで伴走。根拠が追える、更新しても壊れにくい、属人化しにくい運用へ。" />
-  <meta property="og:url" content="https://metatsfactory-rgb.github.io/" />
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="再現性・根拠が追える・回帰で壊れないAI活用 | metafactory agent studio" />
-  <meta name="twitter:description" content="AI導入を「試して終わり」にせず、業務に定着する形まで伴走。根拠が追える、更新しても壊れにくい、属人化しにくい運用へ。" />
-
+  <meta name="description" content="AI導入で失敗したくない中小企業へ。従来の開発で起こる失敗を構造的に防ぎ、確実に動くシステムを構築します。" />
+  <title>metafactory agent studio - AI開発失敗を防ぐ開発支援</title>
   <style>
-    :root{
-      --bg:#0b0f19;
-      --card:#111827;
-      --muted:#9ca3af;
-      --text:#e5e7eb;
-      --accent:#60a5fa;
-      --accent2:#34d399;
-      --line:#1f2937;
-      --shadow: 0 20px 60px rgba(0,0,0,.45);
-      --radius:18px;
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --accent: #3b82f6;
+      --accent-light: #60a5fa;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --border: #334155;
     }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif;
-      background: radial-gradient(1200px 800px at 10% 0%, rgba(96,165,250,.18), transparent 60%),
-                  radial-gradient(900px 600px at 90% 10%, rgba(52,211,153,.14), transparent 55%),
-                  var(--bg);
-      color:var(--text);
-      line-height:1.65;
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
-    a{color:inherit; text-decoration:none}
-    .wrap{max-width:1080px; margin:0 auto; padding:28px 20px 64px;}
-    header{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:16px; padding:10px 0 18px;
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
     }
-    .brand{display:flex; flex-direction:column; gap:4px;}
-    .brand strong{font-size:16px; letter-spacing:.4px}
-    .brand span{font-size:12px; color:var(--muted)}
-    nav{display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-end}
-    nav a{font-size:13px; color:var(--muted)}
-    nav a:hover{color:var(--text)}
-
-    .hero{
-      margin-top:12px;
-      border:1px solid var(--line);
-      background: linear-gradient(180deg, rgba(17,24,39,.78), rgba(17,24,39,.56));
-      border-radius: var(--radius);
-      padding:26px;
-      box-shadow: var(--shadow);
-      position:relative;
-      overflow:hidden;
+    
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
     }
-    .hero:before{
-      content:"";
-      position:absolute; inset:-120px -120px auto auto;
-      width:280px; height:280px;
-      background: radial-gradient(circle at 30% 30%, rgba(96,165,250,.35), transparent 60%);
-      transform: rotate(15deg);
-      pointer-events:none;
+    
+    header {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
     }
-    .hero-grid{display:grid; grid-template-columns: 1.25fr .75fr; gap:22px; align-items:start}
-    @media (max-width: 900px){
-      .hero-grid{grid-template-columns:1fr}
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
     }
-    .kicker{display:inline-flex; gap:8px; align-items:center; font-size:12px; color:var(--muted)}
-    .dot{width:8px; height:8px; border-radius:999px; background:var(--accent2); box-shadow:0 0 0 5px rgba(52,211,153,.12)}
-    h1{margin:10px 0 10px; font-size:34px; line-height:1.15; letter-spacing:.2px}
-    .sub{color:var(--muted); margin:0 0 18px; font-size:15px}
-    .pillrow{display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 0}
-    .pill{
-      border:1px solid var(--line);
-      background: rgba(15,23,42,.55);
-      padding:7px 10px;
-      border-radius:999px;
-      font-size:12px;
-      color:#d1d5db;
+    
+    .logo {
+      font-size: 18px;
+      font-weight: 600;
     }
-
-    .cta{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      gap:8px;
-      padding:11px 14px;
-      border-radius: 14px;
-      border:1px solid var(--line);
-      background: rgba(17,24,39,.65);
-      font-weight:600;
-      font-size:13px;
-      transition: transform .12s ease;
+    
+    .tagline {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
     }
-    .btn.primary{background: linear-gradient(135deg, rgba(96,165,250,.9), rgba(52,211,153,.68)); border-color: transparent; color:#071019}
-    .btn:hover{transform: translateY(-1px)}
-
-    .card{
-      border:1px solid var(--line);
-      background: rgba(17,24,39,.55);
-      border-radius: var(--radius);
-      padding:18px;
+    
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      margin-left: 24px;
+      transition: color 0.2s;
     }
-    .card h3{margin:0 0 8px; font-size:15px}
-    .card p{margin:0; color:var(--muted); font-size:13px}
-    .card .lead{color:#d1d5db; font-size:14px; margin-top:6px}
-
-    .grid3{display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; margin-top:14px}
-    @media (max-width: 900px){.grid3{grid-template-columns:1fr}}
-
-    section{margin-top:26px}
-    .section-title{display:flex; align-items:end; justify-content:space-between; gap:12px}
-    .section-title h2{margin:0; font-size:18px}
-    .section-title span{color:var(--muted); font-size:12px}
-    .list{margin:10px 0 0; padding:0; list-style:none}
-    .list li{
-      margin:10px 0;
-      padding:12px 12px;
-      border:1px solid var(--line);
-      border-radius:16px;
-      background: rgba(15,23,42,.45);
+    
+    nav a:hover {
+      color: var(--text);
     }
-    .list li strong{display:block; margin-bottom:4px}
-    .list li small{color:var(--muted)}
-
-    .two{display:grid; grid-template-columns: 1fr 1fr; gap:14px;}
-    @media (max-width: 900px){.two{grid-template-columns:1fr}}
-
-    footer{
-      margin-top:32px;
-      padding-top:18px;
-      border-top:1px solid var(--line);
-      color:var(--muted);
-      font-size:12px;
-      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    
+    .hero {
+      padding: 60px 0;
+      text-align: center;
     }
-
-    .muted{color:var(--muted)}
-    code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 12px;}
+    
+    .hero h1 {
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+    
+    .hero .subtitle {
+      font-size: 19px;
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 0 auto 32px;
+    }
+    
+    .cta-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      padding: 13px 28px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+    
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3);
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    
+    section {
+      padding: 60px 0;
+    }
+    
+    .section-title {
+      font-size: 32px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    
+    .section-subtitle {
+      font-size: 17px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    /* Comparison Table */
+    .comparison {
+      background: rgba(30, 41, 59, 0.5);
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 32px 0;
+    }
+    
+    .comparison-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+    }
+    
+    .comparison-header > div {
+      padding: 20px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 18px;
+    }
+    
+    .comparison-header .bad {
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--danger);
+    }
+    
+    .comparison-header .good {
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--success);
+    }
+    
+    .comparison-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      min-height: 120px;
+    }
+    
+    .comparison-cell {
+      padding: 24px;
+      background: var(--card);
+    }
+    
+    .comparison-cell h4 {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+    
+    .comparison-cell.bad h4 {
+      color: var(--danger);
+    }
+    
+    .comparison-cell.good h4 {
+      color: var(--success);
+    }
+    
+    .comparison-cell p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    
+    /* Service Cards */
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin: 32px 0;
+    }
+    
+    .service-card {
+      background: var(--card);
+      padding: 28px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+    }
+    
+    .service-card h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    
+    .service-card p {
+      color: var(--text-muted);
+      font-size: 15px;
+      margin-bottom: 16px;
+    }
+    
+    .service-card ul {
+      list-style: none;
+    }
+    
+    .service-card li {
+      padding: 6px 0;
+      color: var(--text-muted);
+      font-size: 14px;
+      padding-left: 20px;
+      position: relative;
+    }
+    
+    .service-card li:before {
+      content: "✓";
+      color: var(--success);
+      font-weight: 700;
+      position: absolute;
+      left: 0;
+    }
+    
+    /* Pricing */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin: 32px 0;
+    }
+    
+    .pricing-card {
+      background: var(--card);
+      padding: 32px;
+      border-radius: 12px;
+      border: 2px solid var(--border);
+      text-align: center;
+    }
+    
+    .pricing-card.featured {
+      border-color: var(--accent);
+      position: relative;
+    }
+    
+    .pricing-badge {
+      background: var(--accent);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+    
+    .pricing-card h3 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+    
+    .pricing-card .price {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 16px 0;
+    }
+    
+    .pricing-card .price small {
+      font-size: 16px;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+    
+    .pricing-card ul {
+      list-style: none;
+      text-align: left;
+      margin: 24px 0;
+    }
+    
+    .pricing-card li {
+      padding: 8px 0;
+      color: var(--text-muted);
+      font-size: 14px;
+      padding-left: 24px;
+      position: relative;
+    }
+    
+    .pricing-card li:before {
+      content: "✓";
+      color: var(--success);
+      font-weight: 700;
+      position: absolute;
+      left: 0;
+    }
+    
+    /* Process Steps */
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+      margin: 32px 0;
+    }
+    
+    .step {
+      background: var(--card);
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      position: relative;
+    }
+    
+    .step-number {
+      display: inline-block;
+      width: 36px;
+      height: 36px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 36px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    
+    .step h4 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+    
+    .step p {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    
+    /* Case Study - Simplified */
+    .case-simple {
+      background: var(--card);
+      padding: 24px;
+      border-radius: 8px;
+      border-left: 3px solid var(--accent);
+      margin: 16px 0;
+    }
+    
+    .case-simple h4 {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+    
+    .case-simple p {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+      margin-top: 60px;
+    }
+    
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 32px;
+      }
+      .comparison-header, .comparison-row {
+        grid-template-columns: 1fr;
+      }
+      .pricing-grid, .service-grid, .process-steps {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="brand">
-        <strong>metafactory agent studio</strong>
-        <span>AI導入・運用・定着の伴走</span>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div>
+          <div class="logo">metafactory agent studio</div>
+          <div class="tagline">柴田 朝史（個人事業主）</div>
+        </div>
+        <nav>
+          <a href="#comparison">失敗vs成功</a>
+          <a href="#service">サービス内容</a>
+          <a href="#pricing">料金</a>
+          <a href="#contact">お問い合わせ</a>
+        </nav>
       </div>
-      <nav>
-        <a href="#usecases">導入イメージ</a>
-        <a href="#services">提供メニュー</a>
-        <a href="#approach">進め方</a>
-        <a href="#faq">FAQ</a>
-        <a href="#contact">連絡</a>
-      </nav>
-    </header>
+    </div>
+  </header>
 
-    <main>
-      <div class="hero">
-        <div class="hero-grid">
-          <div>
-            <div class="kicker"><span class="dot"></span><span>再現性・根拠が追える・回帰で壊れないAI活用</span></div>
-            <h1>AI導入を「試して終わり」にしない。<br>業務に定着する形まで伴走します。</h1>
-            <p class="sub">まずは小さく始めて、効果が出たところから安全に広げます。<br>
-            “回答の根拠が追える”形と、“更新しても壊れにくい”運用を重視します（詳細は個別相談で共有）。</p>
-
-            <div class="cta">
-              <a class="btn primary" href="#contact">まず相談する（30分）</a>
-              <a class="btn" href="#usecases">導入イメージを見る</a>
-            </div>
-
-            <div class="pillrow" aria-label="keywords">
-              <div class="pill">根拠が追える</div>
-              <div class="pill">更新しても壊れにくい</div>
-              <div class="pill">属人化しにくい</div>
-              <div class="pill">小さく始める</div>
-              <div class="pill">段階導入</div>
-            </div>
-          </div>
-
-          <div class="card">
-            <h3>よくある不安</h3>
-            <p class="muted">中小企業のAI導入で止まりがちなポイントを、最初に潰します。</p>
-            <ul class="list" style="margin-top:10px">
-              <li><strong>回答が信用できる？</strong><small>根拠（参照先）を残せる形を重視</small></li>
-              <li><strong>更新したら壊れない？</strong><small>改善のたびに悪化を検知できる運用へ</small></li>
-              <li><strong>結局、回らないのでは？</strong><small>属人化を減らす手順・教育・運用を整備</small></li>
-            </ul>
-          </div>
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1>AI導入を、<br>確実に成功させる</h1>
+        <p class="subtitle">
+          従来の開発で起こる「途中で止まる」「動かない」「運用できない」を構造的に防ぎ、<br>
+          確実に動くシステムを構築します。
+        </p>
+        <div class="cta-buttons">
+          <a href="#contact" class="btn btn-primary">無料相談する</a>
+          <a href="#comparison" class="btn btn-secondary">何が違うのか見る</a>
         </div>
       </div>
+    </section>
 
-      <section id="usecases">
-        <div class="section-title">
-          <h2>導入イメージ（よくある3パターン）</h2>
-          <span>“どこでも言える”ではなく、運用で成立させるのが強みです</span>
+    <section id="comparison">
+      <div class="container">
+        <h2 class="section-title">なぜ従来の方法では失敗するのか</h2>
+        <p class="section-subtitle">
+          多くのAI導入プロジェクトが失敗する原因と、私たちの解決策を比較します
+        </p>
+
+        <div class="comparison">
+          <div class="comparison-header">
+            <div class="bad">❌ 従来の開発</div>
+            <div class="good">✅ 私たちの開発</div>
+          </div>
+
+          <div class="comparison-row">
+            <div class="comparison-cell bad">
+              <h4>途中で止まる</h4>
+              <p>要件があいまいなまま進み、途中で「できない」と判明。予算と時間が無駄に。</p>
+            </div>
+            <div class="comparison-cell good">
+              <h4>迅速にPoCを作成</h4>
+              <p>まず動くものを短期間で作成。実際に触って試せるから、本当に必要かすぐ判断できる。</p>
+            </div>
+          </div>
+
+          <div class="comparison-row">
+            <div class="comparison-cell bad">
+              <h4>文字化けやエラーで動かない</h4>
+              <p>日本語処理でトラブル。本番投入後にエラー頻発し、現場が混乱。</p>
+            </div>
+            <div class="comparison-cell good">
+              <h4>エラーを構造的に防止</h4>
+              <p>AI開発専用フレームワークで文字化け・エラーを事前に防止。変更しても壊れない設計。</p>
+            </div>
+          </div>
+
+          <div class="comparison-row">
+            <div class="comparison-cell bad">
+              <h4>作った後、運用できない</h4>
+              <p>マニュアルなし、担当者不在。結局使われず放置される。</p>
+            </div>
+            <div class="comparison-cell good">
+              <h4>運用まで設計</h4>
+              <p>運用手順、エラー対応、引き継ぎまで設計。社内で回せる状態にする。</p>
+            </div>
+          </div>
+
+          <div class="comparison-row">
+            <div class="comparison-cell bad">
+              <h4>PoCで終わる</h4>
+              <p>「とりあえず試した」で終わり。本番化の道筋が見えず、投資が無駄に。</p>
+            </div>
+            <div class="comparison-cell good">
+              <h4>段階的に本番化</h4>
+              <p>PoCから本番への道筋を明確に設計。小さく始めて確実に拡張。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="service" style="background: rgba(30, 41, 59, 0.3);">
+      <div class="container">
+        <h2 class="section-title">2つの提供モデル</h2>
+        <p class="section-subtitle">
+          企業の状況に応じて、最適な支援方法を選べます
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 32px; margin: 48px 0;">
+          
+          <!-- モデル1: フルサポート開発 -->
+          <div style="background: var(--card); padding: 32px; border-radius: 12px; border: 2px solid var(--accent);">
+            <h3 style="font-size: 24px; margin-bottom: 16px;">モデル1: フルサポート開発</h3>
+            <p style="color: var(--text-muted); margin-bottom: 24px;">
+              <strong style="color: var(--text);">私たちが開発します。</strong><br>
+              技術知識不要。課題を伝えるだけで、動くシステムを納品します。
+            </p>
+            
+            <div style="background: rgba(59, 130, 246, 0.1); padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+              <h4 style="font-size: 16px; margin-bottom: 12px;">含まれるもの</h4>
+              <ul style="list-style: none; padding: 0;">
+                <li style="padding: 6px 0; padding-left: 20px; position: relative;">
+                  <span style="position: absolute; left: 0; color: var(--success); font-weight: 700;">✓</span>
+                  PoC開発（動くシステム納品）
+                </li>
+                <li style="padding: 6px 0; padding-left: 20px; position: relative;">
+                  <span style="position: absolute; left: 0; color: var(--success); font-weight: 700;">✓</span>
+                  本番システム開発
+                </li>
+                <li style="padding: 6px 0; padding-left: 20px; position: relative;">
+                  <span style="position: absolute; left: 0; color: var(--success); font-weight: 700;">✓</span>
+                  運用マニュアル作成
+                </li>
+                <li style="padding: 6px 0; padding-left: 20px; position: relative;">
+                  <span style="position: absolute; left: 0; color: var(--success); font-weight: 700;">✓</span>
+                  保守・トラブル対応
+                </li>
+              </ul>
+            </div>
+
+            <p style="font-size: 14px; color: var(--text-muted);">
+              <strong style="color: var(--text);">こんな企業に最適：</strong><br>
+              ・IT人材がいない<br>
+              ・とにかく早く結果が欲しい<br>
+              ・開発は専門家に任せたい
+            </p>
+          </div>
+
+          <!-- モデル2: フレームワーク導入 -->
+          <div style="background: var(--card); padding: 32px; border-radius: 12px; border: 2px solid var(--success);">
+            <h3 style="font-size: 24px; margin-bottom: 16px;">モデル2: フレームワーク導入</h3>
+            <p style="color: var(--text-muted); margin-bottom: 24px;">
+              <strong style="color: var(--text);">御社が開発できるようにします。</strong><br>
+              APCフレームワークを導入し、社内で信頼性の高いAIシステムを量産できる体制を構築します。
+            </p>
+            
+            <div style="background: rgba(16, 185, 129, 0.1); padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+              <h4 style="font-size: 16px; margin-bottom: 12px;">含まれるもの</h4>
+              <ul style="list-style: none; padding: 0;">
+                <li style="padding: 6px 0; padding-left: 20px; position: relative;">
+                  <span style="position: absolute; left: 0; color: var(--success); font-weight: 700;">✓</span>
+                  APCフレームワーク導入
+                </li>
+                <li style="padding: 6px 0; padding-left: 20px; position: relative;">
+                  <span style="position: absolute; left: 0; color: var(--success); font-weight: 700;">✓</span>
+                  社内エンジニア育成
+                </li>
+                <li style="padding: 6px 0; padding-left: 20px; position: relative;">
+                  <span style="position: absolute; left: 0; color: var(--success); font-weight: 700;">✓</span>
+                  開発プロセス標準化
+                </li>
+                <li style="padding: 6px 0; padding-left: 20px; position: relative;">
+                  <span style="position: absolute; left: 0; color: var(--success); font-weight: 700;">✓</span>
+                  継続的な技術支援
+                </li>
+              </ul>
+            </div>
+
+            <p style="font-size: 14px; color: var(--text-muted);">
+              <strong style="color: var(--text);">こんな企業に最適：</strong><br>
+              ・IT人材がいる（または採用予定）<br>
+              ・複数のAIシステムを展開したい<br>
+              ・内製化してノウハウを蓄積したい
+            </p>
+          </div>
+
         </div>
 
-        <div class="grid3">
-          <div class="card">
-            <h3>A｜問い合わせ一次対応（根拠つき）</h3>
-            <p class="lead">規程・契約・FAQに沿って、回答に参照先を添える形で一次対応を支援。</p>
-            <ul class="list" style="margin-top:10px">
-              <li><strong>言った言わないを減らす</strong><small>出典を示し、説明できる形に</small></li>
-              <li><strong>事故りにくい</strong><small>禁止事項・例外を踏み抜きにくい設計</small></li>
-              <li><strong>更新が回る</strong><small>内容が変わっても運用で追随しやすい</small></li>
+        <p style="text-align: center; color: var(--text-muted); margin-top: 32px; font-size: 15px;">
+          どちらのモデルも、まずは<strong style="color: var(--text);">無料相談</strong>から。<br>
+          御社の状況に最適な方法をご提案します。
+        </p>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <div class="container">
+        <h2 class="section-title">料金体系</h2>
+        <p class="section-subtitle">
+          2つのモデルそれぞれに、明確な料金体系をご用意しています
+        </p>
+
+        <!-- モデル1の料金 -->
+        <h3 style="text-align: center; margin: 48px 0 24px; font-size: 24px;">モデル1: フルサポート開発</h3>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <h3>PoC開発</h3>
+            <div class="price">要相談</div>
+            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 24px;">
+              課題をヒアリング後、<br>
+              お見積もりを提示します
+            </p>
+            <ul>
+              <li>初回ヒアリング（無料）</li>
+              <li>迅速な開発</li>
+              <li>動作するシステム納品</li>
+              <li>検証サポート</li>
+              <li>本番化の見積もり提示</li>
             </ul>
           </div>
 
-          <div class="card">
-            <h3>B｜社内ナレッジ検索（出典つき）</h3>
-            <p class="lead">マニュアル・手順書・議事録などから「どこに書いてあるか」まで辿れる検索へ。</p>
-            <ul class="list" style="margin-top:10px">
-              <li><strong>探す時間を減らす</strong><small>必要な箇所に案内し、引用も添付</small></li>
-              <li><strong>矛盾に強い</strong><small>古い情報が混ざっても破綻しにくい</small></li>
-              <li><strong>劣化を検知</strong><small>更新後に悪化したら気づける仕組み</small></li>
+          <div class="pricing-card featured">
+            <div class="pricing-badge">おすすめ</div>
+            <h3>本番システム開発</h3>
+            <div class="price">要相談</div>
+            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 24px;">
+              PoCの結果を見てから<br>
+              お見積もりを提示します
+            </p>
+            <ul>
+              <li>PoCベースの本番化</li>
+              <li>エラー対策・品質保証</li>
+              <li>運用マニュアル作成</li>
+              <li>担当者育成</li>
+              <li>3ヶ月の保守サポート</li>
             </ul>
           </div>
 
-          <div class="card">
-            <h3>C｜文書作成支援（社内ルール準拠）</h3>
-            <p class="lead">報告書・手順書・説明文などを、レビューしやすい“たたき台”として安定生成。</p>
-            <ul class="list" style="margin-top:10px">
-              <li><strong>表現のブレを抑える</strong><small>用語・書式の揺れを減らす</small></li>
-              <li><strong>レビュー工数を減らす</strong><small>前提・注意点を明示してチェックしやすく</small></li>
-              <li><strong>属人化を減らす</strong><small>テンプレ化して社内で回せる形へ</small></li>
+          <div class="pricing-card">
+            <h3>継続保守</h3>
+            <div class="price">要相談</div>
+            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 24px;">
+              月額または年間契約<br>
+              ご要望に応じて設計
+            </p>
+            <ul>
+              <li>トラブル対応</li>
+              <li>機能改善・追加開発</li>
+              <li>定期レビュー</li>
+              <li>技術相談</li>
+              <li>セキュリティ対応</li>
             </ul>
           </div>
         </div>
 
-        <div class="card" style="margin-top:14px">
-          <h3>対象になりやすい社内文書（例）</h3>
-          <p class="muted">社内規程、品質マニュアル、手順書、FAQ、契約ひな形、設計/運用ドキュメント、議事録など。<br>
-          ※具体内容は公開しません。必要に応じてNDA締結のうえ詳細共有します。</p>
-        </div>
-      </section>
-
-      <section id="services">
-        <div class="section-title">
-          <h2>提供メニュー</h2>
-          <span>小さく始めて、効果が出たら広げます（段階導入）</span>
-        </div>
-
-        <div class="grid3">
-          <div class="card">
-            <h3>① 定着の仕組み化（Train-the-Trainer）</h3>
-            <p>座学＋ハンズオンに加え、<b>教えられる人を増やす</b>仕組みで、導入後も社内で回る状態を作ります。</p>
-          </div>
-          <div class="card">
-            <h3>② ワークフロー設計 / Dify 伴走</h3>
-            <p>要件整理、フロー設計、連携、ガードレール、評価、運用手順まで。<b>更新に強い運用</b>も含めて伴走します。</p>
-          </div>
-          <div class="card">
-            <h3>③ 開発支援の定着（Copilot）</h3>
-            <p>開発を速くするだけでなく、<b>品質を落とさず継続できる</b>やり方（ルール・レビュー観点・事故防止）まで整備します。</p>
-          </div>
-        </div>
-
-        <div class="two" style="margin-top:14px">
-          <div class="card">
-            <h3>成果物の例</h3>
-            <ul class="list">
-              <li><strong>運用ルール / チェックリスト</strong><small>更新、監視、引き継ぎ（属人化を減らす）</small></li>
-              <li><strong>評価（回帰）</strong><small>代表ケースで、更新後の悪化を検知</small></li>
-              <li><strong>ワークフロー実装</strong><small>社内文書/ツール連携、ガード設計</small></li>
+        <!-- モデル2の料金 -->
+        <h3 style="text-align: center; margin: 64px 0 24px; font-size: 24px;">モデル2: フレームワーク導入</h3>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <h3>導入支援</h3>
+            <div class="price">要相談</div>
+            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 24px;">
+              企業規模・体制により<br>
+              お見積もりを提示します
+            </p>
+            <ul>
+              <li>APCフレームワーク導入</li>
+              <li>開発環境構築</li>
+              <li>プロセス標準化</li>
+              <li>初期トレーニング</li>
+              <li>最初のPoC開発支援</li>
             </ul>
           </div>
-          <div class="card">
-            <h3>得意領域（例）</h3>
-            <ul class="list">
-              <li><strong>品質設計</strong><small>根拠が追える形 / 更新しても壊れにくい運用 / 悪化検知</small></li>
-              <li><strong>段階導入</strong><small>小さく始め、効果が出たところから広げる</small></li>
-              <li><strong>複雑系の実装</strong><small>大規模組込みSWのテックリード経験を活かした堅牢設計</small></li>
+
+          <div class="pricing-card featured">
+            <div class="pricing-badge">人気</div>
+            <h3>技術者育成</h3>
+            <div class="price">要相談</div>
+            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 24px;">
+              育成人数・期間により<br>
+              お見積もりを提示します
+            </p>
+            <ul>
+              <li>エンジニア研修</li>
+              <li>ハンズオン開発支援</li>
+              <li>コードレビュー</li>
+              <li>ベストプラクティス指導</li>
+              <li>自走可能レベルまで伴走</li>
+            </ul>
+          </div>
+
+          <div class="pricing-card">
+            <h3>継続サポート</h3>
+            <div class="price">要相談</div>
+            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 24px;">
+              月額または年間契約<br>
+              サポート内容に応じて設計
+            </p>
+            <ul>
+              <li>技術相談・質問対応</li>
+              <li>フレームワーク更新</li>
+              <li>定期レビュー</li>
+              <li>トラブルシューティング</li>
+              <li>新機能追加支援</li>
             </ul>
           </div>
         </div>
-      </section>
 
-      <section id="approach">
-        <div class="section-title">
-          <h2>進め方</h2>
-          <span>中小企業でも無理なく進む、現実的な進め方</span>
+        <p style="text-align: center; color: var(--text-muted); margin-top: 48px; font-size: 15px;">
+          まずは無料相談で、御社の状況をお聞かせください。<br>
+          最適なモデルとプランをご提案します。
+        </p>
+      </div>
+    </section>
+
+    <section id="process" style="background: rgba(30, 41, 59, 0.3);">
+      <div class="container">
+        <h2 class="section-title">導入の流れ</h2>
+        <p class="section-subtitle">
+          4つのステップで、確実に進めます
+        </p>
+
+        <div class="process-steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h4>無料相談</h4>
+            <p>現状の課題、制約、目標をヒアリング。AI導入の可否と方向性を一緒に考えます。</p>
+          </div>
+
+          <div class="step">
+            <div class="step-number">2</div>
+            <h4>PoC開発</h4>
+            <p>短期間で動くシステムを作成。実際に触って試せるから、投資判断がしやすい。</p>
+          </div>
+
+          <div class="step">
+            <div class="step-number">3</div>
+            <h4>本番開発</h4>
+            <p>PoCを本番システムに拡張。段階的に機能を追加し、確実に稼働させます。</p>
+          </div>
+
+          <div class="step">
+            <div class="step-number">4</div>
+            <h4>運用・保守</h4>
+            <p>社内で回せる状態まで伴走。マニュアル作成、担当者育成、トラブル対応。</p>
+          </div>
         </div>
+      </div>
+    </section>
 
-        <ul class="list">
-          <li>
-            <strong>Step 1｜現状把握（1〜2回）</strong>
-            <small>目的、現場の痛み、使う文書・データ、制約（セキュリティ等）を整理します。</small>
-          </li>
-          <li>
-            <strong>Step 2｜設計（運用まで含めて）</strong>
-            <small>根拠を残す形、更新手順、教育・引き継ぎなど、“回る”前提で設計します。</small>
-          </li>
-          <li>
-            <strong>Step 3｜小さく導入 → 評価 → 改善</strong>
-            <small>まずは限定範囲で導入し、代表ケースで評価。良いところを伸ばし、悪化は早めに検知します。</small>
-          </li>
-        </ul>
-
-        <div class="card" style="margin-top:14px">
-          <h3>約束すること</h3>
-          <p class="muted">
-            ・分からないことは「分からない」と明記します（推測で埋めません）<br>
-            ・今の業務やツールを大きく変えずに導入できる形を優先します<br>
-            ・更新しても壊れにくく、やり直しても品質が落ちにくい進め方にします<br>
+    <section style="background: rgba(30, 41, 59, 0.3);">
+      <div class="container">
+        <h2 class="section-title">開発者</h2>
+        <div class="service-card" style="max-width: 700px; margin: 32px auto;">
+          <h3>柴田 朝史（個人事業主）</h3>
+          <p style="margin: 12px 0;">
+            大規模組込みソフトウェアのTech Lead経験。品質・保守性を重視した開発手法を、AI開発に適用しています。
           </p>
+          <ul style="margin-top: 16px;">
+            <li>Tech Lead 実績（大規模組込みSW）</li>
+            <li>技術者育成 延べ300名規模</li>
+            <li>AI開発専用フレームワーク（APC v5.0）開発</li>
+            <li>Python / C++ 実装</li>
+          </ul>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section id="faq">
-        <div class="section-title">
-          <h2>FAQ</h2>
-          <span>よくある質問（中小企業向け）</span>
-        </div>
+    <section id="contact">
+      <div class="container">
+        <h2 class="section-title">まずは無料相談から</h2>
+        <p class="section-subtitle">
+          AI導入の課題をお聞かせください
+        </p>
 
-        <ul class="list">
-          <li>
-            <strong>Q. 何から始めればいいですか？</strong>
-            <small>まずは「よく聞かれる質問」「探すのに時間がかかる情報」など、小さく効果が出やすいところから始めます。</small>
-          </li>
-          <li>
-            <strong>Q. 期間の目安は？</strong>
-            <small>対象範囲と目的によりますが、まずは小さな範囲で試し、結果を見ながら段階的に広げます。</small>
-          </li>
-          <li>
-            <strong>Q. 費用感は？</strong>
-            <small>範囲と体制によります。初回ヒアリングで目的と制約を整理したうえで、段階導入のプランとして提示します。</small>
-          </li>
-          <li>
-            <strong>Q. 社内データの扱いが不安です。</strong>
-            <small>利用するデータ範囲・権限・保管・アクセス方法などを前提条件として整理します。必要に応じてNDAも対応します。</small>
-          </li>
-          <li>
-            <strong>Q. 社内に担当者がいなくても進められますか？</strong>
-            <small>可能です。導入後に社内で回るように、手順・教育・引き継ぎを含めて整備します（属人化を減らす方針）。</small>
-          </li>
-        </ul>
-      </section>
-
-      <section id="cred">
-        <div class="section-title">
-          <h2>実績（本業）</h2>
-          <span>※公開できる範囲で記載。詳細は個別に共有します。</span>
-        </div>
-
-        <div class="two" style="margin-top:14px">
-          <div class="card">
-            <h3>大規模組込みソフトウェア｜Tech Lead</h3>
-            <p>品質・境界条件・保守性を重視した開発をリード。Python / C++ を含む実装経験。</p>
-          </div>
-          <div class="card">
-            <h3>社内育成｜延べ300名規模</h3>
-            <p>座学・ハンズオンを設計・実施。<b>メンターがメンターを育てる</b>仕組みで育成をスケール。</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="contact">
-        <div class="section-title">
-          <h2>連絡</h2>
-          <span>まずは課題と現状を教えてください</span>
-        </div>
-
-        <div class="card" style="margin-top:14px">
-          <p style="margin:0 0 10px">お問い合わせはメールにてお願いします（必要に応じてNDA後に詳細共有します）。</p>
-          <ul class="list" style="margin:0">
-            <li><strong>名前</strong><small>柴田 朝史（個人事業主 / 業務委託）</small></li>
-            <li><strong>屋号</strong><small>metafactory agent studio</small></li>
-            <li><strong>メール</strong><small>
-              <a class="muted" href="mailto:meta.tsfactory@gmail.com">meta.tsfactory@gmail.com</a>
-            </small></li>
-            <li><strong>Web</strong><small>
-              <a class="muted" href="https://metatsfactory-rgb.github.io/" target="_blank" rel="noopener noreferrer">
-                https://metatsfactory-rgb.github.io/
-              </a>
-            </small></li>
+        <div class="service-card" style="max-width: 600px; margin: 32px auto;">
+          <h3 style="margin-bottom: 16px;">こんな方におすすめ</h3>
+          <ul style="margin-bottom: 24px;">
+            <li>AI導入を検討しているが、失敗したくない</li>
+            <li>過去にPoCで終わった経験がある</li>
+            <li>本当に動くのか、まず試したい</li>
+            <li>運用できるか不安</li>
           </ul>
 
-          <div class="cta" style="margin-top:14px">
-            <a
-              class="btn primary"
-              href="mailto:meta.tsfactory@gmail.com?subject=metafactory%20agent%20studio%20%E7%9B%B8%E8%AB%87&body=%E7%9B%B8%E8%AB%87%E5%86%85%E5%AE%B9%EF%BC%9A%0A%E7%8F%BE%E7%8A%B6%EF%BC%9A%0A%E6%83%B3%E5%AE%9A%E3%81%99%E3%82%8B%E5%88%A9%E7%94%A8%E3%82%B7%E3%83%BC%E3%83%B3%EF%BC%9A%0A%E5%88%B6%E7%B4%84%EF%BC%88%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E7%AD%89%EF%BC%89%EF%BC%9A%0A"
-            >メールで相談</a>
-            <a class="btn" href="#usecases">導入イメージ</a>
+          <div style="background: rgba(59, 130, 246, 0.1); padding: 20px; border-radius: 8px; border: 1px solid rgba(59, 130, 246, 0.3); margin-bottom: 20px;">
+            <p style="margin: 0; font-size: 14px; color: var(--text-muted);">
+              <strong style="color: var(--text);">連絡先</strong><br>
+              <strong>メール:</strong> meta.tsfactory@gmail.com<br>
+              <strong>Web:</strong> https://metatsfactory-rgb.github.io/
+            </p>
+          </div>
+
+          <div class="cta-buttons" style="justify-content: center;">
+            <a href="mailto:meta.tsfactory@gmail.com?subject=AI導入相談&body=お名前：%0A会社名：%0Aご相談内容：%0A" class="btn btn-primary">メールで相談する</a>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
+  </main>
 
-      <footer>
-        <div>© <span id="y"></span> metafactory agent studio</div>
-        <div>Build: AI導入・運用・定着の伴走</div>
-      </footer>
-    </main>
-  </div>
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div>© <span id="year"></span> metafactory agent studio（柴田 朝史）</div>
+        <div>AI導入失敗を防ぐ開発支援</div>
+      </div>
+    </div>
+  </footer>
 
   <script>
-    document.getElementById('y').textContent = String(new Date().getFullYear());
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
