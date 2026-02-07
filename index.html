@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI開発の失敗を、もう繰り返さない | metafactory agent studio</title>
-  <meta name="description" content="25年の品質管理ノウハウを持つプロが、あなたのAI導入を確実に成功させます。高速進化するフレームワークで、失敗リスクをゼロに。">
+  <meta name="description" content="25年の品質管理ノウハウを持つプロが、あなたのAI導入を成功に導きます。要件・評価・運用の型で、PoC止まりや品質ブレ、コスト膨張を抑えます。">
   <style>
     :root {
       --bg-primary: #0a0e1a;
@@ -577,9 +577,10 @@
       font-weight: 700;
       margin-bottom: 24px;
       border: 1px solid var(--accent);
+      flex-wrap: wrap;
     }
 
-    /* 追加：韓国語が混ざっていた箇所を日本語ラベルにし、見た目も整える */
+    /* チップ（META_DEV/META_OPS 表示用） */
     .service-chip {
       display: inline-block;
       padding: 4px 10px;
@@ -590,6 +591,7 @@
       font-weight: 700;
       font-size: 12px;
       letter-spacing: 0.02em;
+      white-space: nowrap;
     }
 
     .service-card h3 {
@@ -1275,7 +1277,7 @@
         </h1>
         <p class="hero-subtitle">
           大規模開発のプロが、あなたのAI導入を確実に成功させます。<br>
-          300名以上の育成実績と独自フレームワークで、失敗リスクをゼロに。
+          300名以上の育成実績と独自フレームワークで、PoC止まり・品質ブレ・コスト膨張を抑えます。
         </p>
         <div class="hero-cta-group">
           <a href="#contact" class="cta-primary">無料相談を予約する</a>
@@ -1291,12 +1293,12 @@
             <div class="hero-stat-label">技術者育成実績</div>
           </div>
           <div class="hero-stat">
-            <div class="hero-stat-number">v5.0</div>
-            <div class="hero-stat-label">高速進化するフレームワーク</div>
+            <div class="hero-stat-number">APC v5.0</div>
+            <div class="hero-stat-label">開発・評価・運用の型</div>
           </div>
           <div class="hero-stat">
-            <div class="hero-stat-number">100%</div>
-            <div class="hero-stat-label">成功への追求</div>
+            <div class="hero-stat-number">実務志向</div>
+            <div class="hero-stat-label">稼働・保守まで見据えた設計</div>
           </div>
         </div>
       </div>
@@ -1358,12 +1360,12 @@
         <div class="comparison-row">
           <div>本番稼働</div>
           <div class="comparison-fail">PoCで終了</div>
-          <div class="comparison-success">確実に本番へ</div>
+          <div class="comparison-success">運用条件から逆算</div>
         </div>
         <div class="comparison-row">
           <div>品質</div>
           <div class="comparison-fail">不安定な出力</div>
-          <div class="comparison-success">検証済み品質</div>
+          <div class="comparison-success">評価基準を定義</div>
         </div>
         <div class="comparison-row">
           <div>コスト</div>
@@ -1390,7 +1392,10 @@
       </div>
       <div class="service-cards">
         <div class="service-card">
-          <div class="service-badge">モデル1</div>
+          <div class="service-badge">
+            モデル1
+            <span class="service-chip">META_DEV + META_OPS</span>
+          </div>
           <h3>フルサポート開発</h3>
           <p>
             AIシステムの企画から運用まで、全てを代行。あなたは業務に集中し、私たちが確実に動くシステムを納品します。
@@ -1406,10 +1411,9 @@
         </div>
 
         <div class="service-card">
-          <!-- ✅ 韓国語が混ざっていた箇所を完全除去：日本語に統一 -->
           <div class="service-badge">
             モデル2
-            <span class="service-chip">内製化支援</span>
+            <span class="service-chip">META_OPS 中心</span>
           </div>
           <h3>フレームワーク導入</h3>
           <p>
