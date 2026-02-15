@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI開発の失敗を、もう繰り返さない | metafactory agent studio</title>
-  <meta name="description" content="25年の品質管理ノウハウを持つプロが、あなたのAI導入を成功に導きます。要件・評価・運用の型で、PoC止まりや品質ブレ、コスト膨張を抑えます。">
+  <title>LLMの力を、あなたのチームの力に。 | metafactory agent studio</title>
+  <meta name="description" content="伴走型のLLMリテラシー教育とハンズオンで、御社の従業員がLLMを理解し自走できるまでサポートします。独自フレームワークAPCで品質を保証。">
   <style>
     :root {
       --bg-primary: #0a0e1a;
@@ -295,6 +295,8 @@
       color: var(--accent);
       margin-bottom: 8px;
       letter-spacing: -0.02em;
+      word-break: keep-all;
+      overflow-wrap: normal;
     }
 
     .hero-stat-label {
@@ -580,7 +582,7 @@
       flex-wrap: wrap;
     }
 
-    /* チップ（META_DEV/META_OPS 表示用） */
+    /* チップ（APC Framework/META_COWORK 表示用） */
     .service-chip {
       display: inline-block;
       padding: 4px 10px;
@@ -1270,14 +1272,14 @@
   <section class="hero">
     <div class="container">
       <div class="hero-content">
-        <div class="hero-tag">25年の品質管理ノウハウで、AI開発の失敗を防ぐ</div>
+        <div class="hero-tag">伴走型LLM変革コンサルティング</div>
         <h1>
-          AI開発の失敗を、<br>
-          <span class="highlight">もう繰り返さない</span>
+          LLMの力を、<br>
+          <span class="highlight">あなたのチームの力に。</span>
         </h1>
         <p class="hero-subtitle">
-          大規模開発のプロが、あなたのAI導入を確実に成功させます。<br>
-          300名以上の育成実績と独自フレームワークで、PoC止まり・品質ブレ・コスト膨張を抑えます。
+          伴走型のLLMリテラシー教育とハンズオンで、従業員がLLMを理解し自走できるまでサポート。<br>
+          自走化後は月額終了できる、御社の規模に合わせた変革支援です。
         </p>
         <div class="hero-cta-group">
           <a href="#contact" class="cta-primary">無料相談を予約する</a>
@@ -1293,7 +1295,7 @@
             <div class="hero-stat-label">技術者育成実績</div>
           </div>
           <div class="hero-stat">
-            <div class="hero-stat-number">APC v5.0</div>
+            <div class="hero-stat-number">APC Framework</div>
             <div class="hero-stat-label">開発・評価・運用の型</div>
           </div>
           <div class="hero-stat">
@@ -1385,16 +1387,17 @@
   <section id="services" class="services">
     <div class="container">
       <div class="section-header">
-        <h2 class="section-title">2つの選択肢から選べます</h2>
+        <h2 class="section-title">2つのサービスモデル</h2>
         <p class="section-subtitle">
-          あなたの状況に合わせて、最適なサービスをご提案します
+          提供形態は「フルサポート開発」と「フレームワーク導入」の2つ。<br>
+          企業規模別の料金プラン（Plan S / M / L）と組み合わせてご利用いただけます
         </p>
       </div>
       <div class="service-cards">
         <div class="service-card">
           <div class="service-badge">
             モデル1
-            <span class="service-chip">META_DEV + META_OPS</span>
+            <span class="service-chip">APC Framework</span>
           </div>
           <h3>フルサポート開発</h3>
           <p>
@@ -1413,7 +1416,7 @@
         <div class="service-card">
           <div class="service-badge">
             モデル2
-            <span class="service-chip">META_OPS 中心</span>
+            <span class="service-chip">META_COWORK</span>
           </div>
           <h3>フレームワーク導入</h3>
           <p>
@@ -1432,60 +1435,133 @@
     </div>
   </section>
 
+  <!-- Selection Guide Section -->
+  <section class="selection-guide" style="padding:80px 0; background:var(--bg-secondary);">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">どちらのモデルを選ぶべきか？</h2>
+        <p class="section-subtitle">御社の状況に最適なサービスモデルを見つけ、規模に合ったプランで始めましょう</p>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:28px; max-width:1100px; margin:0 auto;">
+
+        <div style="background:var(--bg-card); padding:36px; border-radius:20px; border:1px solid var(--border);">
+          <div style="font-size:32px; margin-bottom:12px;">🏗️</div>
+          <h3 style="color:var(--text-primary); font-size:20px; margin-bottom:12px;">社内に開発リソースがない</h3>
+          <p style="color:var(--text-muted); font-size:15px; line-height:1.7; margin-bottom:16px;">
+            AI開発の経験者がいない、または時間が取れない場合は<strong style="color:var(--accent);">モデル1（フルサポート開発）</strong>がおすすめ。企画から運用まで全てお任せください。
+          </p>
+          <div style="color:var(--accent); font-size:14px; font-weight:600;">→ Plan M / Plan L で利用可能</div>
+        </div>
+
+        <div style="background:var(--bg-card); padding:36px; border-radius:20px; border:1px solid var(--border);">
+          <div style="font-size:32px; margin-bottom:12px;">🛠️</div>
+          <h3 style="color:var(--text-primary); font-size:20px; margin-bottom:12px;">社内で開発・運用したい</h3>
+          <p style="color:var(--text-muted); font-size:15px; line-height:1.7; margin-bottom:16px;">
+            開発チームがあり、AIスキルを内製化したい場合は<strong style="color:var(--accent);">モデル2（フレームワーク導入）</strong>がおすすめ。フレームワークと研修で自走できる体制を構築します。
+          </p>
+          <div style="color:var(--accent); font-size:14px; font-weight:600;">→ 全プラン（Plan S〜Plan L）で利用可能</div>
+        </div>
+
+        <div style="background:var(--bg-card); padding:36px; border-radius:20px; border:1px solid var(--border);">
+          <div style="font-size:32px; margin-bottom:12px;">🔄</div>
+          <h3 style="color:var(--text-primary); font-size:20px; margin-bottom:12px;">両方を段階的に進めたい</h3>
+          <p style="color:var(--text-muted); font-size:15px; line-height:1.7; margin-bottom:16px;">
+            まず<strong style="color:var(--accent);">モデル1</strong>で確実に動くシステムを納品し、その後<strong style="color:var(--accent);">モデル2</strong>で社内チームに技術移転。最もリスクの低い進め方です。
+          </p>
+          <div style="color:var(--accent); font-size:14px; font-weight:600;">→ Plan M / Plan L で段階的に実施</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- Pricing Section -->
   <section class="pricing">
     <div class="container">
       <div class="section-header">
         <h2 class="section-title">明確な料金体系</h2>
         <p class="section-subtitle">
-          段階的な投資で、リスクを最小化します
+          上記2つのサービスモデルを、企業規模別の3つのプランでご提供します
         </p>
       </div>
 
+      <!-- 3-Plan Structure -->
       <div class="pricing-container">
-        <!-- Model 1 Pricing -->
-        <div class="pricing-model">
-          <h3 class="model-title">モデル1：フルサポート開発</h3>
-          <div class="pricing-grid">
-            <div class="pricing-card">
-              <h4>PoC開発</h4>
-              <div class="price">ご相談</div>
-              <p>まずは動くものを短期間で作成。投資判断の材料を提供します。</p>
-            </div>
-            <div class="pricing-card">
-              <h4>本番開発</h4>
-              <div class="price">ご相談</div>
-              <p>PoCを本番システムに拡張。段階的に機能を追加し確実に稼働。</p>
-            </div>
-            <div class="pricing-card">
-              <h4>運用・保守</h4>
-              <div class="price">月額 ご相談</div>
-              <p>継続的な改善、トラブル対応、機能追加をサポート。</p>
-            </div>
-          </div>
-        </div>
+        <div class="pricing-grid" style="grid-template-columns: repeat(3, 1fr);">
 
-        <!-- Model 2 Pricing -->
-        <div class="pricing-model">
-          <h3 class="model-title">モデル2：フレームワーク導入</h3>
-          <div class="pricing-grid">
-            <div class="pricing-card">
-              <h4>導入支援</h4>
-              <div class="price">ご相談</div>
-              <p>APCフレームワークの導入と環境構築を支援。</p>
+          <!-- Plan S -->
+          <div class="pricing-card">
+            <div style="text-align:center; margin-bottom:16px;">
+              <span style="display:inline-block; background:var(--accent); color:#fff; padding:4px 16px; border-radius:20px; font-size:13px; font-weight:700;">おすすめ</span>
             </div>
-            <div class="pricing-card">
-              <h4>研修・育成</h4>
-              <div class="price">ご相談</div>
-              <p>貴社開発者向けのハンズオン研修で、確実に習得。</p>
-            </div>
-            <div class="pricing-card">
-              <h4>継続サポート</h4>
-              <div class="price">月額 ご相談</div>
-              <p>技術サポート、コードレビュー、ベストプラクティス共有。</p>
+            <h4 style="text-align:center;">Plan S（≤30名）</h4>
+            <div style="text-align:center; font-size:14px; color:var(--text-muted); margin-bottom:12px;">従業員30名以下の企業向け</div>
+            <div class="price" style="text-align:center; font-size:28px;">初期 150万円</div>
+            <div style="text-align:center; font-size:16px; color:var(--accent); margin-bottom:20px;">+ 月額 15万円（伴走コンサル込）</div>
+            <p style="text-align:center; font-size:13px; color:var(--text-muted); margin-bottom:20px;">APC全機能対応 + LLMリテラシー教育</p>
+            <ul class="service-features" style="margin-bottom:20px;">
+              <li>フレームワーク導入（モデル2）</li>
+              <li>同梱Agent：タスク管理 + 座学</li>
+              <li>ハンズオン研修（基礎）</li>
+              <li>月次技術サポート</li>
+              <li>組織展開プラットフォーム（推進者層1名〜 + 利用者層展開）</li>
+            </ul>
+            <div style="text-align:center; font-size:13px; color:var(--text-muted);">
+              初年度540万円（市場中央値580万と同水準、成果の確実性が異なる）
             </div>
           </div>
+
+          <!-- Plan M -->
+          <div class="pricing-card">
+            <h4 style="text-align:center; margin-top:36px;">Plan M（30-999名）</h4>
+            <div style="text-align:center; font-size:14px; color:var(--text-muted); margin-bottom:12px;">従業員30〜999名規模の企業向け</div>
+            <div class="price" style="text-align:center; font-size:28px;">初期 400万円</div>
+            <div style="text-align:center; font-size:16px; color:var(--accent); margin-bottom:20px;">+ 月額 30万円〜（伴走コンサル込）</div>
+            <p style="text-align:center; font-size:13px; color:var(--text-muted); margin-bottom:20px;">APC全機能対応 + 部門別教育</p>
+            <ul class="service-features" style="margin-bottom:20px;">
+              <li>モデル1（フルサポート）またはモデル2（導入支援）</li>
+              <li>同梱Agent：+ アプリ診断 + メンター</li>
+              <li>ハンズオン研修（応用含む）</li>
+              <li>週次技術サポート</li>
+              <li>組織展開プラットフォーム（推進者数名＋利用者層の2層展開）</li>
+            </ul>
+            <div style="text-align:center; font-size:13px; color:var(--text-muted);">
+              初年度760万円（当社費用）+ System費は御社負担
+            </div>
+          </div>
+
+          <!-- Plan L -->
+          <div class="pricing-card">
+            <h4 style="text-align:center; margin-top:36px;">Plan L（1000名以上）</h4>
+            <div style="text-align:center; font-size:14px; color:var(--text-muted); margin-bottom:12px;">従業員1000名以上・個別見積</div>
+            <div class="price" style="text-align:center; font-size:28px; white-space:nowrap;">初期 1,000万円〜</div>
+            <div style="text-align:center; font-size:16px; color:var(--accent); margin-bottom:20px;">+ 月額 100万円〜（伴走コンサル込）</div>
+            <p style="text-align:center; font-size:13px; color:var(--text-muted); margin-bottom:20px;">APC全機能対応 + 全社DX戦略支援</p>
+            <ul class="service-features" style="margin-bottom:20px;">
+              <li>モデル1 + モデル2 統合プラン</li>
+              <li>同梱Agent：+ アプリ作成</li>
+              <li>専任テクニカルリード配置</li>
+              <li>24時間サポート体制</li>
+              <li>組織展開プラットフォーム（設計者・推進者・利用者の3層展開）</li>
+              <li>SLA保証 + 専用カスタマイズ</li>
+            </ul>
+            <div style="text-align:center; font-size:13px; color:var(--text-muted);">
+              個別見積 — 御社の規模に応じた最適プランをご提案
+            </div>
+          </div>
+
         </div>
+      </div>
+
+      <div style="text-align:center; margin-top:48px;">
+        <p style="color:var(--text-secondary); font-size:15px; margin-bottom:12px;">
+          ※ 各プランの初期費用にはパイロット費用（80万円）が含まれています。<br>
+          まず80万円で効果を実証 → プラン導入時に初期費用から全額差引きます。
+        </p>
+        <p style="color:var(--text-muted); font-size:15px; margin-bottom:20px;">
+          全プラン共通：無料相談 → 要件ヒアリング → ご提案。押し売りは一切ありません。
+        </p>
+        <a href="#contact" class="cta-primary">まずは無料相談から</a>
       </div>
     </div>
   </section>
@@ -1496,8 +1572,35 @@
       <div class="section-header">
         <h2 class="section-title">導入の流れ</h2>
         <p class="section-subtitle">
-          それぞれのモデルに応じた確実なステップ
+          4フェーズで確実にAI活用を定着させます
         </p>
+      </div>
+
+      <!-- 4 Phase導入モデル -->
+      <div class="process-model" style="margin-bottom:48px; padding:32px; background:linear-gradient(135deg, rgba(99,102,241,0.05), rgba(168,85,247,0.05)); border-radius:16px; border:1px solid rgba(99,102,241,0.15);">
+        <h3 class="model-title" style="text-align:center; margin-bottom:24px;">4フェーズ導入モデル</h3>
+        <div class="process-steps">
+          <div class="step">
+            <div class="step-number">0</div>
+            <h4>無料診断</h4>
+            <p>LLM準備度評価＋ROI試算。御社の現在地と最適プランをご提案。<strong>完全無料・リスクゼロ</strong>。</p>
+          </div>
+          <div class="step">
+            <div class="step-number">1</div>
+            <h4>パイロット（80万円）</h4>
+            <p>1部門で効果を実証。<strong>パイロット費用はプラン導入時に初期費用から全額差引</strong>します。</p>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h4>プラン導入＋全社教育</h4>
+            <p>Plan S/M/Lから最適プランを選択。同梱Agentと教育プログラムで全社展開を推進。</p>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <h4>自走化支援（卒業まで伴走）</h4>
+            <p><strong>「卒業がゴール」</strong>— 御社の組織がLLMを自走できる状態になるまで伴走。ベンダー依存にしません。</p>
+          </div>
+        </div>
       </div>
 
       <!-- Model 1 Process -->
@@ -1578,7 +1681,7 @@
         </div>
         <div class="trust-card">
           <div class="trust-icon">⚙️</div>
-          <h3>独自フレームワーク APC v5.0</h3>
+          <h3>独自フレームワーク APC Framework</h3>
           <p>AI開発2年の実戦で磨き上げた開発フレームワーク。25年の大規模開発経験を活かし、失敗パターンを徹底的に潰しています。</p>
         </div>
         <div class="trust-card">
@@ -1617,7 +1720,7 @@
           </div>
           <div class="faq-answer">
             <div class="faq-answer-content">
-              主に中小企業を対象としていますが、大企業の部門単位での導入も歓迎です。重要なのは企業規模ではなく、「本気でAI導入を成功させたい」という意志です。
+              従業員30名以下の小規模企業から1,000名以上の大企業まで、3つのプラン（Plan S / M / L）で幅広く対応しています。重要なのは企業規模ではなく、「本気でAI導入を成功させたい」という意志です。
             </div>
           </div>
         </div>
@@ -1695,7 +1798,7 @@
         <ul class="profile-highlights">
           <li>大規模組込みソフトウェア Tech Lead 実績</li>
           <li>技術者育成 延べ300名規模</li>
-          <li>AI開発専用フレームワーク（APC v5.0）開発</li>
+          <li>AI開発専用フレームワーク（APC Framework）開発</li>
           <li>Python / C++ 実装スキル</li>
           <li>品質・保守性重視の開発思想</li>
         </ul>
@@ -1731,7 +1834,7 @@
   <footer>
     <div class="container">
       <div class="footer-content">
-        <p>&copy; 2026 metafactory agent studio. All rights reserved.</p>
+        <p>&copy; 2026 metafactory agent studio. All rights reserved. | v3.0</p>
         <div class="footer-links">
           <a href="mailto:meta.tsfactory@gmail.com">お問い合わせ</a>
           <a href="https://metatsfactory-rgb.github.io/">GitHub</a>
