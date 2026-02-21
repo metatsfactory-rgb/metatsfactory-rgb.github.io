@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -139,8 +140,17 @@
     }
 
     @keyframes heroGlow {
-      0%, 100% { opacity: 0.4; transform: translateX(-50%) scale(1) rotate(0deg); }
-      50% { opacity: 0.8; transform: translateX(-50%) scale(1.2) rotate(180deg); }
+
+      0%,
+      100% {
+        opacity: 0.4;
+        transform: translateX(-50%) scale(1) rotate(0deg);
+      }
+
+      50% {
+        opacity: 0.8;
+        transform: translateX(-50%) scale(1.2) rotate(180deg);
+      }
     }
 
     .hero-content {
@@ -163,8 +173,15 @@
     }
 
     @keyframes tagFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
     }
 
     .hero h1 {
@@ -194,8 +211,17 @@
     }
 
     @keyframes underlineExpand {
-      0%, 100% { transform: scaleX(0.8); opacity: 0.6; }
-      50% { transform: scaleX(1); opacity: 1; }
+
+      0%,
+      100% {
+        transform: scaleX(0.8);
+        opacity: 0.6;
+      }
+
+      50% {
+        transform: scaleX(1);
+        opacity: 1;
+      }
     }
 
     .hero-subtitle {
@@ -485,7 +511,7 @@
       border-bottom: none;
     }
 
-    .comparison-row > div:first-child {
+    .comparison-row>div:first-child {
       font-weight: 700;
       color: var(--text-primary);
       font-size: 18px;
@@ -604,7 +630,7 @@
       letter-spacing: -0.02em;
     }
 
-    .service-card > p {
+    .service-card>p {
       color: var(--text-secondary);
       margin-bottom: 28px;
       line-height: 1.9;
@@ -1051,8 +1077,17 @@
     }
 
     @keyframes ctaPulse {
-      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
-      50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+
+      0%,
+      100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.6;
+      }
+
+      50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 1;
+      }
     }
 
     .final-cta-content {
@@ -1256,6 +1291,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="progress-bar" id="progressBar"></div>
 
@@ -1442,13 +1478,15 @@
         <h2 class="section-title">どちらのモデルを選ぶべきか？</h2>
         <p class="section-subtitle">御社の状況に最適なサービスモデルを見つけ、規模に合ったプランで始めましょう</p>
       </div>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:28px; max-width:1100px; margin:0 auto;">
+      <div
+        style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:28px; max-width:1100px; margin:0 auto;">
 
         <div style="background:var(--bg-card); padding:36px; border-radius:20px; border:1px solid var(--border);">
           <div style="font-size:32px; margin-bottom:12px;">🏗️</div>
           <h3 style="color:var(--text-primary); font-size:20px; margin-bottom:12px;">社内に開発リソースがない</h3>
           <p style="color:var(--text-muted); font-size:15px; line-height:1.7; margin-bottom:16px;">
-            AI開発の経験者がいない、または時間が取れない場合は<strong style="color:var(--accent);">モデル1（フルサポート開発）</strong>がおすすめ。企画から運用まで全てお任せください。
+            AI開発の経験者がいない、または時間が取れない場合は<strong
+              style="color:var(--accent);">モデル1（フルサポート開発）</strong>がおすすめ。企画から運用まで全てお任せください。
           </p>
           <div style="color:var(--accent); font-size:14px; font-weight:600;">→ Plan M / Plan L で利用可能</div>
         </div>
@@ -1457,7 +1495,8 @@
           <div style="font-size:32px; margin-bottom:12px;">🛠️</div>
           <h3 style="color:var(--text-primary); font-size:20px; margin-bottom:12px;">社内で開発・運用したい</h3>
           <p style="color:var(--text-muted); font-size:15px; line-height:1.7; margin-bottom:16px;">
-            開発チームがあり、AIスキルを内製化したい場合は<strong style="color:var(--accent);">モデル2（フレームワーク導入）</strong>がおすすめ。フレームワークと研修で自走できる体制を構築します。
+            開発チームがあり、AIスキルを内製化したい場合は<strong
+              style="color:var(--accent);">モデル2（フレームワーク導入）</strong>がおすすめ。フレームワークと研修で自走できる体制を構築します。
           </p>
           <div style="color:var(--accent); font-size:14px; font-weight:600;">→ 全プラン（Plan S〜Plan L）で利用可能</div>
         </div>
@@ -1466,7 +1505,8 @@
           <div style="font-size:32px; margin-bottom:12px;">🔄</div>
           <h3 style="color:var(--text-primary); font-size:20px; margin-bottom:12px;">両方を段階的に進めたい</h3>
           <p style="color:var(--text-muted); font-size:15px; line-height:1.7; margin-bottom:16px;">
-            まず<strong style="color:var(--accent);">モデル1</strong>で確実に動くシステムを納品し、その後<strong style="color:var(--accent);">モデル2</strong>で社内チームに技術移転。最もリスクの低い進め方です。
+            まず<strong style="color:var(--accent);">モデル1</strong>で確実に動くシステムを納品し、その後<strong
+              style="color:var(--accent);">モデル2</strong>で社内チームに技術移転。最もリスクの低い進め方です。
           </p>
           <div style="color:var(--accent); font-size:14px; font-weight:600;">→ Plan M / Plan L で段階的に実施</div>
         </div>
@@ -1492,13 +1532,17 @@
           <!-- Plan S -->
           <div class="pricing-card">
             <div style="text-align:center; margin-bottom:16px;">
-              <span style="display:inline-block; background:var(--accent); color:#fff; padding:4px 16px; border-radius:20px; font-size:13px; font-weight:700;">おすすめ</span>
+              <span
+                style="display:inline-block; background:var(--accent); color:#fff; padding:4px 16px; border-radius:20px; font-size:13px; font-weight:700;">おすすめ</span>
             </div>
             <h4 style="text-align:center;">Plan S（≤30名）</h4>
-            <div style="text-align:center; font-size:14px; color:var(--text-muted); margin-bottom:12px;">従業員30名以下の企業向け</div>
+            <div style="text-align:center; font-size:14px; color:var(--text-muted); margin-bottom:12px;">従業員30名以下の企業向け
+            </div>
             <div class="price" style="text-align:center; font-size:28px;">初期 150万円</div>
-            <div style="text-align:center; font-size:16px; color:var(--accent); margin-bottom:20px;">+ 月額 15万円（伴走コンサル込）</div>
-            <p style="text-align:center; font-size:13px; color:var(--text-muted); margin-bottom:20px;">APC全機能対応 + LLMリテラシー教育</p>
+            <div style="text-align:center; font-size:16px; color:var(--accent); margin-bottom:20px;">+ 月額 15万円（伴走コンサル込）
+            </div>
+            <p style="text-align:center; font-size:13px; color:var(--text-muted); margin-bottom:20px;">APC全機能対応 +
+              LLMリテラシー教育</p>
             <ul class="service-features" style="margin-bottom:20px;">
               <li>フレームワーク導入（モデル2）</li>
               <li>同梱Agent：タスク管理Agent + 座学Agent</li>
@@ -1514,10 +1558,13 @@
           <!-- Plan M -->
           <div class="pricing-card">
             <h4 style="text-align:center; margin-top:36px;">Plan M（30-999名）</h4>
-            <div style="text-align:center; font-size:14px; color:var(--text-muted); margin-bottom:12px;">従業員30〜999名規模の企業向け</div>
+            <div style="text-align:center; font-size:14px; color:var(--text-muted); margin-bottom:12px;">
+              従業員30〜999名規模の企業向け</div>
             <div class="price" style="text-align:center; font-size:28px;">初期 400万円</div>
-            <div style="text-align:center; font-size:16px; color:var(--accent); margin-bottom:20px;">+ 月額 30万円〜（伴走コンサル込）</div>
-            <p style="text-align:center; font-size:13px; color:var(--text-muted); margin-bottom:20px;">APC全機能対応 + 部門別教育</p>
+            <div style="text-align:center; font-size:16px; color:var(--accent); margin-bottom:20px;">+ 月額 30万円〜（伴走コンサル込）
+            </div>
+            <p style="text-align:center; font-size:13px; color:var(--text-muted); margin-bottom:20px;">APC全機能対応 + メンター教育
+            </p>
             <ul class="service-features" style="margin-bottom:20px;">
               <li>モデル1（フルサポート）またはモデル2（導入支援）</li>
               <li>同梱Agent：Plan S同梱 + アプリ診断Agent + メンターAgent</li>
@@ -1533,10 +1580,13 @@
           <!-- Plan L -->
           <div class="pricing-card">
             <h4 style="text-align:center; margin-top:36px;">Plan L（1000名以上）</h4>
-            <div style="text-align:center; font-size:14px; color:var(--text-muted); margin-bottom:12px;">従業員1000名以上・個別見積</div>
+            <div style="text-align:center; font-size:14px; color:var(--text-muted); margin-bottom:12px;">従業員1000名以上・個別見積
+            </div>
             <div class="price" style="text-align:center; font-size:28px; white-space:nowrap;">初期 1,000万円〜</div>
-            <div style="text-align:center; font-size:16px; color:var(--accent); margin-bottom:20px;">+ 月額 100万円〜（伴走コンサル込）</div>
-            <p style="text-align:center; font-size:13px; color:var(--text-muted); margin-bottom:20px;">APC全機能対応 + 全社DX戦略支援</p>
+            <div style="text-align:center; font-size:16px; color:var(--accent); margin-bottom:20px;">+ 月額
+              100万円〜（伴走コンサル込）</div>
+            <p style="text-align:center; font-size:13px; color:var(--text-muted); margin-bottom:20px;">APC全機能対応 +
+              全社DX戦略支援</p>
             <ul class="service-features" style="margin-bottom:20px;">
               <li>モデル1 + モデル2 統合プラン</li>
               <li>同梱Agent：Plan M同梱 + アプリ作成Agent(革新レベル)</li>
@@ -1576,7 +1626,8 @@
       </div>
 
       <!-- 4 Phase導入モデル -->
-      <div class="process-model" style="margin-bottom:48px; padding:32px; background:linear-gradient(135deg, rgba(99,102,241,0.05), rgba(168,85,247,0.05)); border-radius:16px; border:1px solid rgba(99,102,241,0.15);">
+      <div class="process-model"
+        style="margin-bottom:48px; padding:32px; background:linear-gradient(135deg, rgba(99,102,241,0.05), rgba(168,85,247,0.05)); border-radius:16px; border:1px solid rgba(99,102,241,0.15);">
         <h3 class="model-title" style="text-align:center; margin-bottom:24px;">4フェーズ導入モデル</h3>
         <div class="process-steps">
           <div class="step">
@@ -1792,7 +1843,8 @@
         <div class="profile-name">柴田 朝史</div>
         <div class="profile-title">個人事業主 / AI開発エンジニア</div>
         <p class="profile-description">
-          大規模組込みソフトウェアのTech Leadとして、品質とスケジュールを守り抜く開発手法を確立。その経験をAI開発に応用し、「確実に動くAIシステム」の構築を追求しています。技術者育成にも注力し、延べ300名以上の育成実績があります。
+          大規模組込みソフトウェアのTech
+          Leadとして、品質とスケジュールを守り抜く開発手法を確立。その経験をAI開発に応用し、「確実に動くAIシステム」の構築を追求しています。技術者育成にも注力し、延べ300名以上の育成実績があります。
         </p>
         <ul class="profile-highlights">
           <li>大規模組込みソフトウェア Tech Lead 実績</li>
@@ -1820,7 +1872,8 @@
           <div class="cta-benefit">30分程度</div>
           <div class="cta-benefit">押し売り一切なし</div>
         </div>
-        <a href="mailto:meta.tsfactory@gmail.com?subject=AI導入相談&body=お名前：%0A会社名：%0A相談内容：%0A%0A【以下、該当するものをチェック】%0A□ モデル1（フルサポート開発）に興味がある%0A□ モデル2（フレームワーク導入）に興味がある%0A□ 過去に失敗したプロジェクトがある%0A□ まだ具体的には決まっていない" class="final-cta-button">無料相談を予約する</a>
+        <a href="mailto:meta.tsfactory@gmail.com?subject=AI導入相談&body=お名前：%0A会社名：%0A相談内容：%0A%0A【以下、該当するものをチェック】%0A□ モデル1（フルサポート開発）に興味がある%0A□ モデル2（フレームワーク導入）に興味がある%0A□ 過去に失敗したプロジェクトがある%0A□ まだ具体的には決まっていない"
+          class="final-cta-button">無料相談を予約する</a>
         <p class="final-cta-note">
           または直接メール: meta.tsfactory@gmail.com<br>
           GitHub: <a href="https://metatsfactory-rgb.github.io/">https://metatsfactory-rgb.github.io</a>
@@ -1920,4 +1973,5 @@
     });
   </script>
 </body>
+
 </html>
