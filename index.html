@@ -2,1976 +2,2167 @@
 <html lang="ja">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LLMの力を、あなたのチームの力に。 | metafactory agent studio</title>
-  <meta name="description" content="伴走型のLLMリテラシー教育とハンズオンで、御社の従業員がLLMを理解し自走できるまでサポートします。独自フレームワークAPCで品質を保証。">
-  <style>
-    :root {
-      --bg-primary: #0a0e1a;
-      --bg-secondary: #0f172a;
-      --bg-card: #1e293b;
-      --bg-card-hover: #2d3a52;
-      --text-primary: #f1f5f9;
-      --text-secondary: #cbd5e1;
-      --text-muted: #94a3b8;
-      --accent: #06b6d4;
-      --accent-hover: #0891b2;
-      --accent-light: rgba(6, 182, 212, 0.1);
-      --accent-glow: rgba(6, 182, 212, 0.3);
-      --success: #10b981;
-      --warning: #f59e0b;
-      --danger: #ef4444;
-      --border: rgba(148, 163, 184, 0.2);
-      --shadow: rgba(0, 0, 0, 0.4);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP", "Hiragino Sans", sans-serif;
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      line-height: 1.7;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    /* Progress Bar */
-    .progress-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent), var(--success));
-      z-index: 1001;
-      transform-origin: left;
-      transition: transform 0.1s ease;
-    }
-
-    /* Header */
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      background: rgba(10, 14, 26, 0.98);
-      backdrop-filter: blur(12px);
-      z-index: 1000;
-      border-bottom: 1px solid var(--border);
-      transition: all 0.3s ease;
-    }
-
-    header.scrolled {
-      box-shadow: 0 4px 20px var(--shadow);
-    }
-
-    .header-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 0;
-    }
-
-    .logo {
-      font-size: 19px;
-      font-weight: 700;
-      color: var(--accent);
-      text-decoration: none;
-      letter-spacing: -0.03em;
-      transition: all 0.3s ease;
-    }
-
-    .logo:hover {
-      color: var(--accent-hover);
-      letter-spacing: -0.01em;
-    }
-
-    .cta-button {
-      background: var(--accent);
-      color: white;
-      padding: 12px 36px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      border: none;
-      cursor: pointer;
-      font-size: 16px;
-      box-shadow: 0 2px 8px rgba(6, 182, 212, 0.2);
-    }
-
-    .cta-button:hover {
-      background: var(--accent-hover);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(6, 182, 212, 0.4);
-    }
-
-    /* Hero Section */
-    .hero {
-      padding: 160px 0 120px;
-      text-align: center;
-      background: radial-gradient(ellipse at 50% 0%, rgba(6, 182, 212, 0.15), transparent 60%);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(6, 182, 212, 0.08) 0%, transparent 50%);
-      animation: heroGlow 10s ease-in-out infinite;
-    }
-
-    @keyframes heroGlow {
-
-      0%,
-      100% {
-        opacity: 0.4;
-        transform: translateX(-50%) scale(1) rotate(0deg);
-      }
-
-      50% {
-        opacity: 0.8;
-        transform: translateX(-50%) scale(1.2) rotate(180deg);
-      }
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-tag {
-      display: inline-block;
-      background: var(--accent-light);
-      color: var(--accent);
-      padding: 10px 24px;
-      border-radius: 24px;
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 32px;
-      border: 1px solid var(--accent);
-      box-shadow: 0 4px 12px rgba(6, 182, 212, 0.2);
-      animation: tagFloat 3s ease-in-out infinite;
-    }
-
-    @keyframes tagFloat {
-
-      0%,
-      100% {
-        transform: translateY(0);
-      }
-
-      50% {
-        transform: translateY(-8px);
-      }
-    }
-
-    .hero h1 {
-      font-size: 64px;
-      font-weight: 900;
-      line-height: 1.15;
-      margin-bottom: 32px;
-      letter-spacing: -0.04em;
-    }
-
-    .hero h1 .highlight {
-      color: var(--accent);
-      position: relative;
-      display: inline-block;
-    }
-
-    .hero h1 .highlight::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--accent), var(--success));
-      border-radius: 2px;
-      animation: underlineExpand 2s ease-in-out infinite;
-    }
-
-    @keyframes underlineExpand {
-
-      0%,
-      100% {
-        transform: scaleX(0.8);
-        opacity: 0.6;
-      }
-
-      50% {
-        transform: scaleX(1);
-        opacity: 1;
-      }
-    }
-
-    .hero-subtitle {
-      font-size: 24px;
-      color: var(--text-secondary);
-      margin-bottom: 56px;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.7;
-      font-weight: 400;
-    }
-
-    .hero-cta-group {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      margin-bottom: 72px;
-    }
-
-    .cta-primary {
-      background: var(--accent);
-      color: white;
-      padding: 20px 56px;
-      border-radius: 14px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 19px;
-      transition: all 0.4s ease;
-      box-shadow: 0 6px 24px rgba(6, 182, 212, 0.35);
-      border: 2px solid var(--accent);
-    }
-
-    .cta-primary:hover {
-      background: var(--accent-hover);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 36px rgba(6, 182, 212, 0.5);
-    }
-
-    .cta-secondary {
-      color: var(--text-primary);
-      padding: 20px 56px;
-      border-radius: 14px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 19px;
-      border: 2px solid var(--border);
-      transition: all 0.4s ease;
-      background: rgba(30, 41, 59, 0.5);
-    }
-
-    .cta-secondary:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: rgba(6, 182, 212, 0.05);
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px var(--shadow);
-    }
-
-    /* Hero Stats */
-    .hero-stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 32px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .hero-stat {
-      padding: 24px;
-      background: rgba(30, 41, 59, 0.6);
-      border-radius: 16px;
-      border: 1px solid var(--border);
-      backdrop-filter: blur(10px);
-      transition: all 0.4s ease;
-      opacity: 0;
-      transform: translateY(30px);
-    }
-
-    .hero-stat.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .hero-stat:hover {
-      background: rgba(30, 41, 59, 0.9);
-      border-color: var(--accent);
-      transform: translateY(-6px);
-      box-shadow: 0 12px 32px var(--shadow);
-    }
-
-    .hero-stat-number {
-      font-size: 40px;
-      font-weight: 900;
-      color: var(--accent);
-      margin-bottom: 8px;
-      letter-spacing: -0.02em;
-      word-break: keep-all;
-      overflow-wrap: normal;
-    }
-
-    .hero-stat-label {
-      font-size: 14px;
-      color: var(--text-secondary);
-      font-weight: 500;
-    }
-
-    /* Pain Points Section */
-    .pain-points {
-      padding: 120px 0;
-      background: var(--bg-secondary);
-    }
-
-    .section-header {
-      text-align: center;
-      margin-bottom: 72px;
-    }
-
-    .section-tag {
-      display: inline-block;
-      background: rgba(239, 68, 68, 0.12);
-      color: var(--danger);
-      padding: 8px 20px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 20px;
-      border: 1px solid var(--danger);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .section-title {
-      font-size: 48px;
-      font-weight: 900;
-      margin-bottom: 24px;
-      line-height: 1.25;
-      letter-spacing: -0.03em;
-    }
-
-    .section-subtitle {
-      font-size: 20px;
-      color: var(--text-secondary);
-      max-width: 700px;
-      margin: 0 auto;
-      line-height: 1.8;
-    }
-
-    .pain-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 32px;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    .pain-card {
-      background: var(--bg-card);
-      padding: 40px;
-      border-radius: 20px;
-      border: 1px solid var(--border);
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .pain-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: var(--danger);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .pain-card:hover::before {
-      opacity: 1;
-    }
-
-    .pain-card.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .pain-card:hover {
-      background: var(--bg-card-hover);
-      border-color: var(--danger);
-      transform: translateY(-8px);
-      box-shadow: 0 16px 48px var(--shadow);
-    }
-
-    .pain-icon {
-      width: 56px;
-      height: 56px;
-      background: rgba(239, 68, 68, 0.12);
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 24px;
-      font-size: 28px;
-      transition: all 0.3s ease;
-    }
-
-    .pain-card:hover .pain-icon {
-      transform: scale(1.1) rotate(5deg);
-    }
-
-    .pain-card h3 {
-      font-size: 22px;
-      margin-bottom: 14px;
-      color: var(--text-primary);
-      font-weight: 700;
-    }
-
-    .pain-card p {
-      color: var(--text-secondary);
-      line-height: 1.8;
-      font-size: 16px;
-    }
-
-    /* Solution Section */
-    .solution {
-      padding: 120px 0;
-      background: radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.04), transparent 70%);
-    }
-
-    .solution .section-tag {
-      background: rgba(16, 185, 129, 0.12);
-      color: var(--success);
-      border-color: var(--success);
-    }
-
-    .comparison-table {
-      max-width: 850px;
-      margin: 0 auto;
-      background: var(--bg-card);
-      border-radius: 20px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      opacity: 0;
-      transform: scale(0.96);
-      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 8px 32px var(--shadow);
-    }
-
-    .comparison-table.visible {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    .comparison-header {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      background: var(--bg-secondary);
-      font-weight: 800;
-      padding: 32px 36px;
-      border-bottom: 2px solid var(--border);
-      font-size: 18px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      align-items: center;
-    }
-
-    .comparison-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      padding: 26px 36px;
-      border-bottom: 1px solid var(--border);
-      transition: all 0.3s ease;
-      font-size: 17px;
-      align-items: center;
-    }
-
-    .comparison-row:hover {
-      background: rgba(6, 182, 212, 0.05);
-    }
-
-    .comparison-row:last-child {
-      border-bottom: none;
-    }
-
-    .comparison-row>div:first-child {
-      font-weight: 700;
-      color: var(--text-primary);
-      font-size: 18px;
-    }
-
-    .comparison-fail {
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .comparison-fail::before {
-      content: "✗";
-      color: var(--danger);
-      font-weight: 700;
-      font-size: 20px;
-    }
-
-    .comparison-success {
-      color: var(--success);
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .comparison-success::before {
-      content: "✓";
-      color: var(--success);
-      font-weight: 700;
-      font-size: 20px;
-    }
-
-    /* Services Section */
-    .services {
-      padding: 120px 0;
-      background: var(--bg-secondary);
-    }
-
-    .service-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
-      gap: 40px;
-      margin-top: 64px;
-    }
-
-    .service-card {
-      background: var(--bg-card);
-      padding: 48px;
-      border-radius: 24px;
-      border: 2px solid var(--border);
-      position: relative;
-      overflow: hidden;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .service-card.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .service-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 5px;
-      background: linear-gradient(90deg, var(--accent), var(--success));
-    }
-
-    .service-card:hover {
-      border-color: var(--accent);
-      transform: translateY(-12px);
-      box-shadow: 0 24px 56px var(--shadow);
-      background: var(--bg-card-hover);
-    }
-
-    .service-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--accent-light);
-      color: var(--accent);
-      padding: 8px 18px;
-      border-radius: 14px;
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 24px;
-      border: 1px solid var(--accent);
-      flex-wrap: wrap;
-    }
-
-    /* チップ（APC Framework/META_COWORK 表示用） */
-    .service-chip {
-      display: inline-block;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(6, 182, 212, 0.12);
-      border: 1px solid rgba(6, 182, 212, 0.55);
-      color: var(--text-primary);
-      font-weight: 700;
-      font-size: 12px;
-      letter-spacing: 0.02em;
-      white-space: nowrap;
-    }
-
-    .service-card h3 {
-      font-size: 30px;
-      margin-bottom: 18px;
-      color: var(--text-primary);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-    }
-
-    .service-card>p {
-      color: var(--text-secondary);
-      margin-bottom: 28px;
-      line-height: 1.9;
-      font-size: 17px;
-    }
-
-    .service-features {
-      list-style: none;
-      margin-bottom: 32px;
-    }
-
-    .service-features li {
-      padding: 12px 0;
-      color: var(--text-secondary);
-      display: flex;
-      align-items: start;
-      gap: 14px;
-      font-size: 16px;
-      line-height: 1.7;
-    }
-
-    .service-features li::before {
-      content: "✓";
-      color: var(--success);
-      font-weight: 700;
-      font-size: 20px;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
-    .service-cta {
-      background: var(--accent);
-      color: white;
-      padding: 16px 40px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 17px;
-      display: inline-block;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 16px rgba(6, 182, 212, 0.3);
-    }
-
-    .service-cta:hover {
-      background: var(--accent-hover);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 24px rgba(6, 182, 212, 0.5);
-    }
-
-    /* Pricing Section */
-    .pricing {
-      padding: 120px 0;
-    }
-
-    .pricing-container {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .pricing-model {
-      margin-bottom: 96px;
-    }
-
-    .pricing-model:last-child {
-      margin-bottom: 0;
-    }
-
-    .model-title {
-      text-align: center;
-      font-size: 36px;
-      font-weight: 800;
-      margin-bottom: 48px;
-      color: var(--accent);
-      letter-spacing: -0.02em;
-    }
-
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 28px;
-    }
-
-    .pricing-card {
-      background: var(--bg-card);
-      padding: 40px;
-      border-radius: 20px;
-      border: 1px solid var(--border);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      opacity: 0;
-      transform: translateY(30px);
-    }
-
-    .pricing-card.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .pricing-card:hover {
-      border-color: var(--accent);
-      transform: translateY(-10px);
-      box-shadow: 0 16px 48px var(--shadow);
-      background: var(--bg-card-hover);
-    }
-
-    .pricing-card h4 {
-      font-size: 24px;
-      margin-bottom: 10px;
-      color: var(--text-primary);
-      font-weight: 700;
-    }
-
-    .pricing-card .price {
-      font-size: 20px;
-      color: var(--accent);
-      margin-bottom: 20px;
-      font-weight: 600;
-    }
-
-    .pricing-card p {
-      color: var(--text-muted);
-      font-size: 15px;
-      line-height: 1.7;
-    }
-
-    /* Process Section */
-    .process {
-      padding: 120px 0;
-      background: var(--bg-secondary);
-    }
-
-    .process-model {
-      margin-bottom: 96px;
-    }
-
-    .process-model:last-child {
-      margin-bottom: 0;
-    }
-
-    .process-steps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 28px;
-      position: relative;
-    }
-
-    .process-steps::before {
-      content: '';
-      position: absolute;
-      top: 28px;
-      left: 8%;
-      right: 8%;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent), var(--success));
-      z-index: 0;
-      border-radius: 2px;
-    }
-
-    .step {
-      background: var(--bg-card);
-      padding: 36px 28px;
-      border-radius: 20px;
-      border: 1px solid var(--border);
-      position: relative;
-      z-index: 1;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .step.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .step:hover {
-      background: var(--bg-card-hover);
-      transform: translateY(-8px);
-      box-shadow: 0 16px 48px var(--shadow);
-    }
-
-    .step-number {
-      display: inline-block;
-      width: 56px;
-      height: 56px;
-      background: linear-gradient(135deg, var(--accent), var(--success));
-      color: white;
-      border-radius: 50%;
-      text-align: center;
-      line-height: 56px;
-      font-weight: 900;
-      font-size: 24px;
-      margin-bottom: 20px;
-      box-shadow: 0 6px 16px rgba(6, 182, 212, 0.4);
-      transition: all 0.3s ease;
-    }
-
-    .step:hover .step-number {
-      transform: scale(1.1) rotate(5deg);
-      box-shadow: 0 8px 24px rgba(6, 182, 212, 0.6);
-    }
-
-    .step h4 {
-      font-size: 20px;
-      margin-bottom: 14px;
-      color: var(--text-primary);
-      font-weight: 700;
-    }
-
-    .step p {
-      font-size: 15px;
-      color: var(--text-secondary);
-      line-height: 1.7;
-    }
-
-    /* Trust Section */
-    .trust {
-      padding: 120px 0;
-    }
-
-    .trust-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 36px;
-      margin-top: 64px;
-    }
-
-    .trust-card {
-      background: var(--bg-card);
-      padding: 40px;
-      border-radius: 20px;
-      border: 1px solid var(--border);
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .trust-card.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .trust-card:hover {
-      background: var(--bg-card-hover);
-      transform: translateY(-8px);
-      box-shadow: 0 16px 48px var(--shadow);
-      border-color: var(--accent);
-    }
-
-    .trust-icon {
-      width: 64px;
-      height: 64px;
-      background: var(--accent-light);
-      border-radius: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 24px;
-      font-size: 32px;
-      transition: all 0.3s ease;
-      border: 1px solid var(--accent);
-    }
-
-    .trust-card:hover .trust-icon {
-      transform: scale(1.1) rotate(-5deg);
-      background: rgba(6, 182, 212, 0.2);
-    }
-
-    .trust-card h3 {
-      font-size: 24px;
-      margin-bottom: 14px;
-      color: var(--text-primary);
-      font-weight: 700;
-    }
-
-    .trust-card p {
-      color: var(--text-secondary);
-      line-height: 1.8;
-      font-size: 16px;
-    }
-
-    /* FAQ Section */
-    .faq {
-      padding: 120px 0;
-      background: var(--bg-secondary);
-    }
-
-    .faq-list {
-      max-width: 850px;
-      margin: 64px auto 0;
-    }
-
-    .faq-item {
-      background: var(--bg-card);
-      border-radius: 16px;
-      margin-bottom: 20px;
-      border: 1px solid var(--border);
-      overflow: hidden;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .faq-item.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .faq-item:hover {
-      border-color: var(--accent);
-    }
-
-    .faq-question {
-      padding: 28px;
-      font-weight: 600;
-      font-size: 19px;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: all 0.3s ease;
-    }
-
-    .faq-question:hover {
-      background: rgba(6, 182, 212, 0.05);
-    }
-
-    .faq-icon {
-      font-size: 28px;
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      color: var(--accent);
-      font-weight: 700;
-    }
-
-    .faq-item.active .faq-icon {
-      transform: rotate(180deg);
-    }
-
-    .faq-answer {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .faq-answer-content {
-      padding: 0 28px 28px;
-      color: var(--text-secondary);
-      line-height: 1.9;
-      font-size: 17px;
-    }
-
-    .faq-item.active .faq-answer {
-      max-height: 600px;
-    }
-
-    /* Profile Section */
-    .profile {
-      padding: 120px 0;
-    }
-
-    .profile-content {
-      max-width: 750px;
-      margin: 0 auto;
-      background: var(--bg-card);
-      padding: 56px;
-      border-radius: 24px;
-      border: 2px solid var(--border);
-      text-align: center;
-      box-shadow: 0 8px 32px var(--shadow);
-    }
-
-    .profile-name {
-      font-size: 36px;
-      font-weight: 800;
-      margin-bottom: 10px;
-      color: var(--text-primary);
-      letter-spacing: -0.02em;
-    }
-
-    .profile-title {
-      font-size: 19px;
-      color: var(--accent);
-      margin-bottom: 28px;
-      font-weight: 600;
-    }
-
-    .profile-description {
-      color: var(--text-secondary);
-      line-height: 1.9;
-      margin-bottom: 36px;
-      font-size: 17px;
-    }
-
-    .profile-highlights {
-      list-style: none;
-      text-align: left;
-    }
-
-    .profile-highlights li {
-      padding: 16px 0;
-      color: var(--text-secondary);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      font-size: 16px;
-      transition: all 0.3s ease;
-    }
-
-    .profile-highlights li:hover {
-      color: var(--text-primary);
-      padding-left: 8px;
-    }
-
-    .profile-highlights li:last-child {
-      border-bottom: none;
-    }
-
-    .profile-highlights li::before {
-      content: "→";
-      color: var(--accent);
-      font-weight: 700;
-      font-size: 20px;
-    }
-
-    /* CTA Section */
-    .final-cta {
-      padding: 140px 0;
-      text-align: center;
-      background: radial-gradient(ellipse at 50% 50%, rgba(6, 182, 212, 0.12), transparent 70%);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .final-cta::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 150%;
-      height: 150%;
-      background: radial-gradient(circle, rgba(6, 182, 212, 0.06) 0%, transparent 60%);
-      animation: ctaPulse 8s ease-in-out infinite;
-    }
-
-    @keyframes ctaPulse {
-
-      0%,
-      100% {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 0.6;
-      }
-
-      50% {
-        transform: translate(-50%, -50%) scale(1.2);
-        opacity: 1;
-      }
-    }
-
-    .final-cta-content {
-      position: relative;
-      z-index: 1;
-    }
-
-    .final-cta h2 {
-      font-size: 52px;
-      font-weight: 900;
-      margin-bottom: 28px;
-      line-height: 1.3;
-      letter-spacing: -0.03em;
-    }
-
-    .final-cta p {
-      font-size: 22px;
-      color: var(--text-secondary);
-      margin-bottom: 56px;
-      max-width: 650px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.7;
-    }
-
-    .cta-benefits {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      margin-bottom: 56px;
-      flex-wrap: wrap;
-    }
-
-    .cta-benefit {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--text-secondary);
-      font-size: 17px;
-      font-weight: 500;
-    }
-
-    .cta-benefit::before {
-      content: "✓";
-      color: var(--success);
-      font-weight: 700;
-      font-size: 22px;
-    }
-
-    .final-cta-button {
-      background: var(--accent);
-      color: white;
-      padding: 24px 72px;
-      border-radius: 16px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 21px;
-      display: inline-block;
-      transition: all 0.4s ease;
-      box-shadow: 0 8px 32px rgba(6, 182, 212, 0.4);
-      border: 2px solid var(--accent);
-    }
-
-    .final-cta-button:hover {
-      background: var(--accent-hover);
-      transform: translateY(-6px) scale(1.02);
-      box-shadow: 0 16px 48px rgba(6, 182, 212, 0.6);
-    }
-
-    .final-cta-note {
-      margin-top: 32px;
-      font-size: 15px;
-      color: var(--text-muted);
-    }
-
-    .final-cta-note a {
-      color: var(--accent);
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    .final-cta-note a:hover {
-      color: var(--accent-hover);
-      text-decoration: underline;
-    }
-
-    /* Footer */
-    footer {
-      padding: 56px 0;
-      background: var(--bg-secondary);
-      border-top: 1px solid var(--border);
-      text-align: center;
-    }
-
-    .footer-content {
-      color: var(--text-muted);
-      font-size: 14px;
-    }
-
-    .footer-links {
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-      gap: 32px;
-      flex-wrap: wrap;
-    }
-
-    .footer-links a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      transition: all 0.3s ease;
-      font-weight: 500;
-    }
-
-    .footer-links a:hover {
-      color: var(--accent);
-      transform: translateY(-2px);
-    }
-
-    /* Responsive */
-    @media (max-width: 1024px) {
-      .hero-stats {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 768px) {
-      .hero {
-        padding: 120px 0 80px;
-      }
-
-      .hero h1 {
-        font-size: 40px;
-      }
-
-      .hero-subtitle {
-        font-size: 18px;
-      }
-
-      .hero-stats {
-        grid-template-columns: 1fr;
-      }
-
-      .section-title {
-        font-size: 36px;
-      }
-
-      .section-subtitle {
-        font-size: 17px;
-      }
-
-      .pain-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .comparison-header,
-      .comparison-row {
-        grid-template-columns: 2fr 1fr 1fr;
-        font-size: 13px;
-        padding: 20px 16px;
-      }
-
-      .service-cards {
-        grid-template-columns: 1fr;
-      }
-
-      .pricing-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .process-steps {
-        grid-template-columns: 1fr;
-      }
-
-      .process-steps::before {
-        display: none;
-      }
-
-      .trust-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-cta-group {
-        flex-direction: column;
-      }
-
-      .cta-primary,
-      .cta-secondary {
-        width: 100%;
-        padding: 18px 32px;
-      }
-
-      .cta-benefits {
-        flex-direction: column;
-        gap: 16px;
-      }
-
-      .final-cta h2 {
-        font-size: 36px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI活用を、チームの力に変える。 | metafactory agent studio</title>
+    <meta name="description"
+        content="AI導入で失敗したくない経営者へ。外注に頼り続けない「卒業がゴール」の伴走支援。25年300名の育成実績から生まれた独自メソッドで、御社チームがAIを使いこなせるようになります。">
+    <meta property="og:title" content="AI活用を、チームの力に変える。 | metafactory agent studio">
+    <meta property="og:description" content="卒業がゴールのAI伴走支援。25年の実績×300名の育成経験。御社チームが自走できるまで、責任を持って伴走します。">
+    <meta property="og:type" content="website">
+    <style>
+        :root {
+            --bg-primary: #0a0e1a;
+            --bg-secondary: #0f172a;
+            --bg-card: #1e293b;
+            --bg-card-hover: #2d3a52;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --accent: #06b6d4;
+            --accent-hover: #0891b2;
+            --accent-light: rgba(6, 182, 212, 0.1);
+            --accent-glow: rgba(6, 182, 212, 0.3);
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --purple: #8b5cf6;
+            --border: rgba(148, 163, 184, 0.2);
+            --shadow: rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP", "Hiragino Sans", sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--success));
+            z-index: 1001;
+            transform-origin: left;
+            transition: transform 0.1s ease;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 14, 26, 0.98);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 0;
+        }
+
+        .logo {
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: -0.03em;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            color: var(--accent-hover);
+        }
+
+        .logo span {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-left: 8px;
+            font-weight: 400;
+        }
+
+        .cta-button {
+            background: var(--accent);
+            color: white;
+            padding: 12px 36px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 2px 8px rgba(6, 182, 212, 0.2);
+        }
+
+        .cta-button:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(6, 182, 212, 0.4);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 160px 0 120px;
+            text-align: center;
+            background: radial-gradient(ellipse at 50% 0%, rgba(6, 182, 212, 0.15), transparent 60%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.08) 0%, transparent 50%);
+            animation: heroGlow 10s ease-in-out infinite;
+        }
+
+        @keyframes heroGlow {
+
+            0%,
+            100% {
+                opacity: 0.4;
+                transform: translateX(-50%) scale(1);
+            }
+
+            50% {
+                opacity: 0.8;
+                transform: translateX(-50%) scale(1.2);
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: var(--accent-light);
+            color: var(--accent);
+            padding: 10px 24px;
+            border-radius: 24px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 32px;
+            border: 1px solid var(--accent);
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.2);
+            animation: tagFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes tagFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 32px;
+            letter-spacing: -0.04em;
+        }
+
+        .hero h1 .highlight {
+            color: var(--accent);
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero h1 .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--success));
+            border-radius: 2px;
+            animation: underlineExpand 2s ease-in-out infinite;
+        }
+
+        @keyframes underlineExpand {
+
+            0%,
+            100% {
+                transform: scaleX(0.8);
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: scaleX(1);
+                opacity: 1;
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 22px;
+            color: var(--text-secondary);
+            margin-bottom: 56px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 72px;
+        }
+
+        .cta-primary {
+            background: var(--accent);
+            color: white;
+            padding: 20px 56px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 19px;
+            transition: all 0.4s ease;
+            box-shadow: 0 6px 24px rgba(6, 182, 212, 0.35);
+            border: 2px solid var(--accent);
+        }
+
+        .cta-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 36px rgba(6, 182, 212, 0.5);
+        }
+
+        .cta-secondary {
+            color: var(--text-primary);
+            padding: 20px 56px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 19px;
+            border: 2px solid var(--border);
+            transition: all 0.4s ease;
+            background: rgba(30, 41, 59, 0.5);
+        }
+
+        .cta-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(6, 182, 212, 0.05);
+            transform: translateY(-4px);
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-stat {
+            padding: 24px;
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .hero-stat.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-stat:hover {
+            background: rgba(30, 41, 59, 0.9);
+            border-color: var(--accent);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 32px var(--shadow);
+        }
+
+        .hero-stat-number {
+            font-size: 38px;
+            font-weight: 900;
+            color: var(--accent);
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+            word-break: keep-all;
+        }
+
+        .hero-stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Sections Common */
+        .section-header {
+            text-align: center;
+            margin-bottom: 72px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: rgba(239, 68, 68, 0.12);
+            color: var(--danger);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            border: 1px solid var(--danger);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 24px;
+            line-height: 1.25;
+            letter-spacing: -0.03em;
+        }
+
+        .section-subtitle {
+            font-size: 20px;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Pain Points */
+        .pain-points {
+            padding: 120px 0;
+            background: var(--bg-secondary);
+        }
+
+        .pain-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .pain-card {
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pain-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--danger);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .pain-card:hover::before {
+            opacity: 1;
+        }
+
+        .pain-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .pain-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--danger);
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px var(--shadow);
+        }
+
+        .pain-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(239, 68, 68, 0.12);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            font-size: 28px;
+        }
+
+        .pain-card h3 {
+            font-size: 22px;
+            margin-bottom: 14px;
+            font-weight: 700;
+        }
+
+        .pain-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        /* Solution */
+        .solution {
+            padding: 120px 0;
+            background: radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.04), transparent 70%);
+        }
+
+        .solution .section-tag {
+            background: rgba(16, 185, 129, 0.12);
+            color: var(--success);
+            border-color: var(--success);
+        }
+
+        .comparison-table {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            opacity: 0;
+            transform: scale(0.96);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 32px var(--shadow);
+        }
+
+        .comparison-table.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .comparison-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            background: var(--bg-secondary);
+            font-weight: 800;
+            padding: 32px 36px;
+            border-bottom: 2px solid var(--border);
+            font-size: 18px;
+            letter-spacing: 1px;
+            align-items: center;
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            padding: 26px 36px;
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+            font-size: 16px;
+            align-items: center;
+        }
+
+        .comparison-row:hover {
+            background: rgba(6, 182, 212, 0.05);
+        }
+
+        .comparison-row:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-row>div:first-child {
+            font-weight: 700;
+            font-size: 17px;
+        }
+
+        .comparison-fail {
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .comparison-fail::before {
+            content: "✗";
+            color: var(--danger);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .comparison-success {
+            color: var(--success);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .comparison-success::before {
+            content: "✓";
+            color: var(--success);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        /* Differentiation */
+        .differentiation {
+            padding: 120px 0;
+            background: var(--bg-secondary);
+        }
+
+        .differentiation .section-tag {
+            background: rgba(139, 92, 246, 0.12);
+            color: var(--purple);
+            border-color: var(--purple);
+        }
+
+        .diff-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 36px;
+            margin-top: 64px;
+        }
+
+        .diff-card {
+            background: var(--bg-card);
+            padding: 48px 36px;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .diff-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .diff-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--purple), var(--accent));
+        }
+
+        .diff-card:hover {
+            border-color: var(--purple);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 48px var(--shadow);
+            background: var(--bg-card-hover);
+        }
+
+        .diff-number {
+            font-size: 56px;
+            font-weight: 900;
+            color: rgba(139, 92, 246, 0.15);
+            margin-bottom: 16px;
+            letter-spacing: -0.04em;
+        }
+
+        .diff-icon {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .diff-card h3 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .diff-card .diff-sub {
+            color: var(--accent);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .diff-card p {
+            color: var(--text-secondary);
+            line-height: 1.9;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .diff-evidence {
+            padding: 12px 16px;
+            background: rgba(6, 182, 212, 0.06);
+            border-radius: 10px;
+            border: 1px solid rgba(6, 182, 212, 0.15);
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* Services */
+        .services {
+            padding: 120px 0;
+        }
+
+        .service-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-top: 64px;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            padding: 48px;
+            border-radius: 24px;
+            border: 2px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .service-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent), var(--success));
+        }
+
+        .service-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-12px);
+            box-shadow: 0 24px 56px var(--shadow);
+            background: var(--bg-card-hover);
+        }
+
+        .service-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--accent-light);
+            color: var(--accent);
+            padding: 8px 18px;
+            border-radius: 14px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            border: 1px solid var(--accent);
+        }
+
+        .service-chip {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: rgba(6, 182, 212, 0.12);
+            border: 1px solid rgba(6, 182, 212, 0.55);
+            color: var(--text-primary);
+            font-weight: 700;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .service-card h3 {
+            font-size: 30px;
+            margin-bottom: 18px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .service-card>p {
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+            line-height: 1.9;
+            font-size: 17px;
+        }
+
+        .service-features {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .service-features li {
+            padding: 12px 0;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: start;
+            gap: 14px;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .service-features li::before {
+            content: "✓";
+            color: var(--success);
+            font-weight: 700;
+            font-size: 20px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .service-cta {
+            background: var(--accent);
+            color: white;
+            padding: 16px 40px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 17px;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(6, 182, 212, 0.3);
+        }
+
+        .service-cta:hover {
+            background: var(--accent-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(6, 182, 212, 0.5);
+        }
+
+        .service-price-note {
+            display: block;
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Selection Guide */
+        .selection-guide {
+            padding: 80px 0;
+            background: var(--bg-secondary);
+        }
+
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .guide-card {
+            background: var(--bg-card);
+            padding: 36px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .guide-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .guide-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 36px var(--shadow);
+        }
+
+        .guide-card .guide-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .guide-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .guide-card p {
+            color: var(--text-muted);
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .guide-rec {
+            color: var(--accent);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 120px 0;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(30px);
+            position: relative;
+        }
+
+        .pricing-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .pricing-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-10px);
+            box-shadow: 0 16px 48px var(--shadow);
+            background: var(--bg-card-hover);
+        }
+
+        .pricing-card.featured {
+            border: 2px solid var(--accent);
+        }
+
+        .pricing-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .pricing-card h4 {
+            font-size: 24px;
+            margin-bottom: 6px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .pricing-target {
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .pricing-price {
+            text-align: center;
+            font-size: 28px;
+            color: var(--accent);
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .pricing-monthly {
+            text-align: center;
+            font-size: 16px;
+            color: var(--accent);
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .pricing-annual {
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .pricing-meta {
+            margin-bottom: 20px;
+            padding: 16px;
+            background: rgba(6, 182, 212, 0.04);
+            border-radius: 12px;
+            border: 1px solid rgba(6, 182, 212, 0.1);
+        }
+
+        .pricing-meta-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 14px;
+        }
+
+        .pricing-meta-row .label {
+            color: var(--text-muted);
+        }
+
+        .pricing-meta-row .value {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 24px;
+        }
+
+        .pricing-features li {
+            padding: 8px 0;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: start;
+            gap: 10px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .pricing-features li::before {
+            content: "✓";
+            color: var(--success);
+            font-weight: 700;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .pricing-note {
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-muted);
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* App Delivery Pricing (small) */
+        .app-pricing {
+            max-width: 800px;
+            margin: 48px auto 0;
+            padding: 32px;
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .app-pricing h4 {
+            font-size: 20px;
+            margin-bottom: 16px;
+            color: var(--accent);
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .app-pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .app-pricing-item {
+            text-align: center;
+            padding: 16px;
+            border-radius: 12px;
+            background: rgba(6, 182, 212, 0.04);
+        }
+
+        .app-pricing-item .size {
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .app-pricing-item .range {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        .app-pricing-item .detail {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* Process */
+        .process {
+            padding: 120px 0;
+            background: var(--bg-secondary);
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 28px;
+            position: relative;
+        }
+
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 28px;
+            left: 8%;
+            right: 8%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--success));
+            z-index: 0;
+            border-radius: 2px;
+        }
+
+        .step {
+            background: var(--bg-card);
+            padding: 36px 28px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .step.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .step:hover {
+            background: var(--bg-card-hover);
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px var(--shadow);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--accent), var(--success));
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 56px;
+            font-weight: 900;
+            font-size: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 16px rgba(6, 182, 212, 0.4);
+        }
+
+        .step:hover .step-number {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .step h4 {
+            font-size: 20px;
+            margin-bottom: 14px;
+            font-weight: 700;
+        }
+
+        .step p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Trust */
+        .trust {
+            padding: 120px 0;
+        }
+
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 36px;
+            margin-top: 64px;
+        }
+
+        .trust-card {
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .trust-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .trust-card:hover {
+            background: var(--bg-card-hover);
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px var(--shadow);
+            border-color: var(--accent);
+        }
+
+        .trust-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--accent-light);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            font-size: 32px;
+            border: 1px solid var(--accent);
+        }
+
+        .trust-card:hover .trust-icon {
+            transform: scale(1.1) rotate(-5deg);
+            background: rgba(6, 182, 212, 0.2);
+        }
+
+        .trust-card h3 {
+            font-size: 22px;
+            margin-bottom: 14px;
+            font-weight: 700;
+        }
+
+        .trust-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        /* FAQ */
+        .faq {
+            padding: 120px 0;
+            background: var(--bg-secondary);
+        }
+
+        .faq-list {
+            max-width: 850px;
+            margin: 64px auto 0;
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            border-radius: 16px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .faq-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .faq-item:hover {
+            border-color: var(--accent);
+        }
+
+        .faq-question {
+            padding: 28px;
+            font-weight: 600;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: rgba(6, 182, 212, 0.05);
+        }
+
+        .faq-icon {
+            font-size: 28px;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .faq-answer-content {
+            padding: 0 28px 28px;
+            color: var(--text-secondary);
+            line-height: 1.9;
+            font-size: 16px;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 600px;
+        }
+
+        /* Profile */
+        .profile {
+            padding: 120px 0;
+        }
+
+        .profile-content {
+            max-width: 750px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            padding: 56px;
+            border-radius: 24px;
+            border: 2px solid var(--border);
+            text-align: center;
+            box-shadow: 0 8px 32px var(--shadow);
+        }
+
+        .profile-name {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+
+        .profile-title {
+            font-size: 18px;
+            color: var(--accent);
+            margin-bottom: 28px;
+            font-weight: 600;
+        }
+
+        .profile-description {
+            color: var(--text-secondary);
+            line-height: 1.9;
+            margin-bottom: 36px;
+            font-size: 17px;
+        }
+
+        .profile-highlights {
+            list-style: none;
+            text-align: left;
+        }
+
+        .profile-highlights li {
+            padding: 16px 0;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .profile-highlights li:hover {
+            color: var(--text-primary);
+            padding-left: 8px;
+        }
+
+        .profile-highlights li:last-child {
+            border-bottom: none;
+        }
+
+        .profile-highlights li::before {
+            content: "→";
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        /* Final CTA */
+        .final-cta {
+            padding: 140px 0;
+            text-align: center;
+            background: radial-gradient(ellipse at 50% 50%, rgba(6, 182, 212, 0.12), transparent 70%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.06) 0%, transparent 60%);
+            animation: ctaPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes ctaPulse {
+
+            0%,
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 1;
+            }
+        }
+
+        .final-cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .final-cta h2 {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 28px;
+            line-height: 1.3;
+            letter-spacing: -0.03em;
+        }
+
+        .final-cta p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 48px;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+
+        .cta-benefits {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+
+        .cta-benefit {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+            font-size: 17px;
+            font-weight: 500;
+        }
+
+        .cta-benefit::before {
+            content: "✓";
+            color: var(--success);
+            font-weight: 700;
+            font-size: 22px;
+        }
+
+        .final-cta-button {
+            background: var(--accent);
+            color: white;
+            padding: 24px 72px;
+            border-radius: 16px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 21px;
+            display: inline-block;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 32px rgba(6, 182, 212, 0.4);
+            border: 2px solid var(--accent);
+        }
+
+        .final-cta-button:hover {
+            background: var(--accent-hover);
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 16px 48px rgba(6, 182, 212, 0.6);
+        }
+
+        .final-cta-note {
+            margin-top: 32px;
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        .final-cta-note a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .final-cta-note a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            padding: 56px 0;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer-content {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .footer-links {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .diff-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 120px 0 80px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero-subtitle {
+                font-size: 17px;
+            }
+
+            .hero-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .pain-grid,
+            .service-cards,
+            .pricing-grid,
+            .guide-grid,
+            .trust-grid,
+            .app-pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .process-steps::before {
+                display: none;
+            }
+
+            .comparison-header,
+            .comparison-row {
+                grid-template-columns: 2fr 1fr 1fr;
+                font-size: 13px;
+                padding: 20px 16px;
+            }
+
+            .hero-cta-group {
+                flex-direction: column;
+            }
+
+            .cta-primary,
+            .cta-secondary {
+                width: 100%;
+                padding: 18px 32px;
+                text-align: center;
+            }
+
+            .cta-benefits {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .final-cta h2 {
+                font-size: 32px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-  <div class="progress-bar" id="progressBar"></div>
+    <div class="progress-bar" id="progressBar"></div>
 
-  <header id="header">
-    <div class="container">
-      <div class="header-content">
-        <a href="#" class="logo">metafactory agent studio</a>
-        <a href="#contact" class="cta-button">無料相談する</a>
-      </div>
-    </div>
-  </header>
-
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="container">
-      <div class="hero-content">
-        <div class="hero-tag">伴走型LLM変革コンサルティング</div>
-        <h1>
-          LLMの力を、<br>
-          <span class="highlight">あなたのチームの力に。</span>
-        </h1>
-        <p class="hero-subtitle">
-          伴走型のLLMリテラシー教育とハンズオンで、従業員がLLMを理解し自走できるまでサポート。<br>
-          自走化後は月額終了できる、御社の規模に合わせた変革支援です。
-        </p>
-        <div class="hero-cta-group">
-          <a href="#contact" class="cta-primary">無料相談を予約する</a>
-          <a href="#services" class="cta-secondary">サービスを見る</a>
-        </div>
-        <div class="hero-stats">
-          <div class="hero-stat">
-            <div class="hero-stat-number">25年+</div>
-            <div class="hero-stat-label">品質管理の経験</div>
-          </div>
-          <div class="hero-stat">
-            <div class="hero-stat-number">300+</div>
-            <div class="hero-stat-label">技術者育成実績</div>
-          </div>
-          <div class="hero-stat">
-            <div class="hero-stat-number">APC Framework</div>
-            <div class="hero-stat-label">開発・評価・運用の型</div>
-          </div>
-          <div class="hero-stat">
-            <div class="hero-stat-number">実務志向</div>
-            <div class="hero-stat-label">稼働・保守まで見据えた設計</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Pain Points Section -->
-  <section class="pain-points">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-tag">よくある失敗パターン</div>
-        <h2 class="section-title">こんな悩み、ありませんか？</h2>
-        <p class="section-subtitle">
-          多くの企業がAI導入で同じ壁にぶつかります。<br>
-          あなたも心当たりはありませんか？
-        </p>
-      </div>
-      <div class="pain-grid">
-        <div class="pain-card">
-          <div class="pain-icon">⚠️</div>
-          <h3>PoC止まりで終わる</h3>
-          <p>試作はできたが、本番環境で動かず、結局使えない。投資が無駄になってしまった。</p>
-        </div>
-        <div class="pain-card">
-          <div class="pain-icon">🔥</div>
-          <h3>品質が不安定</h3>
-          <p>AIの出力が予測不能。同じ入力でも結果が変わり、業務に組み込めない。</p>
-        </div>
-        <div class="pain-card">
-          <div class="pain-icon">💸</div>
-          <h3>コストが膨張</h3>
-          <p>想定の3倍以上の費用がかかり、ROIが見えない。追加投資の判断もできない。</p>
-        </div>
-        <div class="pain-card">
-          <div class="pain-icon">🚫</div>
-          <h3>社内で回せない</h3>
-          <p>開発会社に依存し続け、ブラックボックス化。改善も保守も自分たちでできない。</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Solution Section -->
-  <section class="solution">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-tag">私たちの解決策</div>
-        <h2 class="section-title">確実に成功させる理由</h2>
-        <p class="section-subtitle">
-          大規模システム開発で培った品質管理手法を、AI開発に適用しています
-        </p>
-      </div>
-      <div class="comparison-table">
-        <div class="comparison-header">
-          <div>課題</div>
-          <div>従来の開発</div>
-          <div>私たちの方法</div>
-        </div>
-        <div class="comparison-row">
-          <div>本番稼働</div>
-          <div class="comparison-fail">PoCで終了</div>
-          <div class="comparison-success">運用条件から逆算</div>
-        </div>
-        <div class="comparison-row">
-          <div>品質</div>
-          <div class="comparison-fail">不安定な出力</div>
-          <div class="comparison-success">評価基準を定義</div>
-        </div>
-        <div class="comparison-row">
-          <div>コスト</div>
-          <div class="comparison-fail">見通せず膨張</div>
-          <div class="comparison-success">段階的で明確</div>
-        </div>
-        <div class="comparison-row">
-          <div>自律性</div>
-          <div class="comparison-fail">ベンダー依存</div>
-          <div class="comparison-success">社内で自走可能</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Services Section -->
-  <section id="services" class="services">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">2つのサービスモデル</h2>
-        <p class="section-subtitle">
-          提供形態は「フルサポート開発」と「フレームワーク導入」の2つ。<br>
-          企業規模別の料金プラン（Plan S / M / L）と組み合わせてご利用いただけます
-        </p>
-      </div>
-      <div class="service-cards">
-        <div class="service-card">
-          <div class="service-badge">
-            モデル1
-            <span class="service-chip">APC Framework</span>
-          </div>
-          <h3>フルサポート開発</h3>
-          <p>
-            AIシステムの企画から運用まで、全てを代行。あなたは業務に集中し、私たちが確実に動くシステムを納品します。
-          </p>
-          <ul class="service-features">
-            <li>要件定義から本番稼働まで完全代行</li>
-            <li>段階的な開発で投資リスクを最小化</li>
-            <li>社内で運用できる状態まで伴走</li>
-            <li>マニュアル作成・育成サポート付き</li>
-            <li>保守・改善も継続サポート</li>
-          </ul>
-          <a href="#contact" class="service-cta">相談する</a>
-        </div>
-
-        <div class="service-card">
-          <div class="service-badge">
-            モデル2
-            <span class="service-chip">META_COWORK</span>
-          </div>
-          <h3>フレームワーク導入</h3>
-          <p>
-            APCフレームワークを導入し、貴社の開発チームが自らAIシステムを構築できる体制を整備。内製化を実現します。
-          </p>
-          <ul class="service-features">
-            <li>実戦で証明された開発フレームワーク</li>
-            <li>ハンズオン研修で確実に習得</li>
-            <li>貴社の技術レベルに合わせた育成</li>
-            <li>開発支援・コードレビュー付き</li>
-            <li>継続的な技術サポート体制</li>
-          </ul>
-          <a href="#contact" class="service-cta">相談する</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Selection Guide Section -->
-  <section class="selection-guide" style="padding:80px 0; background:var(--bg-secondary);">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">どちらのモデルを選ぶべきか？</h2>
-        <p class="section-subtitle">御社の状況に最適なサービスモデルを見つけ、規模に合ったプランで始めましょう</p>
-      </div>
-      <div
-        style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:28px; max-width:1100px; margin:0 auto;">
-
-        <div style="background:var(--bg-card); padding:36px; border-radius:20px; border:1px solid var(--border);">
-          <div style="font-size:32px; margin-bottom:12px;">🏗️</div>
-          <h3 style="color:var(--text-primary); font-size:20px; margin-bottom:12px;">社内に開発リソースがない</h3>
-          <p style="color:var(--text-muted); font-size:15px; line-height:1.7; margin-bottom:16px;">
-            AI開発の経験者がいない、または時間が取れない場合は<strong
-              style="color:var(--accent);">モデル1（フルサポート開発）</strong>がおすすめ。企画から運用まで全てお任せください。
-          </p>
-          <div style="color:var(--accent); font-size:14px; font-weight:600;">→ Plan M / Plan L で利用可能</div>
-        </div>
-
-        <div style="background:var(--bg-card); padding:36px; border-radius:20px; border:1px solid var(--border);">
-          <div style="font-size:32px; margin-bottom:12px;">🛠️</div>
-          <h3 style="color:var(--text-primary); font-size:20px; margin-bottom:12px;">社内で開発・運用したい</h3>
-          <p style="color:var(--text-muted); font-size:15px; line-height:1.7; margin-bottom:16px;">
-            開発チームがあり、AIスキルを内製化したい場合は<strong
-              style="color:var(--accent);">モデル2（フレームワーク導入）</strong>がおすすめ。フレームワークと研修で自走できる体制を構築します。
-          </p>
-          <div style="color:var(--accent); font-size:14px; font-weight:600;">→ 全プラン（Plan S〜Plan L）で利用可能</div>
-        </div>
-
-        <div style="background:var(--bg-card); padding:36px; border-radius:20px; border:1px solid var(--border);">
-          <div style="font-size:32px; margin-bottom:12px;">🔄</div>
-          <h3 style="color:var(--text-primary); font-size:20px; margin-bottom:12px;">両方を段階的に進めたい</h3>
-          <p style="color:var(--text-muted); font-size:15px; line-height:1.7; margin-bottom:16px;">
-            まず<strong style="color:var(--accent);">モデル1</strong>で確実に動くシステムを納品し、その後<strong
-              style="color:var(--accent);">モデル2</strong>で社内チームに技術移転。最もリスクの低い進め方です。
-          </p>
-          <div style="color:var(--accent); font-size:14px; font-weight:600;">→ Plan M / Plan L で段階的に実施</div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Pricing Section -->
-  <section class="pricing">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">明確な料金体系</h2>
-        <p class="section-subtitle">
-          上記2つのサービスモデルを、企業規模別の3つのプランでご提供します
-        </p>
-      </div>
-
-      <!-- 3-Plan Structure -->
-      <div class="pricing-container">
-        <div class="pricing-grid" style="grid-template-columns: repeat(3, 1fr);">
-
-          <!-- Plan S -->
-          <div class="pricing-card">
-            <div style="text-align:center; margin-bottom:16px;">
-              <span
-                style="display:inline-block; background:var(--accent); color:#fff; padding:4px 16px; border-radius:20px; font-size:13px; font-weight:700;">おすすめ</span>
+    <header id="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">metafactory agent studio <span>v10</span></a>
+                <a href="#contact" class="cta-button">無料診断する</a>
             </div>
-            <h4 style="text-align:center;">Plan S（≤30名）</h4>
-            <div style="text-align:center; font-size:14px; color:var(--text-muted); margin-bottom:12px;">従業員30名以下の企業向け
+        </div>
+    </header>
+
+    <!-- 1. Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-tag">外注に頼り続けない AI 伴走支援</div>
+                <h1>AI活用を、<br><span class="highlight">チームの力に変える。</span></h1>
+                <p class="hero-subtitle">
+                    御社のチームが、AIを自分たちで使いこなせるようになる。<br>
+                    「卒業がゴール」——自走できたら月額は終了。<br>
+                    すぐ動くアプリ納品と、チームを育てる伴走支援。2つのモデルで応えます。
+                </p>
+                <div class="hero-cta-group">
+                    <a href="#contact" class="cta-primary">無料診断を受ける</a>
+                    <a href="#services" class="cta-secondary">サービスを見る</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">25年</div>
+                        <div class="hero-stat-label">大規模開発の品質管理経験</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">300名+</div>
+                        <div class="hero-stat-label">技術者の育成実績</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">最短3ヶ月</div>
+                        <div class="hero-stat-label">で御社チームが自走</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">80万円</div>
+                        <div class="hero-stat-label">で試してから決められる</div>
+                    </div>
+                </div>
             </div>
-            <div class="price" style="text-align:center; font-size:28px;">初期 150万円</div>
-            <div style="text-align:center; font-size:16px; color:var(--accent); margin-bottom:20px;">+ 月額 15万円（伴走コンサル込）
+        </div>
+    </section>
+
+    <!-- 2. Pain Points -->
+    <section class="pain-points">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">よくある失敗パターン</div>
+                <h2 class="section-title">こんな課題、放置していませんか？</h2>
+                <p class="section-subtitle">AIを導入した企業の多くが、同じ壁にぶつかっています。</p>
             </div>
-            <p style="text-align:center; font-size:13px; color:var(--text-muted); margin-bottom:20px;">APC全機能対応 +
-              LLMリテラシー教育</p>
-            <ul class="service-features" style="margin-bottom:20px;">
-              <li>フレームワーク導入（モデル2）</li>
-              <li>同梱Agent：タスク管理Agent + 座学Agent</li>
-              <li>ハンズオン研修（基礎）</li>
-              <li>月次技術サポート</li>
-              <li>組織展開プラットフォーム（推進者層1名〜 + 利用者層展開）</li>
-            </ul>
-            <div style="text-align:center; font-size:13px; color:var(--text-muted);">
-              初年度540万円（市場中央値580万と同水準、成果の確実性が異なる）
+            <div class="pain-grid">
+                <div class="pain-card">
+                    <div class="pain-icon">⚠️</div>
+                    <h3>出力品質がバラつく</h3>
+                    <p>同じ指示を出しても結果が毎回違う。「これ、本番で使って大丈夫？」——その不安が拭えないまま、プロジェクトが止まっている。</p>
+                </div>
+                <div class="pain-card">
+                    <div class="pain-icon">🔗</div>
+                    <h3>ベンダーから抜け出せない</h3>
+                    <p>外注に頼んだAIアプリ。改修も保守も全部ベンダー任せ。毎月のコストは増え続け、社内には何も残らない。</p>
+                </div>
+                <div class="pain-card">
+                    <div class="pain-icon">🧪</div>
+                    <h3>品質の担保ができない</h3>
+                    <p>AIの出力は毎回違う。「これ、お客様に出して大丈夫？」——その確信が持てないまま、誰も責任を取れる人がいない。</p>
+                </div>
+                <div class="pain-card">
+                    <div class="pain-icon">🏗️</div>
+                    <h3>試作止まりで本番に進めない</h3>
+                    <p>試作は動いた。でも本番環境への橋渡しができない。「試作疲れ」のまま、投資だけが積み上がっていく。</p>
+                </div>
             </div>
-          </div>
+        </div>
+    </section>
 
-          <!-- Plan M -->
-          <div class="pricing-card">
-            <h4 style="text-align:center; margin-top:36px;">Plan M（30-999名）</h4>
-            <div style="text-align:center; font-size:14px; color:var(--text-muted); margin-bottom:12px;">
-              従業員30〜999名規模の企業向け</div>
-            <div class="price" style="text-align:center; font-size:28px;">初期 400万円</div>
-            <div style="text-align:center; font-size:16px; color:var(--accent); margin-bottom:20px;">+ 月額 30万円〜（伴走コンサル込）
+    <!-- 3. Solution -->
+    <section class="solution">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">他社との違い</div>
+                <h2 class="section-title">一般的なAI導入と、何が違うのか</h2>
+                <p class="section-subtitle">「作って終わり」のAI外注と、「御社が自走できるようになる」支援。<br>この違いが、1年後のコスト構造を根本から変えます。</p>
             </div>
-            <p style="text-align:center; font-size:13px; color:var(--text-muted); margin-bottom:20px;">APC全機能対応 + メンター教育
-            </p>
-            <ul class="service-features" style="margin-bottom:20px;">
-              <li>モデル1（フルサポート）またはモデル2（導入支援）</li>
-              <li>同梱Agent：Plan S同梱 + アプリ診断Agent + メンターAgent</li>
-              <li>ハンズオン研修（応用含む）</li>
-              <li>週次技術サポート</li>
-              <li>組織展開プラットフォーム（推進者数名＋利用者層の2層展開）</li>
-            </ul>
-            <div style="text-align:center; font-size:13px; color:var(--text-muted);">
-              初年度760万円（当社費用）+ System費は御社負担
+            <div class="comparison-table">
+                <div class="comparison-header">
+                    <div>よくある課題</div>
+                    <div>一般的なAI導入</div>
+                    <div>metafactory</div>
+                </div>
+                <div class="comparison-row">
+                    <div>品質のバラつき</div>
+                    <div class="comparison-fail">担当者のスキル次第</div>
+                    <div class="comparison-success">仕組みで品質を安定させる</div>
+                </div>
+                <div class="comparison-row">
+                    <div>外注コスト</div>
+                    <div class="comparison-fail">毎月払い続ける</div>
+                    <div class="comparison-success">卒業すれば月額ゼロに</div>
+                </div>
+                <div class="comparison-row">
+                    <div>引き継ぎ</div>
+                    <div class="comparison-fail">中身がブラックボックス</div>
+                    <div class="comparison-success">作った理由まで全て記録・引き継ぎ可能</div>
+                </div>
+                <div class="comparison-row">
+                    <div>社内の成長</div>
+                    <div class="comparison-fail">社内に何も残らない</div>
+                    <div class="comparison-success">御社チームがAIを使いこなせるようになる</div>
+                </div>
+                <div class="comparison-row">
+                    <div>追加開発</div>
+                    <div class="comparison-fail">また外注。また見積。</div>
+                    <div class="comparison-success">自社で回せる体制が残る</div>
+                </div>
             </div>
-          </div>
+        </div>
+    </section>
 
-          <!-- Plan L -->
-          <div class="pricing-card">
-            <h4 style="text-align:center; margin-top:36px;">Plan L（1000名以上）</h4>
-            <div style="text-align:center; font-size:14px; color:var(--text-muted); margin-bottom:12px;">従業員1000名以上・個別見積
+    <!-- 4. Differentiation -->
+    <section class="differentiation">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">選ばれる理由</div>
+                <h2 class="section-title">他のAIコンサルとの決定的な違い</h2>
+                <p class="section-subtitle">この3つは、他では手に入りません。</p>
             </div>
-            <div class="price" style="text-align:center; font-size:28px; white-space:nowrap;">初期 1,000万円〜</div>
-            <div style="text-align:center; font-size:16px; color:var(--accent); margin-bottom:20px;">+ 月額
-              100万円〜（伴走コンサル込）</div>
-            <p style="text-align:center; font-size:13px; color:var(--text-muted); margin-bottom:20px;">APC全機能対応 +
-              全社DX戦略支援</p>
-            <ul class="service-features" style="margin-bottom:20px;">
-              <li>モデル1 + モデル2 統合プラン</li>
-              <li>同梱Agent：Plan M同梱 + アプリ作成Agent(革新レベル)</li>
-              <li>ハンズオン研修（実践含む）</li>
-              <li>組織展開プラットフォーム（設計者・推進者・利用者の3層展開）</li>
-              <li>SLA保証 + 専用カスタマイズ</li>
-            </ul>
-            <div style="text-align:center; font-size:13px; color:var(--text-muted);">
-              個別見積 — 御社の規模に応じた最適プランをご提案
+            <div class="diff-grid">
+                <div class="diff-card">
+                    <div class="diff-number">01</div>
+                    <div class="diff-icon">🎓</div>
+                    <h3>「卒業」がゴール</h3>
+                    <div class="diff-sub">御社が自走できたら、月額は終了</div>
+                    <p>一般的なコンサルのゴールは「次もまた依頼してもらうこと」。私たちのゴールは「もう来なくていいよ」と言ってもらうこと。ノウハウも仕組みも、全て御社チームに引き継ぎます。自走できたら、さよなら。
+                    </p>
+                    <div class="diff-evidence">最短3ヶ月で自走 / 自走後は月額ゼロ / ノウハウは全て御社のもの</div>
+                </div>
+                <div class="diff-card">
+                    <div class="diff-number">02</div>
+                    <div class="diff-icon">🛡️</div>
+                    <h3>品質を「仕組み」で守る</h3>
+                    <div class="diff-sub">担当者が変わっても、品質は変わらない</div>
+                    <p>独自の品質チェックの仕組みが、AIの出力を二重で検証。「作ったけど品質がバラバラ」——そんな不安とは無縁です。人に依存せず、仕組みで品質を守るから、担当者が変わっても、AIモデルが変わっても安定します。
+                    </p>
+                    <div class="diff-evidence">品質チェックは全自動 / 誰がやっても同じ品質 / ブラックボックスなし</div>
+                </div>
+                <div class="diff-card">
+                    <div class="diff-number">03</div>
+                    <div class="diff-icon">⚙️</div>
+                    <h3>25年 × 300名の現場経験</h3>
+                    <div class="diff-sub">机上の空論ではない。大規模開発の実績</div>
+                    <p>数百名規模のプロジェクトを率い、300名以上の技術者を育てた経験。その全てを体系化した独自メソッドを、御社に移植します。AI人材の「育て方」を知っている——これが、ツールだけ売る会社との決定的な差です。
+                    </p>
+                    <div class="diff-evidence">大規模組込みソフト 25年 / 技術者育成 300名+ / AI×品質管理の専門家</div>
+                </div>
             </div>
-          </div>
+        </div>
+    </section>
 
-        </div>
-      </div>
-
-      <div style="text-align:center; margin-top:48px;">
-        <p style="color:var(--text-secondary); font-size:15px; margin-bottom:12px;">
-          ※ 各プランの初期費用にはパイロット費用（80万円）が含まれています。<br>
-          まず80万円で効果を実証 → プラン導入時に初期費用から全額差引きます。
-        </p>
-        <p style="color:var(--text-muted); font-size:15px; margin-bottom:20px;">
-          全プラン共通：無料相談 → 要件ヒアリング → ご提案。押し売りは一切ありません。
-        </p>
-        <a href="#contact" class="cta-primary">まずは無料相談から</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Process Section -->
-  <section class="process">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">導入の流れ</h2>
-        <p class="section-subtitle">
-          4フェーズで確実にAI活用を定着させます
-        </p>
-      </div>
-
-      <!-- 4 Phase導入モデル -->
-      <div class="process-model"
-        style="margin-bottom:48px; padding:32px; background:linear-gradient(135deg, rgba(99,102,241,0.05), rgba(168,85,247,0.05)); border-radius:16px; border:1px solid rgba(99,102,241,0.15);">
-        <h3 class="model-title" style="text-align:center; margin-bottom:24px;">4フェーズ導入モデル</h3>
-        <div class="process-steps">
-          <div class="step">
-            <div class="step-number">0</div>
-            <h4>無料診断</h4>
-            <p>LLM準備度評価＋ROI試算。御社の現在地と最適プランをご提案。<strong>完全無料・リスクゼロ</strong>。</p>
-          </div>
-          <div class="step">
-            <div class="step-number">1</div>
-            <h4>パイロット（80万円）</h4>
-            <p>1部門で効果を実証。<strong>パイロット費用はプラン導入時に初期費用から全額差引</strong>します。</p>
-          </div>
-          <div class="step">
-            <div class="step-number">2</div>
-            <h4>プラン導入＋全社教育</h4>
-            <p>Plan S/M/Lから最適プランを選択。同梱Agentと教育プログラムで全社展開を推進。</p>
-          </div>
-          <div class="step">
-            <div class="step-number">3</div>
-            <h4>自走化支援（卒業まで伴走）</h4>
-            <p><strong>「卒業がゴール」</strong>— 御社の組織がLLMを自走できる状態になるまで伴走。ベンダー依存にしません。</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Model 1 Process -->
-      <div class="process-model">
-        <h3 class="model-title">モデル1：フルサポート開発</h3>
-        <div class="process-steps">
-          <div class="step">
-            <div class="step-number">1</div>
-            <h4>無料相談</h4>
-            <p>現状の課題、制約、目標をヒアリング。AI導入の可否と方向性を一緒に考えます。</p>
-          </div>
-          <div class="step">
-            <div class="step-number">2</div>
-            <h4>PoC開発</h4>
-            <p>短期間で動くシステムを作成。実際に触って試せるから、投資判断がしやすい。</p>
-          </div>
-          <div class="step">
-            <div class="step-number">3</div>
-            <h4>本番開発</h4>
-            <p>PoCを本番システムに拡張。段階的に機能を追加し、確実に稼働させます。</p>
-          </div>
-          <div class="step">
-            <div class="step-number">4</div>
-            <h4>運用・保守</h4>
-            <p>社内で回せる状態まで伴走。マニュアル作成、担当者育成、トラブル対応。</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Model 2 Process -->
-      <div class="process-model">
-        <h3 class="model-title">モデル2：フレームワーク導入</h3>
-        <div class="process-steps">
-          <div class="step">
-            <div class="step-number">1</div>
-            <h4>無料相談</h4>
-            <p>開発体制、技術レベル、育成目標をヒアリング。フレームワーク活用の方向性を確認。</p>
-          </div>
-          <div class="step">
-            <div class="step-number">2</div>
-            <h4>導入・環境構築</h4>
-            <p>APCフレームワークを貴社環境に導入。開発環境を整備し、動作確認を実施。</p>
-          </div>
-          <div class="step">
-            <div class="step-number">3</div>
-            <h4>研修・育成</h4>
-            <p>貴社開発者向けにハンズオン研修。実際のユースケースで開発体験しながら習得。</p>
-          </div>
-          <div class="step">
-            <div class="step-number">4</div>
-            <h4>継続サポート</h4>
-            <p>自走開始後も技術サポート。質問対応、コードレビュー、ベストプラクティス共有。</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Trust Section -->
-  <section class="trust">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">なぜ信頼できるのか</h2>
-        <p class="section-subtitle">
-          大規模開発の現場で培った確実性
-        </p>
-      </div>
-      <div class="trust-grid">
-        <div class="trust-card">
-          <div class="trust-icon">🎯</div>
-          <h3>大規模開発のTech Lead実績</h3>
-          <p>数百名規模のプロジェクトで品質・スケジュールを守り抜いた経験。その手法をAI開発に適用しています。</p>
-        </div>
-        <div class="trust-card">
-          <div class="trust-icon">👥</div>
-          <h3>300名以上の育成実績</h3>
-          <p>技術者を育て、自走できる組織を作ってきました。あなたのチームも同じように育成します。</p>
-        </div>
-        <div class="trust-card">
-          <div class="trust-icon">⚙️</div>
-          <h3>独自フレームワーク APC Framework</h3>
-          <p>AI開発2年の実戦で磨き上げた開発フレームワーク。25年の大規模開発経験を活かし、失敗パターンを徹底的に潰しています。</p>
-        </div>
-        <div class="trust-card">
-          <div class="trust-icon">🔒</div>
-          <h3>品質へのこだわり</h3>
-          <p>組込みソフトウェアで培った品質管理の思想。動かないものは納品しません。</p>
-        </div>
-        <div class="trust-card">
-          <div class="trust-icon">🤝</div>
-          <h3>長期的なパートナーシップ</h3>
-          <p>納品して終わりではなく、あなたの事業が成長するまで伴走します。</p>
-        </div>
-        <div class="trust-card">
-          <div class="trust-icon">💡</div>
-          <h3>現実的な提案</h3>
-          <p>できないことは「できない」と正直に伝えます。無理な案件は受けません。</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ Section -->
-  <section class="faq">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">よくある質問</h2>
-        <p class="section-subtitle">
-          まずは疑問を解消してください
-        </p>
-      </div>
-      <div class="faq-list">
-        <div class="faq-item">
-          <div class="faq-question">
-            <span>どんな規模の企業が対象ですか？</span>
-            <span class="faq-icon">▼</span>
-          </div>
-          <div class="faq-answer">
-            <div class="faq-answer-content">
-              従業員30名以下の小規模企業から1,000名以上の大企業まで、3つのプラン（Plan S / M / L）で幅広く対応しています。重要なのは企業規模ではなく、「本気でAI導入を成功させたい」という意志です。
+    <!-- 5. Services -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">2つのサービスモデル</h2>
+                <p class="section-subtitle">「動くアプリがすぐ欲しい」も「自社で育てたい」も。<br>あなたのフェーズに合わせて、最適な支援を選べます。</p>
             </div>
-          </div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-question">
-            <span>AI導入の知識がなくても大丈夫ですか？</span>
-            <span class="faq-icon">▼</span>
-          </div>
-          <div class="faq-answer">
-            <div class="faq-answer-content">
-              はい、問題ありません。むしろ、専門知識がない方のほうが、本質的な課題に集中できます。技術的な部分は全てサポートしますので、「何を実現したいか」だけ教えてください。
+            <div class="service-cards">
+                <div class="service-card">
+                    <div class="service-badge">モデル1 <span class="service-chip">Build &amp; Deliver</span></div>
+                    <h3>アプリ納品型</h3>
+                    <p>AIアプリが欲しい。でも学ぶ時間はない。——それなら、品質の仕組みごと納品します。「なぜこう作ったか」の記録付きだから、ブラックボックスになりません。</p>
+                    <ul class="service-features">
+                        <li>独自の品質基準でAIアプリを開発・納品</li>
+                        <li>「なぜこう作ったか」の設計記録付き——引き継ぎも安心</li>
+                        <li>品質チェック済み——動く「だけ」のアプリは作りません</li>
+                        <li>ソースコード・品質テスト一式・操作マニュアルを全て納品</li>
+                        <li>保守オプション（月額5〜20万円）で継続サポートも可能</li>
+                    </ul>
+                    <a href="#contact" class="service-cta">アプリ納品について相談する</a>
+                    <span class="service-price-note">80万円〜（ミニアプリ）/ 大規模は個別見積</span>
+                </div>
+                <div class="service-card">
+                    <div class="service-badge">モデル2 <span class="service-chip">Coach &amp; Empower</span></div>
+                    <h3>伴走支援型</h3>
+                    <p>AI活用の環境と仕組みを御社に導入。業務を助けるAIアシスタントと教育で、自社チームの「自走力」を育てます。自走できたら月額終了。ベンダー依存にしない、唯一のAIコンサルです。</p>
+                    <ul class="service-features">
+                        <li>AI活用環境の構築 + 独自の品質管理メソッドを丸ごと提供</li>
+                        <li>プラン別の同梱Agent付き（タスク管理Agent / アプリ診断Agent / アプリ作成Agent 等）</li>
+                        <li>段階的な教育（基礎→応用→自分でAIを使いこなすレベルへ）</li>
+                        <li>定期伴走セッション + チャットサポート</li>
+                        <li>最短3ヶ月で自走——御社のペースに合わせて卒業</li>
+                    </ul>
+                    <a href="#pricing" class="service-cta">伴走支援のプランを見る</a>
+                    <span class="service-price-note">Plan S / M / L から選択（初期250万円〜）</span>
+                </div>
             </div>
-          </div>
         </div>
-        <div class="faq-item">
-          <div class="faq-question">
-            <span>費用はどのくらいかかりますか？</span>
-            <span class="faq-icon">▼</span>
-          </div>
-          <div class="faq-answer">
-            <div class="faq-answer-content">
-              プロジェクトの規模や内容によって大きく異なります。まずは無料相談で要件をヒアリングし、概算をお伝えします。段階的な投資が可能なので、一度に大きな予算を用意する必要はありません。
+    </section>
+
+    <!-- 6. Selection Guide -->
+    <section class="selection-guide">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">どちらのモデルを選ぶべきか？</h2>
+                <p class="section-subtitle">御社の「今の状況」から、最適な始め方が見えます。</p>
             </div>
-          </div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-question">
-            <span>どのくらいの期間で稼働しますか？</span>
-            <span class="faq-icon">▼</span>
-          </div>
-          <div class="faq-answer">
-            <div class="faq-answer-content">
-              PoCなら短期間で、本番システムは数ヶ月から半年程度が目安です。ただし、確実性を優先するため、無理なスケジュールは組みません。現実的な計画を一緒に立てましょう。
+            <div class="guide-grid">
+                <div class="guide-card">
+                    <div class="guide-icon">🚀</div>
+                    <h3>アプリだけ欲しい</h3>
+                    <p>社内にAI人材を育てる予定はないが、業務を変えるアプリは欲しい。品質チェック済みのアプリを、引き継ぎ資料ごと納品します。</p>
+                    <div class="guide-rec">→ モデル1：アプリ納品型（80万円〜）</div>
+                </div>
+                <div class="guide-card">
+                    <div class="guide-icon">🌱</div>
+                    <h3>社内で AI を使いこなしたい</h3>
+                    <p>自社チームにAI活用スキルを定着させ、内製で回せる体制を作りたい。AIアシスタントと教育プログラムで自走化を支援します。</p>
+                    <div class="guide-rec">→ モデル2：伴走支援型（Plan S / M / L）</div>
+                </div>
+                <div class="guide-card">
+                    <div class="guide-icon">🔄</div>
+                    <h3>まずアプリ、次に内製化</h3>
+                    <p>まずモデル1で「動くアプリ」を手に入れてから、モデル2で社内チームにスキルを移転。最もリスクの低い進め方です。</p>
+                    <div class="guide-rec">→ モデル1 + モデル2 を段階的に（パイロット80万円から）</div>
+                </div>
             </div>
-          </div>
         </div>
-        <div class="faq-item">
-          <div class="faq-question">
-            <span>他社で失敗したプロジェクトも相談できますか？</span>
-            <span class="faq-icon">▼</span>
-          </div>
-          <div class="faq-answer">
-            <div class="faq-answer-content">
-              はい、むしろ歓迎します。失敗の原因を分析し、リカバリーの方法を提案します。過去の投資を無駄にしない方法を一緒に考えましょう。
+    </section>
+
+    <!-- 7. Pricing -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">明確な料金体系</h2>
+                <p class="section-subtitle">伴走支援型（モデル2）は、御社が求める活用レベルに応じた3つのプランをご用意。<br>すべてのプランで「卒業」後は月額が終了します。</p>
             </div>
-          </div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-question">
-            <span>個人事業主で大丈夫ですか？</span>
-            <span class="faq-icon">▼</span>
-          </div>
-          <div class="faq-answer">
-            <div class="faq-answer-content">
-              大規模な組織ではないからこそ、意思決定が早く、柔軟に対応できます。また、責任者が直接対応するため、伝言ゲームによる齟齬もありません。むしろ、これは強みだと考えています。
+
+            <div class="pricing-grid">
+                <!-- Plan S -->
+                <div class="pricing-card featured">
+                    <div style="text-align:center;"><span class="pricing-badge">おすすめ</span></div>
+                    <h4>Plan S</h4>
+                    <div class="pricing-target">AIを活用し始めたいチーム向け</div>
+                    <div class="pricing-price">初期 250万円</div>
+                    <div class="pricing-monthly">+ 月額 25万円</div>
+                    <div class="pricing-annual">初年度総額 550万円</div>
+                    <div class="pricing-meta">
+                        <div class="pricing-meta-row"><span class="label">同梱Agent</span><span class="value">タスク管理Agent +
+                                座学Agent</span></div>
+                        <div class="pricing-meta-row"><span class="label">教育</span><span class="value">基礎（AIの使い方）</span>
+                        </div>
+                        <div class="pricing-meta-row"><span class="label">伴走頻度</span><span class="value">月2回セッション</span>
+                        </div>
+                        <div class="pricing-meta-row"><span class="label">対象人数</span><span
+                                class="value">担当者1-2名+利用者</span></div>
+                        <div class="pricing-meta-row"><span class="label">卒業目標</span><span class="value">3〜6ヶ月</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>AI活用環境の構築 + 品質チェックの仕組み導入</li>
+                        <li>タスク管理Agent + 座学Agent 付き</li>
+                        <li>基礎教育（AIの使い方 + AIへの指示の出し方）</li>
+                        <li>月2回の伴走セッション（1h/回）</li>
+                        <li>月次技術サポート</li>
+                    </ul>
+                    <div class="pricing-note">パイロット80万円 → 本契約時に初期費用から全額差引</div>
+                </div>
+
+                <!-- Plan M -->
+                <div class="pricing-card">
+                    <h4 style="margin-top:28px;">Plan M</h4>
+                    <div class="pricing-target">組織にAI活用を定着させたい企業向け</div>
+                    <div class="pricing-price">初期 500万円</div>
+                    <div class="pricing-monthly">+ 月額 45万円</div>
+                    <div class="pricing-annual">初年度総額 1,040万円</div>
+                    <div class="pricing-meta">
+                        <div class="pricing-meta-row"><span class="label">同梱Agent</span><span class="value">Plan S同梱 +
+                                アプリ診断Agent + メンターAgent</span></div>
+                        <div class="pricing-meta-row"><span class="label">教育</span><span
+                                class="value">応用（業務でAIを使う）</span>
+                        </div>
+                        <div class="pricing-meta-row"><span class="label">伴走頻度</span><span class="value">週1回セッション</span>
+                        </div>
+                        <div class="pricing-meta-row"><span class="label">対象人数</span><span
+                                class="value">担当者3-5名+利用者</span></div>
+                        <div class="pricing-meta-row"><span class="label">卒業目標</span><span class="value">4〜9ヶ月</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Plan S の全内容に加え——</li>
+                        <li>アプリ診断Agent + メンターAgent を追加同梱</li>
+                        <li>応用教育（AI活用の業務設計 + AIに仕事を任せるスキル）</li>
+                        <li>週1回の伴走セッション（1.5h/回）+ レビュー</li>
+                        <li>御社オリジナルのAIアシスタント作成テンプレート</li>
+                        <li>月次 + 週次ダイジェストレポート</li>
+                    </ul>
+                    <div class="pricing-note">パイロット80万円 → 本契約時に初期費用から全額差引</div>
+                </div>
+
+                <!-- Plan L -->
+                <div class="pricing-card">
+                    <h4 style="margin-top:28px;">Plan L</h4>
+                    <div class="pricing-target">AIで事業を変革したい企業向け</div>
+                    <div class="pricing-price">初期 1,200万円〜</div>
+                    <div class="pricing-monthly">+ 月額 120万円〜</div>
+                    <div class="pricing-annual">初年度総額 2,640万円〜</div>
+                    <div class="pricing-meta">
+                        <div class="pricing-meta-row"><span class="label">同梱Agent</span><span class="value">Plan M同梱 +
+                                アプリ作成Agent（革新レベル）</span></div>
+                        <div class="pricing-meta-row"><span class="label">教育</span><span
+                                class="value">実践（AIで成果物を生む）</span>
+                        </div>
+                        <div class="pricing-meta-row"><span class="label">伴走頻度</span><span class="value">週2回+専任</span>
+                        </div>
+                        <div class="pricing-meta-row"><span class="label">対象人数</span><span
+                                class="value">設計者+担当者+利用者の3層</span></div>
+                        <div class="pricing-meta-row"><span class="label">卒業目標</span><span class="value">6〜12ヶ月</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Plan M の全内容に加え——</li>
+                        <li>御社専用のAIアシスタントを複数体オーダーメイド開発</li>
+                        <li>実践教育（AIとの対話だけで成果物を生み出すスキル）</li>
+                        <li>週2回の伴走セッション（2h/回）+ 専任サポート</li>
+                        <li>リアルタイム品質ダッシュボード</li>
+                    </ul>
+                    <div class="pricing-note">パイロット80万円 → 本契約時に初期費用から全額差引 / 個別見積</div>
+                </div>
             </div>
-          </div>
+
+            <!-- App Delivery Pricing -->
+            <div class="app-pricing">
+                <h4>アプリ納品型（モデル1）参考価格</h4>
+                <div class="app-pricing-grid">
+                    <div class="app-pricing-item">
+                        <div class="size">Small</div>
+                        <div class="range">80〜150万円</div>
+                        <div class="detail">単機能アプリ / 納期2-4週間</div>
+                    </div>
+                    <div class="app-pricing-item">
+                        <div class="size">Medium</div>
+                        <div class="range">150〜400万円</div>
+                        <div class="detail">複数機能連携 / 納期1-2ヶ月</div>
+                    </div>
+                    <div class="app-pricing-item">
+                        <div class="size">Large</div>
+                        <div class="range">400〜1,000万円</div>
+                        <div class="detail">業務基幹連携 / 納期2-4ヶ月</div>
+                    </div>
+                </div>
+                <p style="text-align:center; color:var(--text-muted); font-size:13px; margin-top:16px;">保守オプション：月額5〜20万円
+                    / ソースコード・品質テスト一式・設計記録・マニュアル全て納品</p>
+            </div>
+
+            <div style="text-align:center; margin-top:48px;">
+                <p style="color:var(--text-secondary); font-size:15px; margin-bottom:12px;">
+                    ※ パイロット（80万円 / 4週間）で効果を実証 → プラン導入時に初期費用から<strong style="color:var(--accent);">全額差引</strong>。
+                </p>
+                <p style="color:var(--text-muted); font-size:15px; margin-bottom:20px;">
+                    全プラン共通：無料診断 → 要件ヒアリング → ご提案。押し売りは一切ありません。
+                </p>
+                <a href="#contact" class="cta-primary">まずは無料診断から</a>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Profile Section -->
-  <section class="profile">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">開発者プロフィール</h2>
-      </div>
-      <div class="profile-content">
-        <div class="profile-name">柴田 朝史</div>
-        <div class="profile-title">個人事業主 / AI開発エンジニア</div>
-        <p class="profile-description">
-          大規模組込みソフトウェアのTech
-          Leadとして、品質とスケジュールを守り抜く開発手法を確立。その経験をAI開発に応用し、「確実に動くAIシステム」の構築を追求しています。技術者育成にも注力し、延べ300名以上の育成実績があります。
-        </p>
-        <ul class="profile-highlights">
-          <li>大規模組込みソフトウェア Tech Lead 実績</li>
-          <li>技術者育成 延べ300名規模</li>
-          <li>AI開発専用フレームワーク（APC Framework）開発</li>
-          <li>Python / C++ 実装スキル</li>
-          <li>品質・保守性重視の開発思想</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- Final CTA Section -->
-  <section id="contact" class="final-cta">
-    <div class="container">
-      <div class="final-cta-content">
-        <h2>まずは無料相談から<br>始めませんか？</h2>
-        <p>
-          あなたの課題をお聞かせください。<br>
-          AI導入が本当に必要か、どう進めるべきか、一緒に考えます。
-        </p>
-        <div class="cta-benefits">
-          <div class="cta-benefit">相談無料</div>
-          <div class="cta-benefit">オンライン対応</div>
-          <div class="cta-benefit">30分程度</div>
-          <div class="cta-benefit">押し売り一切なし</div>
+    <!-- 8. Process -->
+    <section class="process">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">導入の流れ</h2>
+                <p class="section-subtitle">リスクを最小化する4ステップ。<br>パイロット費用は本契約時に全額差し引くので、「試してから決める」ができます。</p>
+            </div>
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">0</div>
+                    <h4>無料診断</h4>
+                    <p>AI活用の準備度と投資対効果を無料で診断。御社の現在地を可視化し、最適なモデル・プランをご提案。<strong>30分・オンライン完結・リスクゼロ</strong>。</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h4>パイロット（80万円）</h4>
+                    <p>4週間で効果を実証。AI活用環境のセットアップ、伴走セッション2回、小さな成功体験の創出。<strong>プラン導入時に全額差引</strong>。</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h4>プラン導入 + 本格構築</h4>
+                    <p>Plan S/M/Lから最適プランを選択。AI活用環境の本格構築、同梱Agentの配備、教育プログラム開始。アプリ納品型は要件定義から。</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h4>伴走 → 卒業</h4>
+                    <p><strong>「卒業がゴール」</strong>——御社チームが「自分たちで回せる」ようになるまで伴走。自走が確認できたら月額は終了。ベンダー依存にしません。</p>
+                </div>
+            </div>
         </div>
-        <a href="mailto:meta.tsfactory@gmail.com?subject=AI導入相談&body=お名前：%0A会社名：%0A相談内容：%0A%0A【以下、該当するものをチェック】%0A□ モデル1（フルサポート開発）に興味がある%0A□ モデル2（フレームワーク導入）に興味がある%0A□ 過去に失敗したプロジェクトがある%0A□ まだ具体的には決まっていない"
-          class="final-cta-button">無料相談を予約する</a>
-        <p class="final-cta-note">
-          または直接メール: meta.tsfactory@gmail.com<br>
-          GitHub: <a href="https://metatsfactory-rgb.github.io/">https://metatsfactory-rgb.github.io</a>
-        </p>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <div class="footer-content">
-        <p>&copy; 2026 metafactory agent studio. All rights reserved. | v3.0</p>
-        <div class="footer-links">
-          <a href="mailto:meta.tsfactory@gmail.com">お問い合わせ</a>
-          <a href="https://metatsfactory-rgb.github.io/">GitHub</a>
+    <!-- 9. Trust -->
+    <section class="trust">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">なぜ信頼できるのか</h2>
+                <p class="section-subtitle">数字と仕組みで、信頼を証明します。</p>
+            </div>
+            <div class="trust-grid">
+                <div class="trust-card">
+                    <div class="trust-icon">🛡️</div>
+                    <h3>品質を仕組みで守る</h3>
+                    <p>担当者のスキルに依存しない、独自の品質チェックの仕組み。人が変わっても、AIモデルが変わっても、品質は安定します。</p>
+                </div>
+                <div class="trust-card">
+                    <div class="trust-icon">📋</div>
+                    <h3>ブラックボックスにしない</h3>
+                    <p>「なぜこう作ったのか」を全て記録して納品。担当者が代わっても、引き継ぎに困りません。中身が見えるから、安心して運用できます。</p>
+                </div>
+                <div class="trust-card">
+                    <div class="trust-icon">👥</div>
+                    <h3>25年 × 300名の育成実績</h3>
+                    <p>大手企業で数百名を率いたプロジェクトリーダー経験。技術者を「育てて、自走させる」ことに25年間向き合ってきた実績があります。</p>
+                </div>
+                <div class="trust-card">
+                    <div class="trust-icon">🎓</div>
+                    <h3>卒業したら、月額ゼロ</h3>
+                    <p>御社が自走できるようになったら、月額は終了。「ずっと払い続ける外注費」から解放されます。これが他社との決定的な違いです。</p>
+                </div>
+                <div class="trust-card">
+                    <div class="trust-icon">⚡</div>
+                    <h3>最短3ヶ月で自走</h3>
+                    <p>2026年のAIは急速に進化しています。法人や導入規模にもよりますが、御社チームが「自分たちで回せる」レベルまで、責任を持って伴走します。</p>
+                </div>
+                <div class="trust-card">
+                    <div class="trust-icon">💬</div>
+                    <h3>責任者が直接対応</h3>
+                    <p>できないことは「できない」と正直に伝えます。無理な案件は受けません。営業担当はいません。最初から最後まで、責任者が直接対応します。</p>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </footer>
+    </section>
 
-  <script>
-    // Progress Bar
-    window.addEventListener('scroll', () => {
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight - windowHeight;
-      const scrolled = window.scrollY;
-      const progress = (scrolled / documentHeight) * 100;
-      document.getElementById('progressBar').style.transform = `scaleX(${progress / 100})`;
-    });
+    <!-- 10. FAQ -->
+    <section class="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">よくある質問</h2>
+                <p class="section-subtitle">まずは疑問を解消してください。</p>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question"><span>アプリ納品だけでも依頼できますか？</span><span class="faq-icon">▼</span></div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            はい、モデル1（アプリ納品型）をご利用ください。AIの学習は不要です。独自の品質基準で構築したアプリを、設計の判断記録・品質テスト一式・操作マニュアル付きで納品します。80万円のミニアプリから1,000万円規模まで対応可能です。
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span>同梱Agentとは何ですか？</span><span class="faq-icon">▼</span></div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            AI活用環境にあらかじめ組み込まれた業務自動化ツールです。Plan Sには「タスク管理Agent + 座学Agent」、Plan MはそれにAgentが追加（アプリ診断Agent +
+                            メンターAgent）、Plan LはさらにアプリをAIが作れる革新レベルのAgentが同梱されます。プランをアップグレードすると、同梱Agentもそのまま引き継ぎ、追加されます。
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span>パイロットから本契約に進まなかった場合は？</span><span class="faq-icon">▼</span></div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            パイロット費用（80万円）はそのままです。パイロット期間中の成果物（AI活用環境・試作アプリ・品質チェックレポート）はすべてお手元に残ります。無理に本契約をお勧めすることはありません。
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span>途中でプランを変更できますか？</span><span class="faq-icon">▼</span></div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">はい。Plan S → M、Plan M → L
+                            へのアップグレードはいつでも可能です。差額を翌月から適用し、同梱Agentの追加も即時反映します。</div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span>「卒業」した後も使い続けたい場合は？</span><span class="faq-icon">▼</span></div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            卒業後は保守契約（月額10〜40万円、プランに応じて異なる）で継続サポートを受けられます。AI活用環境や同梱Agentはそのままご利用いただけます。</div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span>他のAIコンサルとの違いは何ですか？</span><span class="faq-icon">▼</span></div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            3つあります。①「卒業がゴール」——自走できたら月額は終了。ベンダー依存にしません。②品質を「仕組み」で守る独自メソッド——担当者が変わっても品質が安定します。③
+                            25年の大規模開発経験と300名以上の育成実績——AI人材の「育て方」を知っています。</div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span>どんな規模の企業が対象ですか？</span><span class="faq-icon">▼</span></div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            企業規模は問いません。プランは従業員数ではなく「AI活用にどこまで期待するか」——御社の目指すレベルで選んでいただきます。AIを試してみたいチームから全社DX変革まで、3つのプラン（S
+                            / M / L）で対応。アプリ納品型（モデル1）も同様です。</div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span>個人事業主ですが大丈夫ですか？（御社の体制として）</span><span class="faq-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            個人事業主だからこそ、意思決定が早く柔軟に対応できます。最初から最後まで責任者が直接対応するため、伝言ゲームが発生しません。品質は個人のスキルではなく「仕組み」で守ります。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    // Header Shadow on Scroll
-    const header = document.getElementById('header');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
-    });
+    <!-- 11. Profile -->
+    <section class="profile">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">開発者について</h2>
+            </div>
+            <div class="profile-content">
+                <div class="profile-name">柴田 朝史<span
+                        style="font-size:16px; color:var(--text-muted); font-weight:400; margin-left:12px;">（しばた
+                        ともふみ）</span></div>
+                <div class="profile-title">metafactory agent studio 代表</div>
+                <p class="profile-description">
+                    大手企業で数百名規模のプロジェクトを率い、25年間「品質とスケジュールを守り抜く」ことに向き合ってきました。延べ300名以上の技術者を育て、自走できる組織を作ってきた経験——その全てを、AI活用支援に注ぎ込んでいます。<br><br>
+                    「品質は仕組みで守る」。この信念から、独自の品質管理メソッドを開発。人に依存せず、仕組みで品質を担保する体制を構築します。
+                </p>
+                <ul class="profile-highlights">
+                    <li>大規模プロジェクトのリーダー — 25年の品質管理実績</li>
+                    <li>技術者育成 — 延べ300名以上を「自走できる人材」に</li>
+                    <li>独自の品質管理メソッド開発 — 人に依存しない品質の仕組み化</li>
+                    <li>「卒業がゴール」を本気で実行する伴走支援</li>
+                </ul>
+            </div>
+        </div>
+    </section>
 
-    // Intersection Observer for scroll animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -80px 0px'
-    };
+    <!-- 12. Final CTA -->
+    <section id="contact" class="final-cta">
+        <div class="container">
+            <div class="final-cta-content">
+                <h2>まずは無料診断から。<br>御社のAI活用の現在地を、<br>30分で可視化します。</h2>
+                <p>AIを導入すべきか。どのモデルが最適か。投資対効果はどれくらいか。<br>押し売りは一切ありません。御社の「現在地」を一緒に確認するところから始めましょう。</p>
+                <div class="cta-benefits">
+                    <div class="cta-benefit">診断無料</div>
+                    <div class="cta-benefit">オンライン完結</div>
+                    <div class="cta-benefit">30分で完了</div>
+                    <div class="cta-benefit">押し売り一切なし</div>
+                </div>
+                <a href="mailto:meta.tsfactory@gmail.com?subject=無料診断希望&body=お名前：%0A会社名：%0A従業員数：%0A%0A【興味のあるモデル】%0A□ モデル1（アプリ納品型）%0A□ モデル2（伴走支援型）%0A□ まだ決まっていない%0A%0Aご相談内容："
+                    class="final-cta-button">無料診断を予約する</a>
+                <p class="final-cta-note">
+                    パイロット（80万円 / 4週間）はプラン導入時に全額差引。リスクは、ほぼゼロです。<br>
+                    メール: meta.tsfactory@gmail.com<br>
+                    GitHub: <a href="https://metatsfactory-rgb.github.io/">https://metatsfactory-rgb.github.io</a>
+                </p>
+            </div>
+        </div>
+    </section>
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            entry.target.classList.add('visible');
-          }, index * 100);
-        }
-      });
-    }, observerOptions);
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2026 metafactory agent studio. All rights reserved. | v10.0</p>
+                <div class="footer-links">
+                    <a href="mailto:meta.tsfactory@gmail.com">お問い合わせ</a>
+                    <a href="https://metatsfactory-rgb.github.io/">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-    // Observe all animated elements
-    document.querySelectorAll('.hero-stat, .pain-card, .service-card, .pricing-card, .step, .trust-card, .faq-item, .comparison-table').forEach(el => {
-      observer.observe(el);
-    });
-
-    // FAQ toggle
-    document.querySelectorAll('.faq-item').forEach(item => {
-      const question = item.querySelector('.faq-question');
-      question.addEventListener('click', () => {
-        const isActive = item.classList.contains('active');
-
-        // Close all FAQ items
-        document.querySelectorAll('.faq-item').forEach(faq => {
-          faq.classList.remove('active');
+    <script>
+        // Progress Bar
+        window.addEventListener('scroll', () => {
+            const h = document.documentElement.scrollHeight - window.innerHeight;
+            document.getElementById('progressBar').style.transform = `scaleX(${window.scrollY / h})`;
         });
 
-        // Toggle current item
-        if (!isActive) {
-          item.classList.add('active');
-        }
-      });
-    });
+        // Header Shadow
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
 
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          const headerOffset = 90;
-          const elementPosition = target.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        // Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => entry.target.classList.add('visible'), i * 80);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
 
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-          });
-        }
-      });
-    });
-  </script>
+        document.querySelectorAll('.hero-stat,.pain-card,.service-card,.pricing-card,.step,.trust-card,.faq-item,.comparison-table,.diff-card,.guide-card').forEach(el => observer.observe(el));
+
+        // FAQ Toggle
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.querySelector('.faq-question').addEventListener('click', () => {
+                const wasActive = item.classList.contains('active');
+                document.querySelectorAll('.faq-item').forEach(f => f.classList.remove('active'));
+                if (!wasActive) item.classList.add('active');
+            });
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                const t = document.querySelector(a.getAttribute('href'));
+                if (t) window.scrollTo({ top: t.getBoundingClientRect().top + window.pageYOffset - 90, behavior: 'smooth' });
+            });
+        });
+    </script>
 </body>
 
 </html>
