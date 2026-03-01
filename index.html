@@ -1117,6 +1117,11 @@
             margin-top: 64px;
         }
 
+        
+        .deliverables-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
         .trust-card {
             background: var(--bg-card);
             padding: 40px;
@@ -1704,7 +1709,68 @@
         </div>
     </section>
 
-    <!-- 5. Services -->
+    
+    <!-- 4.5 Deliverables -->
+    <section class="trust" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag" style="background: rgba(6, 182, 212, 0.12); color: var(--accent); border-color: var(--accent);">成果物</div>
+                <h2 class="section-title">成果物（納品物・移植物）一覧</h2>
+                <p class="section-subtitle">御社に残るものだけを作ります（※具体の中身は、御社の業務プロセスに合わせて設計するため、無料診断の場で口頭ですり合わせます。詳細は要件ヒアリング後にご提案します）。</p>
+            </div>
+            <div class="trust-grid deliverables-grid">
+                <div class="trust-card">
+                    <div class="trust-icon">🧭</div>
+                    <h3>品質と引き継ぎの「仕組み」</h3>
+                    <p>生成AIが本番で止まる原因（品質の再現性・責任・運用）を、御社の現場プロセスに合わせて仕組み化します。</p>
+                    <ul class="service-features" style="margin-bottom:0; margin-top:16px;">
+                        <li>品質の合格ライン（判断の共通言語）</li>
+                        <li>評価・検証の進め方（再現できる手順）</li>
+                        <li>運用ルール（例外・変更に耐える）</li>
+                        <li>引き継ぎ可能な記録（ブラックボックスにしない）</li>
+                    </ul>
+                </div>
+
+                <div class="trust-card">
+                    <div class="trust-icon">🚀</div>
+                    <h3>モデル1（アプリ納品型）で納品するもの</h3>
+                    <p>ミニアプリ（80万円〜）でも、対象範囲を絞った「完成形」を品質の仕組み込みで納品します。全社横断の品質評価基盤や運用統制など大規模対応は伴走型で対応します。</p>
+                    <ul class="service-features" style="margin-bottom:0; margin-top:16px;">
+                        <li>ソースコード</li>
+                        <li>操作マニュアル</li>
+                        <li>設計の判断記録（なぜこう作ったか）</li>
+                        <li>動作確認・簡易テスト（スコープ内）</li>
+                    </ul>
+                </div>
+
+                <div class="trust-card">
+                    <div class="trust-icon">🌱</div>
+                    <h3>モデル2（伴走支援型）で移植するもの</h3>
+                    <p>御社チームが回せるように、環境・教育・運用をまとめて移植します。特に「品質の再現性」「モデル変更への耐性」「監査・説明責任」はPlan M/Lで重点的に整備します。</p>
+                    <ul class="service-features" style="margin-bottom:0; margin-top:16px;">
+                        <li>AI活用環境の構築（前提整備）</li>
+                        <li>プラン別の同梱Agent（タスク管理/座学/診断/メンター/作成 等）</li>
+                        <li>段階的な教育（基礎→応用→自走レベル）</li>
+                        <li>テンプレート・運用ルール（チームで再現できる形に）</li>
+                    </ul>
+                </div>
+
+                <div class="trust-card">
+                    <div class="trust-icon">🎓</div>
+                    <h3>「卒業」の定義（目安）</h3>
+                    <p>支援を終えるのは、御社が「自分たちで回せる」状態になったときです。</p>
+                    <ul class="service-features" style="margin-bottom:0; margin-top:16px;">
+                        <li>担当者が交代しても、同じ手順で運用できる</li>
+                        <li>品質の判断基準が社内で共有されている</li>
+                        <li>例外・障害時の対応が決まっている（切り戻し/エスカレーション）</li>
+                        <li>内製で小改修〜リリースまで回せる（要件→実装→確認）</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- 5. Services -->
     <section id="services" class="services">
         <div class="container">
             <div class="section-header">
@@ -1873,30 +1939,6 @@
                     </ul>
                     <div class="pricing-note">パイロット80万円 → 本契約時に初期費用から全額差引 / 個別見積</div>
                 </div>
-            </div>
-
-            <!-- App Delivery Pricing -->
-            <div class="app-pricing">
-                <h4>アプリ納品型（モデル1）参考価格</h4>
-                <div class="app-pricing-grid">
-                    <div class="app-pricing-item">
-                        <div class="size">Small</div>
-                        <div class="range">80〜150万円</div>
-                        <div class="detail">単機能アプリ / 納期2-4週間</div>
-                    </div>
-                    <div class="app-pricing-item">
-                        <div class="size">Medium</div>
-                        <div class="range">150〜400万円</div>
-                        <div class="detail">複数機能連携 / 納期1-2ヶ月</div>
-                    </div>
-                    <div class="app-pricing-item">
-                        <div class="size">Large</div>
-                        <div class="range">400〜1,000万円</div>
-                        <div class="detail">業務基幹連携 / 納期2-4ヶ月</div>
-                    </div>
-                </div>
-                <p style="text-align:center; color:var(--text-muted); font-size:13px; margin-top:16px;">保守オプション：月額5〜20万円
-                    / ソースコード・品質テスト一式・設計記録・マニュアル全て納品</p>
             </div>
 
             <div style="text-align:center; margin-top:48px;">
@@ -2112,7 +2154,7 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <p>&copy; 2026 metafactory agent studio. All rights reserved. | v10.0</p>
+                <p>&copy; 2026 metafactory agent studio. All rights reserved. | v11.3</p>
                 <div class="footer-links">
                     <a href="mailto:meta.tsfactory@gmail.com">お問い合わせ</a>
                     <a href="https://metatsfactory-rgb.github.io/">GitHub</a>
