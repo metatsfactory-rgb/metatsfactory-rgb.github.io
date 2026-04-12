@@ -839,6 +839,64 @@
             padding: 120px 0;
         }
 
+        /* 全プラン標準装備 */
+        .standard-features {
+            max-width: 1100px;
+            margin: 0 auto 48px;
+            padding: 40px;
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .standard-features h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .standard-lead {
+            color: var(--text-secondary);
+            font-size: 15px;
+            margin-bottom: 28px;
+        }
+
+        .standard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            text-align: left;
+        }
+
+        .standard-item {
+            padding: 20px;
+            background: rgba(6, 182, 212, 0.03);
+            border-radius: 12px;
+            border: 1px solid rgba(6, 182, 212, 0.08);
+        }
+
+        .standard-item .standard-icon {
+            font-size: 24px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .standard-item h5 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+        }
+
+        .standard-item p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin: 0;
+        }
+
         .pricing-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -1502,6 +1560,7 @@
             .pricing-grid,
             .guide-grid,
             .trust-grid,
+            .standard-grid,
             .app-pricing-grid {
                 grid-template-columns: 1fr;
             }
@@ -1748,10 +1807,10 @@
                 <div class="trust-card">
                     <div class="trust-icon">🌱</div>
                     <h3>モデル2（伴走支援型）で移植するもの</h3>
-                    <p>御社チームが回せるように、環境・教育・運用をまとめて移植します。特に「品質の再現性」「モデル変更への耐性」「監査・説明責任」はPlan M/Lで重点的に整備します。</p>
+                    <p>御社チームが回せるように、環境・教育・運用をまとめて移植します。特に「品質の再現性」「モデル変更への耐性」「監査・説明責任」を全プランに標準整備します。</p>
                     <ul class="service-features" style="margin-bottom:0; margin-top:16px;">
                         <li>AI活用環境の構築（前提整備）</li>
-                        <li>プラン別の同梱Agent（タスク管理/座学/診断/メンター/作成 等）</li>
+                        <li>全プラン標準搭載のスキル・教材（パワポ自動作成/AI座学/アプリ作成Agent 等）</li>
                         <li>段階的な教育（基礎→応用→自走レベル）</li>
                         <li>テンプレート・運用ルール（チームで再現できる形に）</li>
                     </ul>
@@ -1800,7 +1859,7 @@
                     <p>AI活用の環境と仕組みを御社に導入。業務を助けるAIアシスタントと教育で、自社チームの「自走力」を育てます。自走できたら月額終了。ベンダー依存にしない、唯一のAIコンサルです。</p>
                     <ul class="service-features">
                         <li>AI活用環境の構築 + 独自の品質管理メソッドを丸ごと提供</li>
-                        <li>プラン別の同梱Agent付き（タスク管理Agent / アプリ診断Agent / アプリ作成Agent 等）</li>
+                        <li>全プラン標準搭載のスキル・教材付き（パワポ自動作成スキル / AI座学コンテンツ / アプリ作成Agent）</li>
                         <li>段階的な教育（基礎→応用→自分でAIを使いこなすレベルへ）</li>
                         <li>定期伴走セッション + チャットサポート</li>
                         <li>最短3ヶ月で自走——御社のペースに合わせて卒業</li>
@@ -1850,6 +1909,46 @@
                 <p class="section-subtitle">伴走支援型（モデル2）は、御社が求める活用レベルに応じた3つのプランをご用意。<br>すべてのプランで「卒業」後は月額が終了します。</p>
             </div>
 
+            <!-- 全プラン標準装備 -->
+            <div class="standard-features">
+                <h3>すべてのプランに標準装備</h3>
+                <p class="standard-lead">
+                    どのプランを選んでも、AI活用に必要なツールは全て揃っています。<br>プランの違いは「伴走の濃さ」だけです。
+                </p>
+                <div class="standard-grid">
+                    <div class="standard-item">
+                        <span class="standard-icon">🎯</span>
+                        <h5>業務アプリ自動生成</h5>
+                        <p>「経費精算を楽にしたい」——やりたいことを伝えるだけで、御社専用の業務アプリをAIが自動で作ります。</p>
+                    </div>
+                    <div class="standard-item">
+                        <span class="standard-icon">📊</span>
+                        <h5>スライド自動作成</h5>
+                        <p>報告書・提案書をAIが自動生成。企業ブランドに合わせたプレミアムデザイン。</p>
+                    </div>
+                    <div class="standard-item">
+                        <span class="standard-icon">🧭</span>
+                        <h5>戦略立案アシスタント</h5>
+                        <p>難しい判断も、5人の専門家が多角的に議論。戦略書を自動で作成し、実行まで一気通貫で支援。</p>
+                    </div>
+                    <div class="standard-item">
+                        <span class="standard-icon">🔍</span>
+                        <h5>品質の自動チェック</h5>
+                        <p>AIが勝手に暴走しない仕組み。AIの出力を自動検証し、問題があれば即座に検出・修正。</p>
+                    </div>
+                    <div class="standard-item">
+                        <span class="standard-icon">📚</span>
+                        <h5>AI活用 座学コンテンツ</h5>
+                        <p>LLMの本質からAgentic開発まで全6テーマ。チーム全員のAIリテラシーを底上げ。</p>
+                    </div>
+                    <div class="standard-item">
+                        <span class="standard-icon">🔄</span>
+                        <h5>卒業後も使い続けられる</h5>
+                        <p>支援終了後もAI環境・全ツールはそのまま。月額だけ終了します。</p>
+                    </div>
+                </div>
+            </div>
+
             <div class="pricing-grid">
                 <!-- Plan S -->
                 <div class="pricing-card featured">
@@ -1860,8 +1959,8 @@
                     <div class="pricing-monthly">+ 月額 25万円</div>
                     <div class="pricing-annual">初年度総額 550万円</div>
                     <div class="pricing-meta">
-                        <div class="pricing-meta-row"><span class="label">同梱Agent</span><span class="value">タスク管理Agent +
-                                座学Agent</span></div>
+                        <div class="pricing-meta-row"><span class="label">同梱</span><span class="value">全ツール標準搭載</span>
+                        </div>
                         <div class="pricing-meta-row"><span class="label">教育</span><span class="value">基礎（AIの使い方）</span>
                         </div>
                         <div class="pricing-meta-row"><span class="label">伴走頻度</span><span class="value">月2回セッション</span>
@@ -1873,9 +1972,9 @@
                     </div>
                     <ul class="pricing-features">
                         <li>AI活用環境の構築 + 品質チェックの仕組み導入</li>
-                        <li>タスク管理Agent + 座学Agent 付き</li>
+                        <li>全ツール標準搭載（パワポ自動作成 / AI座学 / アプリ作成Agent）</li>
                         <li>基礎教育（AIの使い方 + AIへの指示の出し方）</li>
-                        <li>月2回の伴走セッション（1h/回）</li>
+                        <li>月2回の伴走セッション（2h/回）</li>
                         <li>月次技術サポート</li>
                     </ul>
                     <div class="pricing-note">モデル1（アプリ納品型）ご利用実績がある場合、その費用を初期費用から全額差引</div>
@@ -1889,8 +1988,8 @@
                     <div class="pricing-monthly">+ 月額 45万円</div>
                     <div class="pricing-annual">初年度総額 1,040万円</div>
                     <div class="pricing-meta">
-                        <div class="pricing-meta-row"><span class="label">同梱Agent</span><span class="value">Plan S同梱 +
-                                アプリ診断Agent + メンターAgent</span></div>
+                        <div class="pricing-meta-row"><span class="label">同梱</span><span class="value">全ツール標準搭載</span>
+                        </div>
                         <div class="pricing-meta-row"><span class="label">教育</span><span
                                 class="value">応用（業務でAIを使う）</span>
                         </div>
@@ -1903,9 +2002,9 @@
                     </div>
                     <ul class="pricing-features">
                         <li>Plan S の全内容に加え——</li>
-                        <li>アプリ診断Agent + メンターAgent を追加同梱</li>
+                        <li>複数業務（3-5テーマ）のAI化ロードマップ策定</li>
                         <li>応用教育（AI活用の業務設計 + AIに仕事を任せるスキル）</li>
-                        <li>週1回の伴走セッション（1.5h/回）+ レビュー</li>
+                        <li>週1回の伴走セッション（2h/回）+ レビュー</li>
                         <li>御社オリジナルのAIアシスタント作成テンプレート</li>
                         <li>月次 + 週次ダイジェストレポート</li>
                     </ul>
@@ -1920,8 +2019,8 @@
                     <div class="pricing-monthly">+ 月額 120万円〜</div>
                     <div class="pricing-annual">初年度総額 2,640万円〜</div>
                     <div class="pricing-meta">
-                        <div class="pricing-meta-row"><span class="label">同梱Agent</span><span class="value">Plan M同梱 +
-                                アプリ作成Agent（革新レベル）</span></div>
+                        <div class="pricing-meta-row"><span class="label">同梱</span><span class="value">全ツール標準搭載</span>
+                        </div>
                         <div class="pricing-meta-row"><span class="label">教育</span><span
                                 class="value">実践（AIで成果物を生む）</span>
                         </div>
@@ -2133,11 +2232,11 @@
                     </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question"><span>同梱Agentとは何ですか？</span><span class="faq-icon">▼</span></div>
+                    <div class="faq-question"><span>同梱スキル・教材とは何ですか？</span><span class="faq-icon">▼</span></div>
                     <div class="faq-answer">
                         <div class="faq-answer-content">
-                            AI活用環境にあらかじめ組み込まれた業務自動化ツールです。Plan Sには「タスク管理Agent + 座学Agent」、Plan MはそれにAgentが追加（アプリ診断Agent +
-                            メンターAgent）、Plan LはさらにアプリをAIが作れる革新レベルのAgentが同梱されます。プランをアップグレードすると、同梱Agentもそのまま引き継ぎ、追加されます。
+                            AI活用環境にあらかじめ組み込まれたスキルと教育コンテンツです。全プラン共通で、パワポ自動作成スキル（Dark
+                            Premium）、AI座学コンテンツ（6テーマ）、アプリ作成Agentが標準搭載されています。プランの違いは「伴走支援の濃さ」だけです。
                         </div>
                     </div>
                 </div>
@@ -2153,7 +2252,17 @@
                     <div class="faq-question"><span>途中でプランを変更できますか？</span><span class="faq-icon">▼</span></div>
                     <div class="faq-answer">
                         <div class="faq-answer-content">はい。Plan S → M、Plan M → L
-                            へのアップグレードはいつでも可能です。差額を翌月から適用し、同梱Agentの追加も即時反映します。</div>
+                            へのアップグレードはいつでも可能です。差額を翌月から適用し、伴走支援の内容が即時にアップグレードされます。</div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span>Plan Sでもアプリ作成Agentは使えますか？</span><span class="faq-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            はい、全プラン共通で同じツールが標準搭載されています。アプリ作成Agent、パワポ自動作成、AI座学コンテンツのいずれもPlan
+                            Sからご利用いただけます。プランの違いは「伴走支援の頻度・深さ」です。
+                        </div>
                     </div>
                 </div>
                 <div class="faq-item">
