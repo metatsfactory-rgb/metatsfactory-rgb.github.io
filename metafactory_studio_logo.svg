@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 160" width="520" height="160" role="img" aria-label="MetaFactory Studio">
+  <title>MetaFactory Studio</title>
+  <desc>MetaFactory Studio — M-Factory geometric mark with wordmark</desc>
+
+  <defs>
+    <!-- Brand gradient: cyan → emerald (matches header gradient in metafactory_agent_studio.html) -->
+    <linearGradient id="gd" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+
+    <!-- Horizontal brand gradient (accent line) -->
+    <linearGradient id="gh" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+
+    <!-- Background: bg-primary to bg-secondary -->
+    <linearGradient id="gbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+
+    <!-- Glow filter for node dots -->
+    <filter id="fg" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Subtle badge ambient glow -->
+    <filter id="fbadge" x="-8%" y="-8%" width="116%" height="116%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- ═══════════════════════════════════ -->
+  <!--            BACKGROUND              -->
+  <!-- ═══════════════════════════════════ -->
+  <rect width="520" height="160" rx="12" fill="url(#gbg)"/>
+
+  <!-- ═══════════════════════════════════ -->
+  <!--            ICON BADGE              -->
+  <!-- ═══════════════════════════════════ -->
+
+  <!-- Ambient glow behind badge (cyan tint) -->
+  <rect x="18" y="18" width="124" height="124" rx="20" fill="#06b6d4" opacity="0.10" filter="url(#fbadge)"/>
+
+  <!-- Badge background: bg-card -->
+  <rect x="15" y="15" width="130" height="130" rx="22" fill="#1e293b"/>
+
+  <!-- Badge border (brand gradient) -->
+  <rect x="15" y="15" width="130" height="130" rx="22" fill="none"
+        stroke="url(#gd)" stroke-width="1.5"/>
+
+  <!-- Corner bracket marks — TL -->
+  <path d="M 27 48 L 27 27 L 48 27"
+        fill="none" stroke="#06b6d4" stroke-width="1.5"
+        stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
+  <!-- TR -->
+  <path d="M 112 27 L 133 27 L 133 48"
+        fill="none" stroke="#10b981" stroke-width="1.5"
+        stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
+  <!-- BL -->
+  <path d="M 27 112 L 27 133 L 48 133"
+        fill="none" stroke="#06b6d4" stroke-width="1.5"
+        stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/>
+  <!-- BR -->
+  <path d="M 112 133 L 133 133 L 133 112"
+        fill="none" stroke="#10b981" stroke-width="1.5"
+        stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/>
+
+  <!-- ═══════════════════════════════════ -->
+  <!--        M-FACTORY MARK              -->
+  <!--  M letterform = factory rooflines  -->
+  <!-- ═══════════════════════════════════ -->
+
+  <!-- Base platform line -->
+  <line x1="29" y1="115" x2="131" y2="115"
+        stroke="url(#gd)" stroke-width="7" stroke-linecap="round"
+        stroke-dasharray="102" stroke-dashoffset="102">
+    <animate attributeName="stroke-dashoffset" from="102" to="0"
+             dur="0.65s" fill="freeze"
+             calcMode="spline" keySplines="0.42 0 0.58 1"/>
+  </line>
+
+  <!-- M letterform (left leg → left peak → valley → right peak → right leg) -->
+  <polyline points="36,115 36,43 80,77 124,43 124,115"
+            stroke="url(#gd)" stroke-width="7" fill="none"
+            stroke-linecap="round" stroke-linejoin="round"
+            stroke-dasharray="270" stroke-dashoffset="270">
+    <animate attributeName="stroke-dashoffset" from="270" to="0"
+             dur="1.4s" begin="0.4s" fill="freeze"
+             calcMode="spline" keySplines="0.42 0 0.58 1"/>
+  </polyline>
+
+  <!-- ─── Node dots ─── -->
+
+  <!-- Left peak node (cyan, pulsing) -->
+  <circle cx="36" cy="43" r="9" fill="#1e293b"/>
+  <circle cx="36" cy="43" r="5.5" fill="#06b6d4" filter="url(#fg)">
+    <animate attributeName="r" values="5.5;7.5;5.5" dur="3.2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="1;0.65;1" dur="3.2s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Center valley node (mid-gradient: teal) -->
+  <circle cx="80" cy="77" r="8" fill="#1e293b"/>
+  <circle cx="80" cy="77" r="4.5" fill="#0891b2" filter="url(#fg)">
+    <animate attributeName="r" values="4.5;6;4.5" dur="3.2s" begin="1.1s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="1;0.7;1" dur="3.2s" begin="1.1s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Right peak node (emerald, pulsing, offset phase) -->
+  <circle cx="124" cy="43" r="9" fill="#1e293b"/>
+  <circle cx="124" cy="43" r="5.5" fill="#10b981" filter="url(#fg)">
+    <animate attributeName="r" values="5.5;7.5;5.5" dur="3.2s" begin="0.55s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="1;0.65;1" dur="3.2s" begin="0.55s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Base corner dots (static, muted) -->
+  <circle cx="36" cy="115" r="5.5" fill="#1e293b"/>
+  <circle cx="36" cy="115" r="3.5" fill="#0891b2" opacity="0.6"/>
+  <circle cx="124" cy="115" r="5.5" fill="#1e293b"/>
+  <circle cx="124" cy="115" r="3.5" fill="#059669" opacity="0.6"/>
+
+  <!-- ═══════════════════════════════════ -->
+  <!--            WORDMARK                -->
+  <!--   (fades in after mark draws)      -->
+  <!-- ═══════════════════════════════════ -->
+  <g opacity="0">
+    <animate attributeName="opacity" from="0" to="1"
+             dur="0.7s" begin="1.6s" fill="freeze"
+             calcMode="spline" keySplines="0.4 0 0.2 1"/>
+
+    <!-- Vertical divider -->
+    <line x1="167" y1="32" x2="167" y2="128"
+          stroke="#2d3a52" stroke-width="1"/>
+
+    <!-- META: light weight, wide tracking, muted (text-muted) -->
+    <text x="185" y="63"
+          font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
+          font-size="15" font-weight="300"
+          fill="#94a3b8" letter-spacing="11">META</text>
+
+    <!-- FACTORY: ultra bold, dominant (text-primary) -->
+    <text x="181" y="103"
+          font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
+          font-size="38" font-weight="800"
+          fill="#f1f5f9" letter-spacing="0.5">FACTORY</text>
+
+    <!-- Accent hairline below FACTORY (brand gradient) -->
+    <rect x="185" y="110" width="155" height="1.5"
+          fill="url(#gh)" opacity="0.7" rx="1"/>
+
+    <!-- STUDIO: light, tracked, brand cyan (accent) -->
+    <text x="188" y="128"
+          font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
+          font-size="11" font-weight="400"
+          fill="#06b6d4" letter-spacing="14">STUDIO</text>
+  </g>
+
+</svg>
