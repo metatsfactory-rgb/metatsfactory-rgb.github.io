@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI活用を、チームの力に変える。 | metafactory agent studio</title>
+    <title>AI活用を、現場の成果とチームの力に変える。 | metafactory agent studio</title>
     <meta name="description"
-        content="AI導入で失敗したくない経営者へ。外注に頼り続けない「卒業がゴール」の伴走支援。28年300名の育成実績から生まれた独自メソッドで、御社チームがAIを使いこなせるようになります。">
-    <meta property="og:title" content="AI活用を、チームの力に変える。 | metafactory agent studio">
-    <meta property="og:description" content="卒業がゴールのAI伴走支援。28年の実績×300名の育成経験。御社チームが自走できるまで、責任を持って伴走します。">
+        content="AIを業務改善・アプリ納品・社内定着へつなげたい企業へ。完成品としてのAIアプリ納品と、Agent・教材・品質ガバナンス込みの伴走支援で、御社チームが自走できる状態まで支援します。">
+    <meta property="og:title" content="AI活用を、現場の成果とチームの力に変える。 | metafactory agent studio">
+    <meta property="og:description" content="AIアプリ納品と、Agent・教材・品質ガバナンス込みの伴走支援。作って終わりではなく、御社に仕組みと自走力が残るAI導入を支援します。">
     <meta property="og:type" content="website">
     <style>
         :root {
@@ -1532,6 +1532,65 @@
             color: var(--accent);
         }
 
+
+
+        .model-focus-note {
+            max-width: 900px;
+            margin: 40px auto 0;
+            padding: 24px 28px;
+            background: rgba(6, 182, 212, 0.06);
+            border: 1px solid rgba(6, 182, 212, 0.18);
+            border-radius: 16px;
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.8;
+            text-align: center;
+        }
+
+        .roi,
+        .use-cases {
+            padding: 120px 0;
+        }
+
+        .model-price-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+            max-width: 1100px;
+            margin: 0 auto 48px;
+        }
+
+        .model-price-card {
+            background: var(--bg-card);
+            padding: 36px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .model-price-card h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .model-price-card .price-main {
+            color: var(--accent);
+            font-size: 28px;
+            font-weight: 800;
+            margin: 10px 0 8px;
+        }
+
+        .model-price-card p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            .model-price-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .hero-stats {
@@ -1658,15 +1717,15 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <div class="hero-tag">外注に頼り続けない AI 伴走支援</div>
-                <h1>AI活用を、<br><span class="highlight">チームの力に変える。</span></h1>
+                <div class="hero-tag">AIアプリ納品 × 伴走支援 × 自走化</div>
+                <h1>AI活用を、<br><span class="highlight">現場の成果に変える。</span></h1>
                 <p class="hero-subtitle">
-                    御社のチームが、AIを自分たちで使いこなせるようになる。<br>
-                    「卒業がゴール」——自走できたら月額は終了。2つのモデルで応えます。
+                    欲しいのは、AIの説明ではなく、業務が変わること。<br>
+                    完成品としてのAIアプリ納品、またはAgent・教材・品質ガバナンス込みの伴走支援で、御社に「使える仕組み」と「自走できるチーム」を残します。
                 </p>
                 <div class="hero-cta-group">
                     <a href="#contact" class="cta-primary">無料診断を受ける</a>
-                    <a href="#services" class="cta-secondary">サービスを見る</a>
+                    <a href="#services" class="cta-secondary">2つのモデルを見る</a>
                 </div>
                 <div class="hero-stats">
                     <div class="hero-stat">
@@ -1678,12 +1737,12 @@
                         <div class="hero-stat-label">技術者の育成実績</div>
                     </div>
                     <div class="hero-stat">
-                        <div class="hero-stat-number">最短3ヶ月</div>
-                        <div class="hero-stat-label">で御社チームが自走</div>
+                        <div class="hero-stat-number">2モデル</div>
+                        <div class="hero-stat-label">納品型 / 伴走支援型</div>
                     </div>
                     <div class="hero-stat">
                         <div class="hero-stat-number">80万円〜</div>
-                        <div class="hero-stat-label">アプリ納品から始められる</div>
+                        <div class="hero-stat-label">アプリ納品から相談可能</div>
                     </div>
                 </div>
             </div>
@@ -1695,8 +1754,8 @@
         <div class="container">
             <div class="section-header">
                 <div class="section-tag">よくある失敗パターン</div>
-                <h2 class="section-title">こんな課題、放置していませんか？</h2>
-                <p class="section-subtitle">AIを導入した企業の多くが、同じ壁にぶつかっています。</p>
+                <h2 class="section-title">AIを入れても、現場で使われない。</h2>
+                <p class="section-subtitle">多くの企業がつまずくのは、ツール選びではなく「業務に定着する仕組み」がないことです。</p>
             </div>
             <div class="pain-grid">
                 <div class="pain-card">
@@ -1728,8 +1787,9 @@
         <div class="container">
             <div class="section-header">
                 <div class="section-tag">他社との違い</div>
-                <h2 class="section-title">一般的なAI導入と、何が違うのか</h2>
-                <p class="section-subtitle">「作って終わり」のAI外注と、「御社が自走できるようになる」支援。<br>この違いが、1年後のコスト構造を根本から変えます。</p>
+                <h2 class="section-title">AIを「使う」だけでなく、<br>業務に残る形へ。</h2>
+                <p class="section-subtitle">metafactory は、アプリを作るだけでも、研修だけでもありません。成果物・運用ルール・品質基準・教育をつなげて、社内で回る状態を設計します。
+                </p>
             </div>
             <div class="comparison-table">
                 <div class="comparison-header">
@@ -1738,29 +1798,29 @@
                     <div>metafactory</div>
                 </div>
                 <div class="comparison-row">
-                    <div>品質のバラつき</div>
-                    <div class="comparison-fail">担当者のスキル次第</div>
-                    <div class="comparison-success">仕組みで品質を安定させる</div>
+                    <div>導入後の状態</div>
+                    <div class="comparison-fail">ツールやアプリだけが残る</div>
+                    <div class="comparison-success">使い方・判断基準・改善手順まで残す</div>
                 </div>
                 <div class="comparison-row">
-                    <div>外注コスト</div>
-                    <div class="comparison-fail">毎月払い続ける</div>
-                    <div class="comparison-success">卒業すれば月額ゼロに</div>
+                    <div>品質の安定</div>
+                    <div class="comparison-fail">担当者の経験に依存</div>
+                    <div class="comparison-success">品質ルールと検証手順で再現性を持たせる</div>
                 </div>
                 <div class="comparison-row">
-                    <div>引き継ぎ</div>
-                    <div class="comparison-fail">中身がブラックボックス</div>
-                    <div class="comparison-success">作った理由まで全て記録・引き継ぎ可能</div>
+                    <div>費用構造</div>
+                    <div class="comparison-fail">改修のたびに外注</div>
+                    <div class="comparison-success">自走できれば月額を終了できる</div>
                 </div>
                 <div class="comparison-row">
-                    <div>社内の成長</div>
-                    <div class="comparison-fail">社内に何も残らない</div>
-                    <div class="comparison-success">御社チームがAIを使いこなせるようになる</div>
+                    <div>社内定着</div>
+                    <div class="comparison-fail">一部の詳しい人だけが使う</div>
+                    <div class="comparison-success">Agent・教材・運用ルールをチームに移す</div>
                 </div>
                 <div class="comparison-row">
-                    <div>追加開発</div>
-                    <div class="comparison-fail">また外注。また見積。</div>
-                    <div class="comparison-success">自社で回せる体制が残る</div>
+                    <div>追加改善</div>
+                    <div class="comparison-fail">設計意図が不明で直しにくい</div>
+                    <div class="comparison-success">判断記録とトレーサビリティを残す</div>
                 </div>
             </div>
         </div>
@@ -1771,41 +1831,37 @@
         <div class="container">
             <div class="section-header">
                 <div class="section-tag">選ばれる理由</div>
-                <h2 class="section-title">他のAIコンサルとの決定的な違い</h2>
-                <p class="section-subtitle">この3つは、他では手に入りません。</p>
+                <h2 class="section-title">高単価でも選ばれる理由</h2>
+                <p class="section-subtitle">提供しているのは、単発の研修でも、単なる開発代行でもありません。御社に残る「AI活用の土台」まで設計します。</p>
             </div>
             <div class="diff-grid">
                 <div class="diff-card">
                     <div class="diff-number">01</div>
                     <div class="diff-icon">🎓</div>
                     <h3>「卒業」がゴール</h3>
-                    <div class="diff-sub">御社が自走できたら、月額は終了</div>
-                    <p>一般的なコンサルのゴールは「次もまた依頼してもらうこと」。私たちのゴールは「もう来なくていいよ」と言ってもらうこと。ノウハウも仕組みも、全て御社チームに引き継ぎます。自走できたら、さよなら。
-                    </p>
-                    <div class="diff-evidence">最短3ヶ月で自走 / 自走後は月額ゼロ / ノウハウは全て御社のもの</div>
+                    <div class="diff-sub">ずっと依存させるのではなく、社内で回せる状態へ</div>
+                    <p>伴走支援のゴールは、継続課金を増やすことではありません。AIを使う手順、判断基準、改善の進め方を御社に移し、自走できる状態を目指します。</p>
+                    <div class="diff-evidence">自走後は月額終了 / ノウハウを社内に移管 / 段階的に卒業</div>
                 </div>
                 <div class="diff-card">
                     <div class="diff-number">02</div>
-                    <div class="diff-icon">🛡️</div>
-                    <h3>品質を「仕組み」で守る</h3>
-                    <div class="diff-sub">担当者が変わっても、品質は変わらない</div>
-                    <p>独自の品質チェックの仕組みが、AIの出力を二重で検証。「作ったけど品質がバラバラ」——そんな不安とは無縁です。人に依存せず、仕組みで品質を守るから、担当者が変わっても、AIモデルが変わっても安定します。
-                    </p>
-                    <div class="diff-evidence">品質チェックは全自動 / 誰がやっても同じ品質 / ブラックボックスなし</div>
+                    <div class="diff-icon">🧩</div>
+                    <h3>Agent・教材・品質ルールまで同梱</h3>
+                    <div class="diff-sub">研修だけではなく、使い続ける仕組みを渡す</div>
+                    <p>パワポ自動作成、AIlearning、アプリ作成Agent、品質チェック、運用ルールを組み合わせて導入します。現場が迷わず使える環境を整えてから、伴走で定着させます。</p>
+                    <div class="diff-evidence">同梱Agent / 教育コンテンツ / 品質ガバナンス / 運用設計</div>
                 </div>
                 <div class="diff-card">
                     <div class="diff-number">03</div>
-                    <div class="diff-icon">⚙️</div>
+                    <div class="diff-icon">🛡️</div>
                     <h3>28年 × 300名の現場経験</h3>
-                    <div class="diff-sub">机上の空論ではない。大規模開発の実績</div>
-                    <p>数百名規模のプロジェクトを率い、300名以上の技術者を育てた経験。その全てを体系化した独自メソッドを、御社に移植します。AI人材の「育て方」を知っている——これが、ツールだけ売る会社との決定的な差です。
-                    </p>
-                    <div class="diff-evidence">大規模組込みソフト 28年 / 技術者育成 300名+ / AI×品質管理の専門家</div>
+                    <div class="diff-sub">AIを品質管理・育成・開発プロセスの視点で扱う</div>
+                    <p>大規模開発で品質とスケジュールを守り、300名以上を育成してきた経験を、AI活用支援に転用。人に依存しすぎない仕組みづくりを重視します。</p>
+                    <div class="diff-evidence">大規模ソフトウェア開発 28年 / 技術者育成 300名+ / 品質と自走化の専門性</div>
                 </div>
             </div>
         </div>
     </section>
-
 
     <!-- 4.5 Deliverables -->
     <section class="trust" style="background: var(--bg-secondary);">
@@ -1814,44 +1870,55 @@
                 <div class="section-tag"
                     style="background: rgba(6, 182, 212, 0.12); color: var(--accent); border-color: var(--accent);">成果物
                 </div>
-                <h2 class="section-title">成果物（納品物・移植物）一覧</h2>
-                <p class="section-subtitle">
-                    御社に残るものだけを作ります（※具体の中身は、御社の業務プロセスに合わせて設計するため、無料診断の場で口頭ですり合わせます。詳細は要件ヒアリング後にご提案します）。</p>
+                <h2 class="section-title">御社に残るもの</h2>
+                <p class="section-subtitle">一時的な支援ではなく、納品物・Agent・教材・運用ルール・判断記録が残る設計にしています。</p>
             </div>
             <div class="trust-grid deliverables-grid">
                 <div class="trust-card">
-                    <div class="trust-icon">🧭</div>
-                    <h3>品質と引き継ぎの「仕組み」</h3>
-                    <p>生成AIが本番で止まる原因（品質の再現性・責任・運用）を、御社の現場プロセスに合わせて仕組み化します。</p>
-                    <ul class="service-features" style="margin-bottom:0; margin-top:16px;">
-                        <li>品質の合格ライン（判断の共通言語）</li>
-                        <li>評価・検証の進め方（再現できる手順）</li>
-                        <li>運用ルール（例外・変更に耐える）</li>
-                        <li>引き継ぎ可能な記録（ブラックボックスにしない）</li>
-                    </ul>
-                </div>
-
-                <div class="trust-card">
                     <div class="trust-icon">🚀</div>
-                    <h3>モデル1（アプリ納品型）で納品するもの</h3>
-                    <p>ミニアプリ（80万円〜）でも、対象範囲を絞った「完成形」を品質の仕組み込みで納品します。全社横断の品質評価基盤や運用統制など大規模対応は伴走型で対応します。</p>
+                    <h3>モデル1：アプリ納品型</h3>
+                    <p>業務を変えるAIアプリを、完成品として納品します。単に動くものではなく、引き継ぎや改修に耐えられる記録を残します。</p>
                     <ul class="service-features" style="margin-bottom:0; margin-top:16px;">
-                        <li>ソースコード</li>
+                        <li>ソースコード・実行環境一式</li>
                         <li>操作マニュアル</li>
-                        <li>設計の判断記録（なぜこう作ったか）</li>
-                        <li>動作確認・簡易テスト（スコープ内）</li>
+                        <li>設計の判断記録</li>
+                        <li>動作確認・品質チェック結果</li>
                     </ul>
                 </div>
 
                 <div class="trust-card">
                     <div class="trust-icon">🌱</div>
-                    <h3>モデル2（伴走支援型）で移植するもの</h3>
-                    <p>御社チームが回せるように、環境・教育・運用をまとめて移植します。特に「品質の再現性」「モデル変更への耐性」「監査・説明責任」を全プランに標準整備します。</p>
+                    <h3>モデル2：伴走支援型</h3>
+                    <p>御社チームがAIを業務で使い続けられるように、環境・Agent・教材・品質ルール・運用手順をまとめて導入します。</p>
                     <ul class="service-features" style="margin-bottom:0; margin-top:16px;">
-                        <li>AI活用環境の構築（前提整備）</li>
-                        <li>全プラン標準搭載のスキル・教材（パワポ自動作成/AIlearning/アプリ作成Agent 等）</li>
-                        <li>段階的な教育（基礎→応用→自走レベル）</li>
-                        <li>テンプレート・運用ルール（チームで再現できる形に）</li>
+                        <li>AI活用環境の構築</li>
+                        <li>パワポ自動作成 / AIlearning / アプリ作成Agent</li>
+                        <li>業務テーマに合わせた活用テンプレート</li>
+                        <li>定着のための伴走セッション</li>
+                    </ul>
+                </div>
+
+                <div class="trust-card">
+                    <div class="trust-icon">🛡️</div>
+                    <h3>品質とガバナンスの仕組み</h3>
+                    <p>AIの出力やAgentの実装が属人化しないように、品質基準・レビュー観点・変更記録を整備します。</p>
+                    <ul class="service-features" style="margin-bottom:0; margin-top:16px;">
+                        <li>品質の合格ライン</li>
+                        <li>評価・検証の進め方</li>
+                        <li>例外・変更時の運用ルール</li>
+                        <li>引き継ぎ可能な記録</li>
+                    </ul>
+                </div>
+
+                <div class="trust-card">
+                    <div class="trust-icon">⚙️</div>
+                    <h3>Agentic開発基盤</h3>
+                    <p>上位プランでは、AIに業務改善やアプリ構築を任せるための仕様・設計・テスト・再利用部品ルールを含む開発基盤まで整備します。</p>
+                    <ul class="service-features" style="margin-bottom:0; margin-top:16px;">
+                        <li>要求・設計・実装・テストの流れを標準化</li>
+                        <li>再利用部品ルール</li>
+                        <li>BDD / TDD による検証</li>
+                        <li>実装判断のトレーサビリティ</li>
                     </ul>
                 </div>
 
@@ -1874,8 +1941,8 @@
     <section id="services" class="services">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">2つのサービスモデル</h2>
-                <p class="section-subtitle">「動くアプリがすぐ欲しい」も「自社で育てたい」も。<br>あなたのフェーズに合わせて、最適な支援を選べます。</p>
+                <h2 class="section-title">提供モデルは2つだけ</h2>
+                <p class="section-subtitle">小さなスポット作業を並べるのではなく、成果物として納品するか、御社に仕組みを移すか。選び方をシンプルにしています。</p>
             </div>
             <div class="service-cards">
                 <div class="service-card">
@@ -1883,29 +1950,34 @@
                     <h3>アプリ納品型</h3>
                     <p>AIアプリが欲しい。でも学ぶ時間はない。——それなら、品質の仕組みごと納品します。「なぜこう作ったか」の記録付きだから、ブラックボックスになりません。</p>
                     <ul class="service-features">
-                        <li>独自の品質基準でAIアプリを開発・納品</li>
-                        <li>「なぜこう作ったか」の設計記録付き——引き継ぎも安心</li>
-                        <li>品質チェック済み——動く「だけ」のアプリは作りません</li>
-                        <li>ソースコード・品質テスト一式・操作マニュアルを全て納品</li>
-                        <li>保守オプション（月額10〜40万円、プランに応じて）で継続サポートも可能</li>
+                        <li>業務課題に合わせたAIアプリを開発・納品</li>
+                        <li>「なぜこう作ったか」の判断記録付き</li>
+                        <li>動作確認・品質チェック・操作マニュアル込み</li>
+                        <li>必要に応じて保守オプションを追加可能</li>
+                        <li>後から伴走支援へ進む場合、モデル1費用は初期費用から全額差引</li>
                     </ul>
                     <a href="#contact" class="service-cta">アプリ納品について相談する</a>
-                    <span class="service-price-note">80万円〜（ミニアプリ）/ 大規模は個別見積</span>
+                    <span class="service-price-note">80万円〜 / 内容に応じて個別見積</span>
                 </div>
                 <div class="service-card">
                     <div class="service-badge">モデル2 <span class="service-chip">Coach &amp; Empower</span></div>
                     <h3>伴走支援型</h3>
-                    <p>AI活用の環境と仕組みを御社に導入。業務を助けるAIアシスタントと教育で、自社チームの「自走力」を育てます。自走できたら月額終了。ベンダー依存にしない、唯一のAIコンサルです。</p>
+                    <p>AI活用の環境と仕組みを御社に導入。Agent・教材・品質ガバナンス・Agentic開発基盤で、自社チームの「自走力」を育てます。自走できたら月額終了。ベンダー依存にしない、唯一のAIコンサルです。
+                    </p>
                     <ul class="service-features">
-                        <li>AI活用環境の構築 + 独自の品質管理メソッドを丸ごと提供</li>
-                        <li>全プラン標準搭載のスキル・教材付き（パワポ自動作成スキル / AIlearningコンテンツ / アプリ作成Agent）</li>
-                        <li>段階的な教育（基礎→応用→自分でAIを使いこなすレベルへ）</li>
-                        <li>定期伴走セッション + チャットサポート</li>
-                        <li>最短3ヶ月で自走——御社のペースに合わせて卒業</li>
+                        <li>AI活用環境・同梱Agent・教材を一括導入</li>
+                        <li>パワポ自動作成 / AIlearning / アプリ作成Agent を標準搭載</li>
+                        <li>品質基準・運用ルール・判断記録の仕組みを整備</li>
+                        <li>Plan S / M / L に応じた伴走セッション</li>
+                        <li>自走できる状態を確認できたら、月額伴走は終了可能</li>
                     </ul>
                     <a href="#pricing" class="service-cta">伴走支援のプランを見る</a>
                     <span class="service-price-note">Plan S / M / L から選択（初期250万円〜）</span>
                 </div>
+            </div>
+            <div class="model-focus-note">
+                metafactory は「安価な相談メニューを多数並べる」サービスではありません。<br>
+                完成品として成果を出すモデル1、または御社にAI活用の仕組みを移すモデル2に絞ることで、品質と引き継ぎ可能性を守ります。
             </div>
         </div>
     </section>
@@ -1914,27 +1986,27 @@
     <section class="selection-guide">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">どちらのモデルを選ぶべきか？</h2>
-                <p class="section-subtitle">御社の「今の状況」から、最適な始め方が見えます。</p>
+                <h2 class="section-title">どちらを選ぶべきか？</h2>
+                <p class="section-subtitle">目的によって、選ぶモデルは明確に分かれます。</p>
             </div>
             <div class="guide-grid">
                 <div class="guide-card">
                     <div class="guide-icon">🚀</div>
-                    <h3>アプリだけ欲しい</h3>
-                    <p>社内にAI人材を育てる予定はないが、業務を変えるアプリは欲しい。品質チェック済みのアプリを、引き継ぎ資料ごと納品します。</p>
+                    <h3>まず完成品が欲しい</h3>
+                    <p>AIを学ぶよりも、まず特定業務を改善するアプリが必要。要件を切り出し、品質チェック済みの成果物として受け取りたい。</p>
                     <div class="guide-rec">→ モデル1：アプリ納品型（80万円〜）</div>
                 </div>
                 <div class="guide-card">
                     <div class="guide-icon">🌱</div>
-                    <h3>社内で AI を使いこなしたい</h3>
-                    <p>自社チームにAI活用スキルを定着させ、内製で回せる体制を作りたい。AIアシスタントと教育プログラムで自走化を支援します。</p>
-                    <div class="guide-rec">→ モデル2：伴走支援型（Plan S / M / L）</div>
+                    <h3>社内にAI活用を定着させたい</h3>
+                    <p>資料作成、調査、業務整理、アプリ作成などを、担当者がAIと一緒に進められる状態にしたい。</p>
+                    <div class="guide-rec">→ モデル2：Plan S / M</div>
                 </div>
                 <div class="guide-card">
-                    <div class="guide-icon">🔄</div>
-                    <h3>まずアプリ、次に内製化</h3>
-                    <p>まずモデル1で「動くアプリ」を手に入れてから、モデル2で社内チームにスキルを移転。最もリスクの低い進め方です。</p>
-                    <div class="guide-rec">→ モデル1 + モデル2 を段階的に（モデル1費用は伴走型の初期費用から全額差引）</div>
+                    <div class="guide-icon">⚙️</div>
+                    <h3>AIで開発・改善を回したい</h3>
+                    <p>AI Agent に業務改善やアプリ構築を任せるため、仕様・設計・テスト・再利用ルールまで整えたい。</p>
+                    <div class="guide-rec">→ モデル2：Plan L / 個別設計</div>
                 </div>
             </div>
         </div>
@@ -1944,46 +2016,62 @@
     <section id="pricing" class="pricing">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">明確な料金体系</h2>
-                <p class="section-subtitle">伴走支援型（モデル2）は、御社が求める活用レベルに応じた3つのプランをご用意。<br>すべてのプランで「卒業」後は月額が終了します。</p>
+                <h2 class="section-title">料金体系</h2>
+                <p class="section-subtitle">
+                    料金は「アプリ納品型」と「伴走支援型」で分けています。伴走支援の初期費用には、研修だけでなく、Agent・教材・環境構築・品質ガバナンスの導入が含まれます。</p>
+            </div>
+
+            <div class="model-price-grid">
+                <div class="model-price-card">
+                    <div class="service-badge">モデル1 <span class="service-chip">Build &amp; Deliver</span></div>
+                    <h3>アプリ納品型</h3>
+                    <div class="price-main">80万円〜</div>
+                    <p>業務課題に合わせたAIアプリを、完成品として納品します。規模・連携・運用要件に応じて個別見積。後から伴走支援へ進む場合、モデル1費用は初期費用から全額差引します。</p>
+                </div>
+                <div class="model-price-card">
+                    <div class="service-badge">モデル2 <span class="service-chip">Coach &amp; Empower</span></div>
+                    <h3>伴走支援型</h3>
+                    <div class="price-main">初期250万円〜 + 月額25万円〜</div>
+                    <p>AI活用環境、同梱Agent、教材、品質ルール、運用設計、伴走セッションを組み合わせて導入します。S/M/Lの違いは、対象範囲と伴走の深さです。</p>
+                </div>
             </div>
 
             <!-- 全プラン標準装備 -->
             <div class="standard-features">
-                <h3>すべてのプランに標準装備</h3>
+                <h3>伴走支援型の全プランに標準装備</h3>
                 <p class="standard-lead">
-                    どのプランを選んでも、AI活用に必要なツールは全て揃っています。<br>プランの違いは「伴走の濃さ」だけです。
+                    初期費用は「研修費」ではありません。<br>AIを業務で使い続けるための環境・Agent・教材・品質ガバナンスをまとめて導入します。
                 </p>
                 <div class="standard-grid">
                     <div class="standard-item">
                         <span class="standard-icon">🎯</span>
-                        <h5>業務アプリ自動生成</h5>
-                        <p>「経費精算を楽にしたい」——やりたいことを伝えるだけで、御社専用の業務アプリをAIが自動で作ります。</p>
+                        <h5>アプリ作成Agent</h5>
+                        <p>業務アプリや自動化のたたき台を、対話しながら作成・改善できるAgentを提供します。</p>
                     </div>
                     <div class="standard-item">
                         <span class="standard-icon">📊</span>
                         <h5>スライド自動作成</h5>
-                        <p>報告書・提案書をAIが自動生成。企業ブランドに合わせたプレミアムデザイン。</p>
+                        <p>報告書・提案書・社内説明資料を、企業ブランドに合わせた形で作成支援します。</p>
                     </div>
                     <div class="standard-item">
                         <span class="standard-icon">🧭</span>
                         <h5>戦略立案アシスタント</h5>
-                        <p>難しい判断も、5人の専門家が多角的に議論。戦略書を自動で作成し、実行まで一気通貫で支援。</p>
+                        <p>複数視点で業務課題を整理し、施策・優先順位・実行案をまとめる支援をします。</p>
                     </div>
                     <div class="standard-item">
                         <span class="standard-icon">🔍</span>
-                        <h5>品質の自動チェック</h5>
-                        <p>AIが勝手に暴走しない仕組み。AIの出力を自動検証し、問題があれば即座に検出・修正。</p>
+                        <h5>品質・再現性チェック</h5>
+                        <p>AI出力の合格ライン、レビュー観点、検証手順を整え、属人的な判断を減らします。</p>
                     </div>
                     <div class="standard-item">
                         <span class="standard-icon">📚</span>
-                        <h5>AI活用 learningコンテンツ</h5>
-                        <p>LLMの本質からAgentic開発まで全7テーマ。チーム全員のAIリテラシーを底上げ。</p>
+                        <h5>AIlearningコンテンツ</h5>
+                        <p>LLMの基本から業務活用、Agentic開発まで、チームの理解を段階的に底上げします。</p>
                     </div>
                     <div class="standard-item">
-                        <span class="standard-icon">🔄</span>
-                        <h5>卒業後も使い続けられる</h5>
-                        <p>支援終了後もAI環境・全ツールはそのまま。月額だけ終了します。</p>
+                        <span class="standard-icon">⚙️</span>
+                        <h5>Agentic開発基盤</h5>
+                        <p>要求・設計・実装・テスト・記録をつなぎ、AI Agentに安全に作業させる土台を整えます。</p>
                     </div>
                 </div>
             </div>
@@ -1993,101 +2081,97 @@
                 <div class="pricing-card featured">
                     <div style="text-align:center;"><span class="pricing-badge">おすすめ</span></div>
                     <h4>Plan S</h4>
-                    <div class="pricing-target">AIを活用し始めたいチーム向け</div>
+                    <div class="pricing-target">小さく始め、推進者を育てたいチーム向け</div>
                     <div class="pricing-price">初期 250万円</div>
                     <div class="pricing-monthly">+ 月額 25万円</div>
                     <div class="pricing-annual">初年度総額 550万円</div>
                     <div class="pricing-meta">
                         <div class="pricing-meta-row"><span class="label">同梱</span><span class="value">全ツール標準搭載</span>
                         </div>
-                        <div class="pricing-meta-row"><span class="label">教育</span><span class="value">基礎（AIの使い方）</span>
+                        <div class="pricing-meta-row"><span class="label">教育</span><span class="value">基礎〜業務活用</span>
                         </div>
                         <div class="pricing-meta-row"><span class="label">伴走頻度</span><span class="value">月2回セッション</span>
                         </div>
-                        <div class="pricing-meta-row"><span class="label">対象人数</span><span
-                                class="value">担当者1-2名+利用者</span></div>
+                        <div class="pricing-meta-row"><span class="label">対象</span><span
+                                class="value">推進者1-2名+利用者</span></div>
                         <div class="pricing-meta-row"><span class="label">卒業目標</span><span class="value">3〜6ヶ月</span>
                         </div>
                     </div>
                     <ul class="pricing-features">
-                        <li>AI活用環境の構築 + 品質チェックの仕組み導入</li>
-                        <li>全ツール標準搭載（パワポ自動作成 / AIlearning / アプリ作成Agent）</li>
-                        <li>基礎教育（AIの使い方 + AIへの指示の出し方）</li>
+                        <li>AI活用環境の構築</li>
+                        <li>同梱Agent・教材・品質チェックの初期導入</li>
+                        <li>基礎教育と業務テーマ選定</li>
                         <li>月2回の伴走セッション（2h/回）</li>
-                        <li>月次技術サポート</li>
+                        <li>小規模チームでの定着支援</li>
                     </ul>
-                    <div class="pricing-note">モデル1（アプリ納品型）ご利用実績がある場合、その費用を初期費用から全額差引</div>
+                    <div class="pricing-note">モデル1の利用実績がある場合、その費用を初期費用から全額差引</div>
                 </div>
 
                 <!-- Plan M -->
                 <div class="pricing-card">
                     <h4 style="margin-top:28px;">Plan M</h4>
-                    <div class="pricing-target">組織にAI活用を定着させたい企業向け</div>
+                    <div class="pricing-target">複数業務へAI活用を広げたい企業向け</div>
                     <div class="pricing-price">初期 500万円</div>
                     <div class="pricing-monthly">+ 月額 45万円</div>
                     <div class="pricing-annual">初年度総額 1,040万円</div>
                     <div class="pricing-meta">
                         <div class="pricing-meta-row"><span class="label">同梱</span><span class="value">全ツール標準搭載</span>
                         </div>
-                        <div class="pricing-meta-row"><span class="label">教育</span><span
-                                class="value">応用（業務でAIを使う）</span>
+                        <div class="pricing-meta-row"><span class="label">教育</span><span class="value">応用・業務設計</span>
                         </div>
                         <div class="pricing-meta-row"><span class="label">伴走頻度</span><span class="value">週1回セッション</span>
                         </div>
-                        <div class="pricing-meta-row"><span class="label">対象人数</span><span
-                                class="value">担当者3-5名+利用者</span></div>
+                        <div class="pricing-meta-row"><span class="label">対象</span><span
+                                class="value">推進者3-5名+利用者</span></div>
                         <div class="pricing-meta-row"><span class="label">卒業目標</span><span class="value">4〜9ヶ月</span>
                         </div>
                     </div>
                     <ul class="pricing-features">
                         <li>Plan S の全内容に加え——</li>
                         <li>複数業務（3-5テーマ）のAI化ロードマップ策定</li>
-                        <li>応用教育（AI活用の業務設計 + AIに仕事を任せるスキル）</li>
+                        <li>業務ごとのAI活用テンプレート作成</li>
                         <li>週1回の伴走セッション（2h/回）+ レビュー</li>
-                        <li>御社オリジナルのAIアシスタント作成テンプレート</li>
-                        <li>月次 + 週次ダイジェストレポート</li>
+                        <li>月次・週次の定着レポート</li>
                     </ul>
-                    <div class="pricing-note">モデル1（アプリ納品型）ご利用実績がある場合、その費用を初期費用から全額差引</div>
+                    <div class="pricing-note">モデル1の利用実績がある場合、その費用を初期費用から全額差引</div>
                 </div>
 
                 <!-- Plan L -->
                 <div class="pricing-card">
                     <h4 style="margin-top:28px;">Plan L</h4>
-                    <div class="pricing-target">AIで事業を変革したい企業向け</div>
+                    <div class="pricing-target">AI Agentで開発・改善を回したい企業向け</div>
                     <div class="pricing-price">初期 1,200万円〜</div>
                     <div class="pricing-monthly">+ 月額 120万円〜</div>
                     <div class="pricing-annual">初年度総額 2,640万円〜</div>
                     <div class="pricing-meta">
-                        <div class="pricing-meta-row"><span class="label">同梱</span><span class="value">全ツール標準搭載</span>
+                        <div class="pricing-meta-row"><span class="label">同梱</span><span class="value">全ツール+開発基盤</span>
                         </div>
-                        <div class="pricing-meta-row"><span class="label">教育</span><span
-                                class="value">実践（AIで成果物を生む）</span>
+                        <div class="pricing-meta-row"><span class="label">教育</span><span class="value">実践・内製化</span>
                         </div>
-                        <div class="pricing-meta-row"><span class="label">伴走頻度</span><span class="value">週2回+専任</span>
-                        </div>
-                        <div class="pricing-meta-row"><span class="label">対象人数</span><span
-                                class="value">設計者+担当者+利用者の3層</span></div>
+                        <div class="pricing-meta-row"><span class="label">伴走頻度</span><span
+                                class="value">週2回+専任設計支援</span></div>
+                        <div class="pricing-meta-row"><span class="label">対象</span><span
+                                class="value">設計者+推進者+利用者</span></div>
                         <div class="pricing-meta-row"><span class="label">卒業目標</span><span class="value">6〜12ヶ月</span>
                         </div>
                     </div>
                     <ul class="pricing-features">
                         <li>Plan M の全内容に加え——</li>
-                        <li>御社専用のAIアシスタントを複数体オーダーメイド開発</li>
-                        <li>実践教育（AIとの対話だけで成果物を生み出すスキル）</li>
-                        <li>週2回の伴走セッション（2h/回）+ 専任サポート</li>
-                        <li>品質の可視化レポート</li>
+                        <li>Agentic開発基盤の本格導入</li>
+                        <li>要求・設計・BDD/TDD・再利用部品ルールの整備</li>
+                        <li>御社専用AI Agentの設計・改善</li>
+                        <li>品質・変更・判断記録の可視化</li>
                     </ul>
-                    <div class="pricing-note">モデル1（アプリ納品型）ご利用実績がある場合、その費用を初期費用から全額差引 / 個別見積</div>
+                    <div class="pricing-note">モデル1の利用実績がある場合、その費用を初期費用から全額差引 / 個別見積</div>
                 </div>
             </div>
 
             <div style="text-align:center; margin-top:48px;">
                 <p style="color:var(--text-secondary); font-size:15px; margin-bottom:12px;">
-                    ※ モデル1（アプリ納品型）をご利用後にモデル2（伴走支援型）へ移行される場合、モデル1の費用を初期費用から<strong
-                        style="color:var(--accent);">全額差引</strong>。
+                    ※ モデル1をご利用後にモデル2へ移行される場合、モデル1の費用を初期費用から<strong style="color:var(--accent);">全額差引</strong>します。
                 </p>
                 <p style="color:var(--text-muted); font-size:15px; margin-bottom:20px;">
-                    全プラン共通：無料診断 → 要件ヒアリング → ご提案。押し売りは一切ありません。
+                    無料診断で、モデル1で完結するべきか、モデル2で社内定着まで進むべきかを整理します。
                 </p>
                 <a href="#contact" class="cta-primary">まずは無料診断から</a>
             </div>
@@ -2099,7 +2183,7 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">卒業モデルの投資対効果</h2>
-                <p class="section-subtitle">「卒業=月額終了」だから、3年で見ると圧倒的な差になります。</p>
+                <p class="section-subtitle">「卒業＝月額終了」だから、3年で見ると圧倒的な差になります。</p>
             </div>
             <div style="max-width: 700px; margin: 0 auto;">
                 <table style="width: 100%; border-collapse: collapse; font-size: 15px;">
@@ -2115,21 +2199,21 @@
                     <tbody>
                         <tr style="border-bottom: 1px solid rgba(255,255,255,0.06);">
                             <td style="padding: 12px 16px; color: var(--text-secondary);">1年目</td>
-                            <td style="text-align: right; padding: 12px 16px; color: var(--text-primary);">600〜1,200万円
+                            <td style="text-align: right; padding: 12px 16px; color: var(--text-primary);">600～1,200万円
                             </td>
                             <td style="text-align: right; padding: 12px 16px; color: var(--accent); font-weight: 600;">
                                 550万円</td>
                         </tr>
                         <tr style="border-bottom: 1px solid rgba(255,255,255,0.06);">
                             <td style="padding: 12px 16px; color: var(--text-secondary);">2年目</td>
-                            <td style="text-align: right; padding: 12px 16px; color: var(--text-primary);">600〜1,200万円
+                            <td style="text-align: right; padding: 12px 16px; color: var(--text-primary);">600～1,200万円
                             </td>
                             <td style="text-align: right; padding: 12px 16px; color: var(--accent); font-weight: 600;">
-                                0円<small style="color: var(--text-muted);">（卒業後）</small></td>
+                                0円<small style="color: var(--text-muted);">(卒業後)</small></td>
                         </tr>
                         <tr style="border-bottom: 2px solid var(--accent);">
                             <td style="padding: 12px 16px; color: var(--text-secondary);">3年目</td>
-                            <td style="text-align: right; padding: 12px 16px; color: var(--text-primary);">600〜1,200万円
+                            <td style="text-align: right; padding: 12px 16px; color: var(--text-primary);">600～1,200万円
                             </td>
                             <td style="text-align: right; padding: 12px 16px; color: var(--accent); font-weight: 600;">
                                 0円</td>
@@ -2137,7 +2221,7 @@
                         <tr>
                             <td style="padding: 16px; font-weight: 700; color: var(--text-primary);">3年合計</td>
                             <td style="text-align: right; padding: 16px; font-weight: 700; color: var(--text-primary);">
-                                1,800〜3,600万円</td>
+                                1,800～3,600万円</td>
                             <td
                                 style="text-align: right; padding: 16px; font-weight: 700; color: var(--accent); font-size: 18px;">
                                 550万円</td>
@@ -2145,7 +2229,7 @@
                     </tbody>
                 </table>
                 <p style="text-align: center; margin-top: 24px; color: var(--text-muted); font-size: 14px;">
-                    ※ 従来型AI外注の費用は、AIコンサルティング市場の一般的な月額50〜100万円をもとに算出。<br>
+                    ※ 従来型AI外注の費用は、AIコンサルティング市場の一般的な月額50～100万円をもとに算出。<br>
                     metafactory は卒業後の月額が発生しないため、長期的な総コストで大きな差が生まれます。
                 </p>
             </div>
@@ -2157,29 +2241,29 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">導入の流れ</h2>
-                <p class="section-subtitle">リスクを最小化する4ステップ。<br>モデル1の費用はモデル2導入時に全額差し引くので、段階的に始められます。</p>
+                <p class="section-subtitle">最初にモデルを押し付けるのではなく、無料診断で「納品型で足りるか」「伴走支援が必要か」を整理します。</p>
             </div>
             <div class="process-steps">
                 <div class="step">
                     <div class="step-number">0</div>
                     <h4>無料診断</h4>
-                    <p>AI活用の準備度と投資対効果を無料で診断。御社の現在地を可視化し、最適なモデル・プランをご提案。<strong>30分・オンライン完結・リスクゼロ</strong>。</p>
+                    <p>現在の業務課題、AI活用の目的、社内体制を確認。モデル1で完結するか、モデル2で定着まで進めるべきかを整理します。</p>
                 </div>
                 <div class="step">
                     <div class="step-number">1</div>
-                    <h4>導入・環境構築</h4>
-                    <p>独自の品質管理の仕組みを貴社環境に導入。開発環境を整備し、動作確認を実施。モデル1の場合はアプリ納品（80万円〜）、モデル2の場合はAI活用環境の構築から。</p>
+                    <h4>要件整理・提案</h4>
+                    <p>対象業務、必要な成果物、運用イメージ、費用対効果を整理し、モデル1またはPlan S/M/Lの提案に落とし込みます。</p>
                 </div>
+
                 <div class="step">
                     <div class="step-number">2</div>
-                    <h4>研修・育成 / アプリ開発</h4>
-                    <p>モデル1：品質チェック済みアプリを納品。モデル2：Plan
-                        S/M/Lに応じた教育プログラムと同梱Agentの配備。<strong>モデル1からモデル2へ移行する場合、費用を全額差引</strong>。</p>
+                    <h4>納品または基盤導入</h4>
+                    <p>モデル1はAIアプリを納品。モデル2はAI活用環境、Agent、教材、品質ルール、運用手順を導入します。</p>
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
-                    <h4>伴走 → 卒業</h4>
-                    <p><strong>「卒業がゴール」</strong>——御社チームが「自分たちで回せる」ようになるまで伴走。自走が確認できたら月額は終了。ベンダー依存にしません。</p>
+                    <h4>伴走・定着・卒業</h4>
+                    <p>御社チームが自分たちで使い、改善し、引き継げる状態を目指します。自走が確認できたら、月額伴走は終了できます。</p>
                 </div>
             </div>
         </div>
@@ -2189,24 +2273,24 @@
     <section class="use-cases" style="background: var(--bg-secondary);">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">こんな使い方ができます</h2>
-                <p class="section-subtitle">業種・規模を問わず、御社の課題に合わせた活用が可能です。</p>
+                <h2 class="section-title">想定ユースケース</h2>
+                <p class="section-subtitle">非エンジニア部門の業務改善から、開発部門のAgentic開発基盤まで対応できます。</p>
             </div>
             <div class="trust-grid">
                 <div class="trust-card">
                     <div class="trust-icon">📸</div>
-                    <h3>建設業 — 現場写真の自動分類</h3>
-                    <p>毎日数百枚の現場写真を手作業で分類していた業務を、AIアプリで自動化。<strong>モデル1（80万円〜）</strong>で導入し、業務時間を大幅に削減。</p>
+                    <h3>建設業 — 現場写真・報告書整理</h3>
+                    <p>現場写真の分類、報告書の下書き、点検記録の整理をAIで支援。まずは<strong>モデル1</strong>で業務アプリとして納品。</p>
                 </div>
                 <div class="trust-card">
-                    <div class="trust-icon">🔍</div>
-                    <h3>製造業 — 品質検査AIの内製化</h3>
-                    <p>外注していた品質検査AIを、<strong>Plan S</strong> で社内チームに技術移転。3ヶ月の伴走で自走体制を構築し、卒業後は月額ゼロに。</p>
+                    <div class="trust-icon">📊</div>
+                    <h3>管理部門 — 資料作成・社内問い合わせ</h3>
+                    <p>スライド作成、規程確認、社内FAQ、議事録整理などをAI活用環境に載せ、<strong>Plan S / M</strong> で現場に定着。</p>
                 </div>
                 <div class="trust-card">
-                    <div class="trust-icon">🏢</div>
-                    <h3>50名企業 — 全社AI活用推進</h3>
-                    <p><strong>Plan M</strong> で全社的なAI活用体制を構築。週1回のセッションで各部門のAI活用スキルを定着させ、半年で内製化を実現。</p>
+                    <div class="trust-icon">⚙️</div>
+                    <h3>開発部門 — Agentic開発基盤</h3>
+                    <p>AI AgentにUI構築や業務アプリ改善を任せるため、仕様・設計・テスト・再利用部品ルールを<strong>Plan L</strong>で整備。</p>
                 </div>
             </div>
         </div>
@@ -2217,38 +2301,38 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">なぜ信頼できるのか</h2>
-                <p class="section-subtitle">数字と仕組みで、信頼を証明します。</p>
+                <p class="section-subtitle">派手なAIデモではなく、品質・引き継ぎ・自走化を重視します。</p>
             </div>
             <div class="trust-grid">
                 <div class="trust-card">
                     <div class="trust-icon">🛡️</div>
                     <h3>品質を仕組みで守る</h3>
-                    <p>担当者のスキルに依存しない、独自の品質チェックの仕組み。人が変わっても、AIモデルが変わっても、品質は安定します。</p>
+                    <p>AIの出力やAgentの実装を、担当者の勘だけに任せません。基準、レビュー観点、記録を整えます。</p>
                 </div>
                 <div class="trust-card">
                     <div class="trust-icon">📋</div>
                     <h3>ブラックボックスにしない</h3>
-                    <p>「なぜこう作ったのか」を全て記録して納品。担当者が代わっても、引き継ぎに困りません。中身が見えるから、安心して運用できます。</p>
+                    <p>「なぜこう作ったのか」「どこを確認すべきか」を残します。担当者が代わっても、引き継ぎや改善ができる状態を目指します。</p>
                 </div>
                 <div class="trust-card">
                     <div class="trust-icon">👥</div>
                     <h3>28年 × 300名の育成実績</h3>
-                    <p>大手企業で数百名を率いたプロジェクトリーダー経験。技術者を「育てて、自走させる」ことに28年間向き合ってきた実績があります。</p>
+                    <p>大規模開発で品質と育成に向き合ってきた経験を、AI活用の定着支援に転用しています。</p>
                 </div>
                 <div class="trust-card">
                     <div class="trust-icon">🎓</div>
-                    <h3>卒業したら、月額ゼロ</h3>
-                    <p>御社が自走できるようになったら、月額は終了。「ずっと払い続ける外注費」から解放されます。これが他社との決定的な違いです。</p>
+                    <h3>卒業したら、月額終了</h3>
+                    <p>御社が自分たちで回せるようになったら、月額伴走は終了できます。継続依存ではなく、自走をゴールにします。</p>
                 </div>
                 <div class="trust-card">
                     <div class="trust-icon">⚡</div>
-                    <h3>最短3ヶ月で自走</h3>
-                    <p>2026年のAIは急速に進化しています。法人や導入規模にもよりますが、御社チームが「自分たちで回せる」レベルまで、責任を持って伴走します。</p>
+                    <h3>成果物まで持っていく</h3>
+                    <p>研修で終わらせず、業務アプリ、Agent、教材、運用ルール、判断記録といった形に残します。</p>
                 </div>
                 <div class="trust-card">
                     <div class="trust-icon">💬</div>
                     <h3>責任者が直接対応</h3>
-                    <p>できないことは「できない」と正直に伝えます。無理な案件は受けません。営業担当はいません。最初から最後まで、責任者が直接対応します。</p>
+                    <p>初回相談から設計・伴走まで、責任者が直接対応します。成果が見込める範囲を明確にし、無理な提案はしません。</p>
                 </div>
             </div>
         </div>
@@ -2259,80 +2343,73 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">よくある質問</h2>
-                <p class="section-subtitle">まずは疑問を解消してください。</p>
+                <p class="section-subtitle">モデルと料金の考え方を整理しました。</p>
             </div>
             <div class="faq-list">
                 <div class="faq-item">
                     <div class="faq-question"><span>アプリ納品だけでも依頼できますか？</span><span class="faq-icon">▼</span></div>
                     <div class="faq-answer">
                         <div class="faq-answer-content">
-                            はい、モデル1（アプリ納品型）をご利用ください。AIの学習は不要です。独自の品質基準で構築したアプリを、設計の判断記録・品質テスト一式・操作マニュアル付きで納品します。80万円のミニアプリから1,000万円規模まで対応可能です。
+                            はい。モデル1（アプリ納品型）をご利用ください。AIの学習や内製化よりも、まず完成品が必要な企業向けです。設計記録・品質チェック・操作マニュアル付きで納品します。</div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span>Plan S/M/L は研修費ですか？</span><span class="faq-icon">▼</span></div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            いいえ。伴走支援型の初期費用には、AI活用環境の構築、同梱Agent、教材、品質ルール、運用設計、初期教育が含まれます。研修だけではなく、御社にAI活用の土台を移すための費用です。
                         </div>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question"><span>同梱スキル・教材とは何ですか？</span><span class="faq-icon">▼</span></div>
+                    <div class="faq-question"><span>同梱Agent・教材とは何ですか？</span><span class="faq-icon">▼</span></div>
                     <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            AI活用環境にあらかじめ組み込まれたスキルと教育コンテンツです。全プラン共通で、パワポ自動作成スキル（Dark
-                            Premium）、AIlearningコンテンツ（7テーマ）、アプリ作成Agentが標準搭載されています。プランの違いは「伴走支援の濃さ」だけです。
-                        </div>
+                        <div class="faq-answer-content">パワポ自動作成、AIlearningコンテンツ、アプリ作成Agentなど、業務でAIを使い続けるための道具です。Plan
+                            Sから標準搭載され、プランの違いは主に対象範囲と伴走の深さです。</div>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question"><span>モデル1だけで終わることもできますか？</span><span class="faq-icon">▼</span></div>
+                    <div class="faq-question"><span>モデル1からモデル2へ移行できますか？</span><span class="faq-icon">▼</span></div>
                     <div class="faq-answer">
                         <div class="faq-answer-content">
-                            はい、もちろんです。モデル1（アプリ納品型）だけでも完結します。納品した成果物（アプリ・設計記録・品質テスト一式・操作マニュアル）はすべてお手元に残ります。その後モデル2（伴走支援型）に進む場合は、モデル1の費用を初期費用から全額差し引きます。
-                        </div>
+                            はい。モデル1でアプリ納品後に、モデル2で社内定着・内製化へ進むことができます。その場合、モデル1の費用はモデル2の初期費用から全額差し引きます。</div>
                     </div>
                 </div>
                 <div class="faq-item">
                     <div class="faq-question"><span>途中でプランを変更できますか？</span><span class="faq-icon">▼</span></div>
                     <div class="faq-answer">
                         <div class="faq-answer-content">はい。Plan S → M、Plan M → L
-                            へのアップグレードはいつでも可能です。差額を翌月から適用し、伴走支援の内容が即時にアップグレードされます。</div>
+                            へのアップグレードは可能です。対象業務や伴走範囲が広がったタイミングで、差分を整理してご提案します。</div>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question"><span>Plan Sでもアプリ作成Agentは使えますか？</span><span class="faq-icon">▼</span>
+                    <div class="faq-question"><span>Plan L の Agentic開発基盤とは何ですか？</span><span class="faq-icon">▼</span>
                     </div>
                     <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            はい、全プラン共通で同じツールが標準搭載されています。アプリ作成Agent、パワポ自動作成、AIlearningコンテンツのいずれもPlan
-                            Sからご利用いただけます。プランの違いは「伴走支援の頻度・深さ」です。
+                        <div class="faq-answer-content">実体は、御社の開発チームに導入する
+                            <strong>MetaCode</strong>（AIエージェント型開発環境）です。要求定義→ギャップ分析→設計→実装→品質チェックを一貫して AI Agent が支援する
+                            SDD（仕様駆動開発）、BDD（振る舞い駆動開発）、DDD（ドメイン駆動設計）のサイクルが含まれ、「AIに自由に作らせる」のではなく<strong>品質ゲートと判断記録の枠組みの中で実装させる</strong>仕組みです。これにより、担当者が変わっても同じ品質で開発が回り続けます。
                         </div>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question"><span>「卒業」した後も使い続けたい場合は？</span><span class="faq-icon">▼</span></div>
+                    <div class="faq-question"><span>「卒業」した後も使い続けられますか？</span><span class="faq-icon">▼</span></div>
                     <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            卒業後は保守契約（月額10〜40万円、プランに応じて異なる）で継続サポートを受けられます。AI活用環境や同梱Agentはそのままご利用いただけます。</div>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question"><span>他のAIコンサルとの違いは何ですか？</span><span class="faq-icon">▼</span></div>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            3つあります。①「卒業がゴール」——自走できたら月額は終了。ベンダー依存にしません。②品質を「仕組み」で守る独自メソッド——担当者が変わっても品質が安定します。③
-                            28年の大規模開発経験と300名以上の育成実績——AI人材の「育て方」を知っています。</div>
+                        <div class="faq-answer-content">はい。卒業後も導入した環境・Agent・教材・運用ルールは残ります。必要に応じて、保守契約や追加支援を個別にご相談いただけます。
+                        </div>
                     </div>
                 </div>
                 <div class="faq-item">
                     <div class="faq-question"><span>どんな規模の企業が対象ですか？</span><span class="faq-icon">▼</span></div>
                     <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            企業規模は問いません。プランは従業員数ではなく「AI活用にどこまで期待するか」——御社の目指すレベルで選んでいただきます。AIを試してみたいチームから全社DX変革まで、3つのプラン（S
-                            / M / L）で対応。アプリ納品型（モデル1）も同様です。</div>
+                        <div class="faq-answer-content">企業規模よりも、目的が重要です。完成品が必要ならモデル1、社内定着を目指すならPlan S/M、AI
+                            Agentで改善・開発まで回したい場合はPlan Lが適しています。</div>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question"><span>個人事業主ですが大丈夫ですか？（御社の体制として）</span><span class="faq-icon">▼</span>
-                    </div>
+                    <div class="faq-question"><span>対応体制はどうなっていますか？</span><span class="faq-icon">▼</span></div>
                     <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            個人事業主だからこそ、意思決定が早く柔軟に対応できます。最初から最後まで責任者が直接対応するため、伝言ゲームが発生しません。品質は個人のスキルではなく「仕組み」で守ります。
+                        <div class="faq-answer-content">初回相談から設計・伴走まで、責任者が直接対応します。品質を守るため、対象範囲と進め方を無料診断で確認したうえでご提案します。
                         </div>
                     </div>
                 </div>
@@ -2352,16 +2429,16 @@
                         ともふみ）</span></div>
                 <div class="profile-title">metafactory agent studio 代表</div>
                 <p class="profile-description">
-                    大手企業で数百名規模のプロジェクトを率い、28年間「品質とスケジュールを守り抜く」ことに向き合ってきました。延べ300名以上の技術者を育て、自走できる組織を作ってきた経験——その全てを、AI活用支援に注ぎ込んでいます。<br><br>
-                    組込み・制御系システム開発に28年従事（C/C++による設計・実装、UI設計、レビュー、教育支援）。2024年からは副業でAI活動を開始。ChatGPT / Claude /
-                    Difyを用いたプロンプト設計、Agent設計、AI基盤設計、教育AIシナリオ設計、コード診断等を実施。「品質は仕組みで守る」。この信念から、独自の品質管理メソッドを開発。人に依存せず、仕組みで品質を担保する体制を構築します。
+                    大規模ソフトウェア開発の現場で、28年間「品質とスケジュールを守り抜く」ことに向き合ってきました。延べ300名以上の技術者を育て、自走できる組織を作ってきた経験を、AI活用支援に転用しています。<br><br>
+                    C/C++による設計・実装、UI設計、レビュー、教育支援、プロセス改善の経験をベースに、生成AI・LLM
+                    を用いたAgent設計、AI基盤設計、教育AIシナリオ設計、コード診断を実施。「品質は仕組みで守る」という考え方から、AI活用にも再現性・記録・引き継ぎ可能性を重視しています。
                 </p>
                 <ul class="profile-highlights">
-                    <li>組込み・制御系ソフトウェアエンジニア（本業：1998年〜） — C/C++・設計・実装・UI・教育 28年</li>
-                    <li>AI活動（副業：2024年〜） — ChatGPT / Claude / Dify・プロンプト設計・Agent設計・AI基盤設計</li>
+                    <li>組込み・制御系ソフトウェア開発 28年 — C/C++・設計・実装・UI・レビュー・教育</li>
+                    <li>生成AI・LLMを活用したプロンプト設計・Agent設計・AI基盤設計（複数LLMエコシステム対応）</li>
                     <li>技術者育成 — 延べ300名以上を「自走できる人材」に</li>
-                    <li>独自の品質管理メソッド開発 — 人に依存しない品質の仕組み化</li>
-                    <li>「卒業がゴール」を本気で実行する伴走支援</li>
+                    <li>AI活用の品質ガバナンス — 人に依存しすぎない仕組み化</li>
+                    <li>「卒業がゴール」を前提にした伴走支援</li>
                 </ul>
             </div>
         </div>
@@ -2371,15 +2448,15 @@
     <section id="contact" class="final-cta">
         <div class="container">
             <div class="final-cta-content">
-                <h2>まずは無料診断から。<br>御社のAI活用の現在地を、<br>30分で可視化します。</h2>
-                <p>AIを導入すべきか。どのモデルが最適か。投資対効果はどれくらいか。<br>押し売りは一切ありません。御社の「現在地」を一緒に確認するところから始めましょう。</p>
+                <h2>まずは無料診断から。<br>AIで変えるべき業務と、<br>選ぶべきモデルを整理します。</h2>
+                <p>完成品としてアプリを作るべきか。伴走支援で社内に仕組みを移すべきか。<br>30分の無料診断で、御社に合う進め方を一緒に整理します。</p>
                 <div class="cta-benefits">
                     <div class="cta-benefit">診断無料</div>
                     <div class="cta-benefit">オンライン完結</div>
-                    <div class="cta-benefit">30分で完了</div>
-                    <div class="cta-benefit">押し売り一切なし</div>
+                    <div class="cta-benefit">30分で整理</div>
+                    <div class="cta-benefit">押し売りなし</div>
                 </div>
-                <a href="mailto:meta.tsfactory@gmail.com?subject=無料診断希望&body=お名前：%0A会社名：%0A従業員数：%0A%0A【興味のあるモデル】%0A□ モデル1（アプリ納品型）%0A□ モデル2（伴走支援型）%0A□ まだ決まっていない%0A%0Aご相談内容："
+                <a href="mailto:meta.tsfactory@gmail.com?subject=無料診断希望&body=お名前：%0A会社名：%0A従業員数：%0A%0A【興味のあるモデル】%0A□ モデル1（アプリ納品型）%0A□ モデル2（伴走支援型 Plan S/M/L）%0A□ まだ決まっていない%0A%0Aご相談内容："
                     class="final-cta-button">無料診断を予約する</a>
                 <p class="final-cta-note">
                     モデル1（アプリ納品型・80万円〜）のご利用実績がある場合、伴走支援型（モデル2）の初期費用から全額差引。段階的に始められます。<br>
@@ -2393,7 +2470,7 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <p>&copy; 2026 metafactory agent studio. All rights reserved. | v13.0</p>
+                <p>&copy; 2026 metafactory agent studio. All rights reserved. | v19.0</p>
                 <div class="footer-links">
                     <a href="mailto:meta.tsfactory@gmail.com">お問い合わせ</a>
                     <a href="https://metatsfactory-rgb.github.io/">GitHub</a>
