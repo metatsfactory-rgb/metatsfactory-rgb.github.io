@@ -11,56 +11,168 @@
     <meta property="og:description" content="AIアプリ納品と、Agent・教材・品質ガバナンス込みの伴走支援。作って終わりではなく、御社に仕組みと自走力が残るAI導入を支援します。">
     <meta property="og:type" content="website">
     <style>
+        /* ============================================================
+           Design tokens — editorial paper / indigo / vermillion theme
+           ============================================================ */
         :root {
-            --bg-primary: #0a0e1a;
-            --bg-secondary: #0f172a;
-            --bg-card: #1e293b;
-            --bg-card-hover: #2d3a52;
-            --text-primary: #f1f5f9;
-            --text-secondary: #cbd5e1;
-            --text-muted: #94a3b8;
-            --accent: #06b6d4;
-            --accent-hover: #0891b2;
-            --accent-light: rgba(6, 182, 212, 0.1);
-            --accent-glow: rgba(6, 182, 212, 0.3);
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --purple: #8b5cf6;
-            --border: rgba(148, 163, 184, 0.2);
-            --shadow: rgba(0, 0, 0, 0.4);
+            --paper: #faf8f4;
+            --paper-2: #f1eee7;
+            --paper-3: #e9e5dc;
+            --card: #ffffff;
+            --navy: #1f3049;
+            --navy-mid: #263b57;
+            --navy-soft: #2b4162;
+            --navy-ink: #1c2733;
+            --vermillion: #c73e2d;
+            --vermillion-soft: rgba(199, 62, 45, 0.08);
+            --green: #3f6b4f;
+            --green-soft: #eef4ee;
+            --text: #1c2733;
+            --text-2: #435262;
+            --text-3: #667482;
+            --border: #d9d4c9;
+            --border-light: #e9e5dd;
+            --shadow-sm: 0 1px 2px rgba(31, 48, 73, 0.04), 0 4px 16px rgba(31, 48, 73, 0.05);
+            --shadow-md: 0 2px 4px rgba(31, 48, 73, 0.05), 0 14px 34px rgba(31, 48, 73, 0.09);
+            --serif: "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Noto Serif JP", Georgia, serif;
+            --sans: "Yu Gothic", "YuGothic", "Hiragino Kaku Gothic ProN", "Noto Sans JP", system-ui, -apple-system, sans-serif;
+            --radius: 6px;
+            --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+            --header-h: 72px;
         }
 
-        * {
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+        }
+
+        html {
+            background: var(--paper);
+            scroll-padding-top: calc(var(--header-h) + 16px);
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP", "Hiragino Sans", sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.7;
+            font-family: var(--sans);
+            font-feature-settings: "palt" 1;
+            letter-spacing: 0.015em;
+            line-height: 1.8;
+            color: var(--text);
+            background: var(--paper);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
+        img,
+        svg {
+            display: block;
+            max-width: 100%;
         }
 
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        ::selection {
+            color: #fff;
+            background: var(--vermillion);
+        }
+
+        a:focus-visible,
+        button:focus-visible,
+        .faq-question:focus-visible {
+            outline: 3px solid rgba(199, 62, 45, 0.45);
+            outline-offset: 4px;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+            white-space: nowrap;
+        }
+
+        .container {
+            width: min(1180px, calc(100% - 64px));
+            margin: 0 auto;
+        }
+
+        .icon {
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.6;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Icon tile — square, hairline, paper fill, navy stroke */
+        .tile {
+            display: grid;
+            place-items: center;
+            width: 48px;
+            height: 48px;
+            flex: 0 0 48px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--navy);
+            background: var(--paper-2);
+            position: relative;
+        }
+
+        .tile::after {
+            content: "";
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            width: 9px;
+            height: 9px;
+            border-top: 2px solid var(--vermillion);
+            border-left: 2px solid var(--vermillion);
+            border-radius: 3px 0 0 0;
+        }
+
+        .tile--warn {
+            color: var(--vermillion);
+        }
+
+        /* ============================================================
+           Scroll reveal (progressive — no JS, no hiding)
+           ============================================================ */
+        .js .reveal {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+        }
+
+        .js .reveal.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* ============================================================
+           Progress bar & header
+           ============================================================ */
         .progress-bar {
             position: fixed;
             top: 0;
             left: 0;
+            z-index: 1100;
+            width: 100%;
             height: 3px;
-            background: linear-gradient(90deg, var(--accent), var(--success));
-            z-index: 1001;
+            background: var(--vermillion);
+            transform: scaleX(0);
             transform-origin: left;
-            transition: transform 0.1s ease;
         }
 
         header {
@@ -68,1658 +180,1982 @@
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(10, 14, 26, 0.98);
-            backdrop-filter: blur(12px);
             z-index: 1000;
-            border-bottom: 1px solid var(--border);
-            transition: all 0.3s ease;
+            height: var(--header-h);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(31, 48, 73, 0.92);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            transition: box-shadow 0.3s var(--ease), background 0.3s var(--ease);
         }
 
         header.scrolled {
-            box-shadow: 0 4px 20px var(--shadow);
+            background: rgba(31, 48, 73, 0.98);
+            box-shadow: 0 8px 24px rgba(18, 29, 44, 0.18);
         }
 
         .header-content {
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            padding: 18px 0;
+            height: var(--header-h);
         }
 
-        .logo {
-            font-size: 19px;
-            font-weight: 700;
-            color: var(--accent);
-            text-decoration: none;
-            letter-spacing: -0.03em;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .logo-mark {
-            width: 32px;
-            height: 32px;
-            flex-shrink: 0;
-        }
-
-        .logo:hover {
-            color: var(--accent-hover);
-        }
-
-        .logo span {
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-left: 8px;
-            font-weight: 400;
+        .brand-logo {
+            width: 224px;
+            height: auto;
         }
 
         .cta-button {
-            background: var(--accent);
-            color: white;
-            padding: 12px 36px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            box-shadow: 0 2px 8px rgba(6, 182, 212, 0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 3px;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            transition: background 0.25s var(--ease), border-color 0.25s var(--ease);
+        }
+
+        .cta-button .icon {
+            width: 15px;
+            height: 15px;
+            stroke-width: 2;
         }
 
         .cta-button:hover {
-            background: var(--accent-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(6, 182, 212, 0.4);
+            border-color: var(--vermillion);
+            background: var(--vermillion);
         }
 
-        /* Hero */
+        /* ============================================================
+           Buttons
+           ============================================================ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            min-height: 54px;
+            padding: 0 30px;
+            border-radius: 3px;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), background 0.25s var(--ease), color 0.25s var(--ease), border-color 0.25s var(--ease);
+        }
+
+        .btn .icon {
+            width: 16px;
+            height: 16px;
+            stroke-width: 2;
+            transition: transform 0.25s var(--ease);
+        }
+
+        .btn:hover .icon {
+            transform: translateX(3px);
+        }
+
+        .btn-primary {
+            border: 1px solid var(--vermillion);
+            color: #fff;
+            background: var(--vermillion);
+        }
+
+        .btn-primary:hover {
+            background: #b0351f;
+            border-color: #b0351f;
+            box-shadow: 0 12px 28px rgba(199, 62, 45, 0.28);
+            transform: translateY(-2px);
+        }
+
+        .btn-ghost-light {
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            color: #fff;
+            background: transparent;
+        }
+
+        .btn-ghost-light:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--navy);
+            color: var(--navy);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            color: #fff;
+            background: var(--navy);
+        }
+
+        /* ============================================================
+           Hero
+           ============================================================ */
         .hero {
-            padding: 160px 0 120px;
-            text-align: center;
-            background: radial-gradient(ellipse at 50% 0%, rgba(6, 182, 212, 0.15), transparent 60%);
             position: relative;
+            padding: calc(var(--header-h) + 88px) 0 104px;
+            color: #f8f4eb;
+            background:
+                linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px) 0 0 / 88px 88px,
+                linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 88px 88px,
+                linear-gradient(132deg, #1f3049 0%, #263b57 62%, #2b4162 100%);
             overflow: hidden;
         }
 
         .hero::before {
-            content: '';
+            content: "";
             position: absolute;
-            top: -50%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(6, 182, 212, 0.08) 0%, transparent 50%);
-            animation: heroGlow 10s ease-in-out infinite;
+            top: -140px;
+            right: -180px;
+            width: 640px;
+            height: 640px;
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-radius: 50%;
+            pointer-events: none;
         }
 
-        @keyframes heroGlow {
-
-            0%,
-            100% {
-                opacity: 0.4;
-                transform: translateX(-50%) scale(1);
-            }
-
-            50% {
-                opacity: 0.8;
-                transform: translateX(-50%) scale(1.2);
-            }
+        .hero::after {
+            content: "";
+            position: absolute;
+            top: 40px;
+            right: 0;
+            width: 420px;
+            height: 420px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 50%;
+            pointer-events: none;
         }
 
         .hero-content {
             position: relative;
-            z-index: 1;
+            display: grid;
+            grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+            column-gap: 80px;
+            align-items: center;
         }
 
         .hero-tag {
-            display: inline-block;
-            background: var(--accent-light);
-            color: var(--accent);
-            padding: 10px 24px;
-            border-radius: 24px;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 32px;
-            border: 1px solid var(--accent);
-            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.2);
-            animation: tagFloat 3s ease-in-out infinite;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 30px;
+            padding: 8px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.34);
+            border-radius: 3px;
+            color: #f6f1e8;
+            background: rgba(255, 255, 255, 0.05);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.16em;
         }
 
-        @keyframes tagFloat {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-8px);
-            }
+        .hero-tag::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            background: var(--vermillion);
         }
 
         .hero h1 {
-            font-size: 64px;
-            font-weight: 900;
-            line-height: 1.15;
-            margin-bottom: 32px;
-            letter-spacing: -0.04em;
+            margin-bottom: 30px;
+            color: #fffdf8;
+            font-family: var(--serif);
+            font-size: clamp(44px, 5vw, 70px);
+            font-weight: 600;
+            line-height: 1.26;
+            letter-spacing: 0.03em;
         }
 
         .hero h1 .highlight {
-            color: var(--accent);
             position: relative;
             display: inline-block;
-        }
-
-        .hero h1 .highlight::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--accent), var(--success));
-            border-radius: 2px;
-            animation: underlineExpand 2s ease-in-out infinite;
-        }
-
-        @keyframes underlineExpand {
-
-            0%,
-            100% {
-                transform: scaleX(0.8);
-                opacity: 0.6;
-            }
-
-            50% {
-                transform: scaleX(1);
-                opacity: 1;
-            }
+            color: #fffdf8;
+            background-image: linear-gradient(var(--vermillion), var(--vermillion));
+            background-repeat: no-repeat;
+            background-size: 100% 4px;
+            background-position: 0 92%;
+            padding-bottom: 0.08em;
         }
 
         .hero-core-message {
-            font-size: 26px;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 20px;
-            max-width: 820px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.6;
+            position: relative;
+            margin: 0 0 22px;
+            padding-left: 22px;
+            color: #f6f1e8;
+            font-family: var(--serif);
+            font-size: clamp(18px, 1.9vw, 24px);
+            font-weight: 600;
+            line-height: 1.8;
+        }
+
+        .hero-core-message::before {
+            content: "";
+            position: absolute;
+            top: 0.25em;
+            bottom: 0.25em;
+            left: 0;
+            width: 3px;
+            background: var(--vermillion);
         }
 
         .hero-subtitle {
-            font-size: 22px;
-            color: var(--text-secondary);
-            margin-bottom: 56px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.7;
+            max-width: 680px;
+            margin-bottom: 38px;
+            color: rgba(248, 244, 235, 0.78);
+            font-size: 15px;
+            line-height: 2.05;
         }
 
         .hero-cta-group {
             display: flex;
-            gap: 20px;
-            justify-content: center;
-            align-items: center;
             flex-wrap: wrap;
-            margin-bottom: 72px;
+            gap: 14px;
         }
 
-        .cta-primary {
-            background: var(--accent);
-            color: white;
-            padding: 20px 56px;
-            border-radius: 14px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 19px;
-            transition: all 0.4s ease;
-            box-shadow: 0 6px 24px rgba(6, 182, 212, 0.35);
-            border: 2px solid var(--accent);
-        }
-
-        .cta-primary:hover {
-            background: var(--accent-hover);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 36px rgba(6, 182, 212, 0.5);
-        }
-
-        .cta-secondary {
-            color: var(--text-primary);
-            padding: 20px 56px;
-            border-radius: 14px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 19px;
-            border: 2px solid var(--border);
-            transition: all 0.4s ease;
-            background: rgba(30, 41, 59, 0.5);
-        }
-
-        .cta-secondary:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            background: rgba(6, 182, 212, 0.05);
-            transform: translateY(-4px);
-        }
-
+        /* Fact ledger — stacked figures with hairlines */
         .hero-stats {
+            position: relative;
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 32px;
-            max-width: 900px;
-            margin: 0 auto;
+            grid-template-columns: 1fr;
+            border-top: 1px solid rgba(255, 255, 255, 0.28);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.28);
         }
 
         .hero-stat {
-            padding: 24px;
-            background: rgba(30, 41, 59, 0.6);
-            border-radius: 16px;
-            border: 1px solid var(--border);
-            backdrop-filter: blur(10px);
-            transition: all 0.4s ease;
-            opacity: 0;
-            transform: translateY(30px);
+            display: grid;
+            grid-template-columns: auto 1fr;
+            align-items: baseline;
+            column-gap: 22px;
+            padding: 22px 6px 22px 22px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+            position: relative;
         }
 
-        .hero-stat.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .hero-stat:last-child {
+            border-bottom: 0;
         }
 
-        .hero-stat:hover {
-            background: rgba(30, 41, 59, 0.9);
-            border-color: var(--accent);
-            transform: translateY(-6px);
-            box-shadow: 0 12px 32px var(--shadow);
+        .hero-stat::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            transform: translateY(-50%);
+            background: var(--vermillion);
         }
 
         .hero-stat-number {
+            color: #fffdf8;
+            font-family: var(--serif);
             font-size: 38px;
-            font-weight: 900;
-            color: var(--accent);
-            margin-bottom: 8px;
-            letter-spacing: -0.02em;
-            word-break: keep-all;
+            font-weight: 600;
+            line-height: 1.1;
+            letter-spacing: 0.02em;
+            min-width: 128px;
         }
 
         .hero-stat-label {
-            font-size: 14px;
-            color: var(--text-secondary);
-            font-weight: 500;
+            color: rgba(248, 244, 235, 0.72);
+            font-size: 13px;
+            line-height: 1.6;
         }
 
-        /* Sections Common */
+        /* ============================================================
+           Section scaffolding
+           ============================================================ */
+        section {
+            position: relative;
+            padding: 100px 0;
+            background: var(--paper);
+        }
+
+        section.alt {
+            background: var(--paper-2);
+        }
+
         .section-header {
-            text-align: center;
-            margin-bottom: 72px;
+            max-width: 880px;
+            margin-bottom: 56px;
         }
 
         .section-tag {
-            display: inline-block;
-            background: rgba(239, 68, 68, 0.12);
-            color: var(--danger);
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            color: var(--vermillion);
+            font-size: 12px;
             font-weight: 700;
-            margin-bottom: 20px;
-            border: 1px solid var(--danger);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.16em;
+        }
+
+        .section-tag::before {
+            content: "";
+            width: 22px;
+            height: 2px;
+            background: var(--vermillion);
         }
 
         .section-title {
-            font-size: 48px;
-            font-weight: 900;
-            margin-bottom: 24px;
-            line-height: 1.25;
-            letter-spacing: -0.03em;
+            position: relative;
+            margin-bottom: 20px;
+            padding-left: 22px;
+            color: var(--navy);
+            font-family: var(--serif);
+            font-size: clamp(32px, 3.8vw, 46px);
+            font-weight: 600;
+            line-height: 1.4;
+            letter-spacing: 0.025em;
+        }
+
+        .section-title::before {
+            content: "";
+            position: absolute;
+            top: 0.2em;
+            bottom: 0.2em;
+            left: 0;
+            width: 4px;
+            background: var(--vermillion);
         }
 
         .section-subtitle {
-            font-size: 20px;
-            color: var(--text-secondary);
-            max-width: 700px;
-            margin: 0 auto;
-            line-height: 1.8;
+            max-width: 800px;
+            color: var(--text-2);
+            font-size: 16px;
+            line-height: 2;
         }
 
-        /* Pain Points */
-        .pain-points {
-            padding: 120px 0;
-            background: var(--bg-secondary);
+        /* Card base */
+        .card {
+            position: relative;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--card);
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s var(--ease);
         }
 
+        .card:hover {
+            border-color: #bfb7aa;
+            box-shadow: var(--shadow-md);
+            transform: translateY(-3px);
+        }
+
+        .card h3 {
+            color: var(--navy);
+            font-family: var(--serif);
+            font-size: 21px;
+            font-weight: 600;
+            line-height: 1.45;
+            letter-spacing: 0.02em;
+        }
+
+        .card p {
+            color: var(--text-2);
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+        /* Check list shared by several sections */
+        .check-list li {
+            position: relative;
+            padding: 9px 0 9px 32px;
+            border-bottom: 1px dashed var(--border-light);
+            color: var(--text-2);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .check-list li:last-child {
+            border-bottom: 0;
+        }
+
+        .check-list li::before {
+            content: "";
+            position: absolute;
+            top: 13px;
+            left: 0;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--vermillion-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c73e2d' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center / 10px no-repeat;
+        }
+
+        /* ============================================================
+           Pain points
+           ============================================================ */
         .pain-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 32px;
-            max-width: 1000px;
-            margin: 0 auto;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
         }
 
         .pain-card {
-            background: var(--bg-card);
-            padding: 40px;
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
+            display: grid;
+            grid-template-columns: 48px 1fr;
+            column-gap: 24px;
+            padding: 32px 32px 32px 30px;
             overflow: hidden;
         }
 
         .pain-card::before {
-            content: '';
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 4px;
+            background: var(--vermillion);
+        }
+
+        .pain-card h3 {
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .pain-card .tile {
+            margin-top: 2px;
+        }
+
+        /* ============================================================
+           Comparison table
+           ============================================================ */
+        .comparison-table {
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: #fff;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .comparison-header,
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr 1.25fr;
+        }
+
+        .comparison-header {
+            color: #fff;
+            background: var(--navy);
+        }
+
+        .comparison-header > div,
+        .comparison-row > div {
+            min-width: 0;
+            padding: 20px 26px;
+            border-right: 1px solid var(--border-light);
+        }
+
+        .comparison-header > div {
+            border-color: rgba(255, 255, 255, 0.14);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+        }
+
+        .comparison-header > div:last-child {
+            position: relative;
+        }
+
+        .comparison-header > div:last-child::before {
+            content: "";
+            position: absolute;
+            left: 26px;
+            right: 26px;
+            bottom: 0;
+            height: 3px;
+            background: var(--vermillion);
+        }
+
+        .comparison-header > div:last-child,
+        .comparison-row > div:last-child {
+            border-right: 0;
+        }
+
+        .comparison-row {
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text-2);
+            font-size: 15px;
+            line-height: 1.7;
+            transition: background 0.2s var(--ease);
+        }
+
+        .comparison-row:last-child {
+            border-bottom: 0;
+        }
+
+        .comparison-row > div:first-child {
+            color: var(--navy);
+            background: var(--paper-2);
+            font-weight: 700;
+        }
+
+        .comparison-fail,
+        .comparison-success {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .comparison-fail::before,
+        .comparison-success::before {
+            content: "";
+            flex: 0 0 20px;
+            width: 20px;
+            height: 20px;
+            margin-top: 3px;
+            border-radius: 50%;
+        }
+
+        .comparison-fail {
+            color: #746d64;
+        }
+
+        .comparison-fail::before {
+            background: #f0ebe3 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a0978b' stroke-width='3' stroke-linecap='round'%3E%3Cline x1='18' y1='6' x2='6' y2='18'/%3E%3Cline x1='6' y1='6' x2='18' y2='18'/%3E%3C/svg%3E") center / 10px no-repeat;
+        }
+
+        .comparison-success {
+            color: var(--green);
+            background: var(--green-soft);
+            font-weight: 700;
+        }
+
+        .comparison-success::before {
+            background: #dbe8dc url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233f6b4f' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center / 11px no-repeat;
+        }
+
+        /* ============================================================
+           Differentiation
+           ============================================================ */
+        .diff-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .diff-card {
+            display: flex;
+            flex-direction: column;
+            padding: 36px 32px 32px;
+            overflow: hidden;
+        }
+
+        .diff-card::before {
+            content: "";
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             height: 3px;
-            background: var(--danger);
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            background: var(--vermillion);
         }
 
-        .pain-card:hover::before {
-            opacity: 1;
-        }
-
-        .pain-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .pain-card:hover {
-            background: var(--bg-card-hover);
-            border-color: var(--danger);
-            transform: translateY(-8px);
-            box-shadow: 0 16px 48px var(--shadow);
-        }
-
-        .pain-icon {
-            width: 56px;
-            height: 56px;
-            background: rgba(239, 68, 68, 0.12);
-            border-radius: 14px;
+        .diff-head {
             display: flex;
-            align-items: center;
-            justify-content: center;
+            align-items: flex-start;
+            justify-content: space-between;
             margin-bottom: 24px;
-            font-size: 28px;
         }
 
-        .pain-card h3 {
-            font-size: 22px;
-            margin-bottom: 14px;
-            font-weight: 700;
-        }
-
-        .pain-card p {
-            color: var(--text-secondary);
-            line-height: 1.8;
-            font-size: 16px;
-        }
-
-        /* Solution */
-        .solution {
-            padding: 120px 0;
-            background: radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.04), transparent 70%);
-        }
-
-        .solution .section-tag {
-            background: rgba(16, 185, 129, 0.12);
-            color: var(--success);
-            border-color: var(--success);
-        }
-
-        .comparison-table {
-            max-width: 900px;
-            margin: 0 auto;
-            background: var(--bg-card);
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            opacity: 0;
-            transform: scale(0.96);
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 8px 32px var(--shadow);
-        }
-
-        .comparison-table.visible {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .comparison-header {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            background: var(--bg-secondary);
-            font-weight: 800;
-            padding: 32px 36px;
-            border-bottom: 2px solid var(--border);
-            font-size: 18px;
-            letter-spacing: 1px;
-            align-items: center;
-        }
-
-        .comparison-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            padding: 26px 36px;
-            border-bottom: 1px solid var(--border);
-            transition: all 0.3s ease;
-            font-size: 16px;
-            align-items: center;
-        }
-
-        .comparison-row:hover {
-            background: rgba(6, 182, 212, 0.05);
-        }
-
-        .comparison-row:last-child {
-            border-bottom: none;
-        }
-
-        .comparison-row>div:first-child {
-            font-weight: 700;
-            font-size: 17px;
-        }
-
-        .comparison-fail {
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .comparison-fail::before {
-            content: "✗";
-            color: var(--danger);
-            font-weight: 700;
-            font-size: 18px;
-        }
-
-        .comparison-success {
-            color: var(--success);
+        .diff-number {
+            color: var(--navy);
+            font-family: var(--serif);
+            font-size: 44px;
             font-weight: 600;
+            line-height: 1;
+            letter-spacing: 0.04em;
+            opacity: 0.16;
+        }
+
+        .diff-card h3 {
+            margin-bottom: 8px;
+            font-size: 22px;
+        }
+
+        .diff-sub {
+            margin-bottom: 16px;
+            color: var(--vermillion);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        .diff-card p {
+            flex: 1;
+        }
+
+        .diff-evidence {
+            margin-top: 24px;
+            padding: 12px 16px;
+            border-left: 3px solid var(--green);
+            color: var(--green);
+            background: var(--green-soft);
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 1.7;
+        }
+
+        /* ============================================================
+           Deliverables (bento 3 + 2)
+           ============================================================ */
+        .deliverables-grid {
+            display: grid;
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .deliverables-grid > .card {
+            grid-column: span 2;
+            padding: 32px;
+        }
+
+        .deliverables-grid > .card:nth-child(4),
+        .deliverables-grid > .card:nth-child(5) {
+            grid-column: span 3;
+        }
+
+        .card-head {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 18px;
+            margin-bottom: 18px;
         }
 
-        .comparison-success::before {
-            content: "✓";
-            color: var(--success);
-            font-weight: 700;
-            font-size: 18px;
+        .card-head h3 {
+            font-size: 20px;
         }
 
-        /* Differentiation */
-        .differentiation {
-            padding: 120px 0;
-            background: var(--bg-secondary);
+        .deliverables-grid .card p {
+            margin-bottom: 18px;
         }
 
-        .differentiation .section-tag {
-            background: rgba(139, 92, 246, 0.12);
-            color: var(--purple);
-            border-color: var(--purple);
+        .deliverables-grid .check-list {
+            padding-top: 4px;
+            border-top: 1px solid var(--border-light);
         }
 
-        .diff-grid {
+        /* ============================================================
+           Services (2 models)
+           ============================================================ */
+        .service-cards {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 36px;
-            margin-top: 64px;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 24px;
         }
 
-        .diff-card {
-            background: var(--bg-card);
-            padding: 48px 36px;
-            border-radius: 24px;
-            border: 1px solid var(--border);
-            position: relative;
+        .service-card {
+            display: flex;
+            flex-direction: column;
+            padding: 40px 40px 36px;
             overflow: hidden;
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .diff-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .diff-card::before {
-            content: '';
+        .service-card::before {
+            content: "";
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, var(--purple), var(--accent));
+            background: var(--navy);
         }
 
-        .diff-card:hover {
-            border-color: var(--purple);
-            transform: translateY(-10px);
-            box-shadow: 0 20px 48px var(--shadow);
-            background: var(--bg-card-hover);
-        }
-
-        .diff-number {
-            font-size: 56px;
-            font-weight: 900;
-            color: rgba(139, 92, 246, 0.15);
-            margin-bottom: 16px;
-            letter-spacing: -0.04em;
-        }
-
-        .diff-icon {
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-
-        .diff-card h3 {
-            font-size: 24px;
-            font-weight: 800;
-            margin-bottom: 8px;
-        }
-
-        .diff-card .diff-sub {
-            color: var(--accent);
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-
-        .diff-card p {
-            color: var(--text-secondary);
-            line-height: 1.9;
-            font-size: 15px;
-            margin-bottom: 20px;
-        }
-
-        .diff-evidence {
-            padding: 12px 16px;
-            background: rgba(6, 182, 212, 0.06);
-            border-radius: 10px;
-            border: 1px solid rgba(6, 182, 212, 0.15);
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-
-        /* Services */
-        .services {
-            padding: 120px 0;
-        }
-
-        .service-cards {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
-            margin-top: 64px;
-        }
-
-        .service-card {
-            background: var(--bg-card);
-            padding: 48px;
-            border-radius: 24px;
-            border: 2px solid var(--border);
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .service-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, var(--accent), var(--success));
-        }
-
-        .service-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-12px);
-            box-shadow: 0 24px 56px var(--shadow);
-            background: var(--bg-card-hover);
+        .service-card:nth-child(2)::before {
+            background: var(--vermillion);
         }
 
         .service-badge {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            background: var(--accent-light);
-            color: var(--accent);
-            padding: 8px 18px;
-            border-radius: 14px;
-            font-size: 13px;
+            gap: 12px;
+            align-self: flex-start;
+            justify-self: start;
+            width: max-content;
+            max-width: 100%;
+            margin-bottom: 22px;
+            padding: 7px 8px 7px 14px;
+            border-radius: 3px;
+            color: #fff;
+            background: var(--navy);
+            font-size: 12px;
             font-weight: 700;
-            margin-bottom: 24px;
-            border: 1px solid var(--accent);
+            letter-spacing: 0.1em;
         }
 
         .service-chip {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 999px;
-            background: rgba(6, 182, 212, 0.12);
-            border: 1px solid rgba(6, 182, 212, 0.55);
-            color: var(--text-primary);
-            font-weight: 700;
-            font-size: 12px;
-            white-space: nowrap;
+            padding: 3px 10px;
+            border: 1px solid rgba(255, 255, 255, 0.34);
+            border-radius: 20px;
+            color: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.09);
+            font-size: 11px;
+            letter-spacing: 0.06em;
         }
 
         .service-card h3 {
+            margin-bottom: 14px;
             font-size: 30px;
-            margin-bottom: 18px;
-            font-weight: 800;
-            letter-spacing: -0.02em;
         }
 
-        .service-card>p {
-            color: var(--text-secondary);
-            margin-bottom: 28px;
-            line-height: 1.9;
-            font-size: 17px;
+        .service-card > p {
+            margin-bottom: 24px;
         }
 
-        .service-features {
-            list-style: none;
-            margin-bottom: 32px;
+        .service-card .check-list {
+            flex: 1;
+            padding-top: 6px;
+            border-top: 1px solid var(--border-light);
         }
 
-        .service-features li {
-            padding: 12px 0;
-            color: var(--text-secondary);
+        .service-foot {
             display: flex;
-            align-items: start;
-            gap: 14px;
-            font-size: 16px;
-            line-height: 1.7;
-        }
-
-        .service-features li::before {
-            content: "✓";
-            color: var(--success);
-            font-weight: 700;
-            font-size: 20px;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .service-cta {
-            background: var(--accent);
-            color: white;
-            padding: 16px 40px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 17px;
-            display: inline-block;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 16px rgba(6, 182, 212, 0.3);
-        }
-
-        .service-cta:hover {
-            background: var(--accent-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(6, 182, 212, 0.5);
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 28px;
+            padding-top: 26px;
+            border-top: 1px solid var(--border-light);
         }
 
         .service-price-note {
-            display: block;
-            margin-top: 16px;
-            font-size: 14px;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        /* Selection Guide */
-        .selection-guide {
-            padding: 80px 0;
-            background: var(--bg-secondary);
-        }
-
-        .guide-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 28px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .guide-card {
-            background: var(--bg-card);
-            padding: 36px;
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            transition: all 0.4s ease;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .guide-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .guide-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-6px);
-            box-shadow: 0 12px 36px var(--shadow);
-        }
-
-        .guide-card .guide-icon {
-            font-size: 32px;
-            margin-bottom: 12px;
-        }
-
-        .guide-card h3 {
-            font-size: 20px;
-            margin-bottom: 12px;
-            font-weight: 700;
-        }
-
-        .guide-card p {
-            color: var(--text-muted);
+            color: var(--navy);
+            font-family: var(--serif);
             font-size: 15px;
-            line-height: 1.7;
-            margin-bottom: 16px;
-        }
-
-        .guide-rec {
-            color: var(--accent);
-            font-size: 14px;
             font-weight: 600;
         }
 
-        /* Pricing */
-        .pricing {
-            padding: 120px 0;
+        .model-focus-note {
+            margin-top: 28px;
+            padding: 26px 32px;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--navy);
+            border-radius: 4px;
+            color: var(--text-2);
+            background: var(--paper-2);
+            font-size: 15px;
+            line-height: 2;
         }
 
-        /* 全プラン標準装備 */
+        /* ============================================================
+           Selection guide
+           ============================================================ */
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .guide-card {
+            display: flex;
+            flex-direction: column;
+            padding: 32px 30px 30px;
+        }
+
+        .guide-card .tile {
+            margin-bottom: 22px;
+        }
+
+        .guide-card h3 {
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .guide-card p {
+            flex: 1;
+        }
+
+        .guide-rec {
+            margin-top: 24px;
+            padding: 14px 16px;
+            border-left: 3px solid var(--green);
+            color: var(--green);
+            background: var(--green-soft);
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        /* ============================================================
+           Pricing
+           ============================================================ */
+        .model-price-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 24px;
+            margin-bottom: 28px;
+        }
+
+        .model-price-card {
+            padding: 36px 40px;
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+
+        .model-price-card h3 {
+            margin-bottom: 14px;
+            font-size: 24px;
+        }
+
+        .price-main {
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--navy);
+            font-family: var(--serif);
+            font-size: clamp(26px, 2.4vw, 34px);
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: 0.02em;
+        }
+
         .standard-features {
-            max-width: 1100px;
-            margin: 0 auto 48px;
+            margin-bottom: 28px;
             padding: 40px;
-            background: var(--bg-card);
-            border-radius: 20px;
             border: 1px solid var(--border);
-            text-align: center;
+            border-radius: var(--radius);
+            background: var(--card);
+            box-shadow: var(--shadow-sm);
         }
 
         .standard-features h3 {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 14px;
+            color: var(--navy);
+            font-family: var(--serif);
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .standard-features h3::before {
+            content: "";
+            flex: 0 0 10px;
+            width: 10px;
+            height: 10px;
+            background: var(--vermillion);
         }
 
         .standard-lead {
-            color: var(--text-secondary);
+            max-width: 780px;
+            margin-bottom: 30px;
+            color: var(--text-2);
             font-size: 15px;
-            margin-bottom: 28px;
+            line-height: 2;
         }
 
         .standard-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            text-align: left;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1px;
+            background: var(--border-light);
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+            overflow: hidden;
         }
 
         .standard-item {
-            padding: 20px;
-            background: rgba(6, 182, 212, 0.03);
-            border-radius: 12px;
-            border: 1px solid rgba(6, 182, 212, 0.08);
+            display: grid;
+            grid-template-columns: 48px 1fr;
+            column-gap: 18px;
+            padding: 26px 24px;
+            background: var(--paper);
+            transition: background 0.25s var(--ease);
         }
 
-        .standard-item .standard-icon {
-            font-size: 24px;
-            display: block;
-            margin-bottom: 8px;
+        .standard-item:hover {
+            background: #fff;
         }
 
         .standard-item h5 {
-            font-size: 15px;
-            font-weight: 700;
             margin-bottom: 6px;
-            color: var(--text-primary);
+            color: var(--navy);
+            font-family: var(--serif);
+            font-size: 17px;
+            font-weight: 600;
         }
 
         .standard-item p {
-            font-size: 13px;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin: 0;
+            color: var(--text-2);
+            font-size: 14px;
+            line-height: 1.8;
         }
 
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 28px;
-            max-width: 1100px;
-            margin: 0 auto;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+            align-items: stretch;
         }
 
         .pricing-card {
-            background: var(--bg-card);
-            padding: 40px;
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            opacity: 0;
-            transform: translateY(30px);
-            position: relative;
-        }
-
-        .pricing-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .pricing-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-10px);
-            box-shadow: 0 16px 48px var(--shadow);
-            background: var(--bg-card-hover);
+            display: flex;
+            flex-direction: column;
+            padding: 36px 28px 30px;
         }
 
         .pricing-card.featured {
-            border: 2px solid var(--accent);
+            border: 2px solid var(--navy);
+            box-shadow: var(--shadow-md);
         }
 
         .pricing-badge {
-            display: inline-block;
-            background: var(--accent);
-            color: #fff;
-            padding: 4px 16px;
+            position: absolute;
+            top: -1px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 6px 16px;
             border-radius: 20px;
-            font-size: 13px;
+            color: #fff;
+            background: var(--vermillion);
+            font-size: 12px;
             font-weight: 700;
-            margin-bottom: 16px;
+            letter-spacing: 0.1em;
+            white-space: nowrap;
         }
 
         .pricing-card h4 {
-            font-size: 24px;
-            margin-bottom: 6px;
-            font-weight: 700;
+            color: var(--navy);
+            font-family: var(--serif);
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
             text-align: center;
         }
 
         .pricing-target {
+            min-height: 48px;
+            margin: 6px 0 22px;
+            color: var(--text-3);
+            font-size: 13px;
+            line-height: 1.7;
             text-align: center;
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 16px;
         }
 
         .pricing-price {
+            color: var(--navy);
+            font-family: var(--serif);
+            font-size: 30px;
+            font-weight: 600;
+            line-height: 1.2;
             text-align: center;
-            font-size: 28px;
-            color: var(--accent);
-            font-weight: 800;
-            margin-bottom: 4px;
         }
 
         .pricing-monthly {
-            text-align: center;
-            font-size: 16px;
-            color: var(--accent);
-            margin-bottom: 4px;
+            margin-top: 6px;
+            color: var(--vermillion);
+            font-family: var(--serif);
+            font-size: 18px;
             font-weight: 600;
+            text-align: center;
         }
 
         .pricing-annual {
-            text-align: center;
+            margin: 8px 0 24px;
+            color: var(--text-3);
             font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 20px;
+            text-align: center;
         }
 
         .pricing-meta {
             margin-bottom: 20px;
-            padding: 16px;
-            background: rgba(6, 182, 212, 0.04);
-            border-radius: 12px;
-            border: 1px solid rgba(6, 182, 212, 0.1);
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+            background: var(--paper-2);
         }
 
         .pricing-meta-row {
             display: flex;
+            align-items: baseline;
             justify-content: space-between;
-            padding: 6px 0;
-            font-size: 14px;
+            gap: 12px;
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--border-light);
+            font-size: 13px;
+        }
+
+        .pricing-meta-row:last-child {
+            border-bottom: 0;
         }
 
         .pricing-meta-row .label {
-            color: var(--text-muted);
+            color: var(--text-3);
+            letter-spacing: 0.04em;
+            flex: 0 0 auto;
         }
 
         .pricing-meta-row .value {
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-
-        .pricing-features {
-            list-style: none;
-            margin-bottom: 24px;
-        }
-
-        .pricing-features li {
-            padding: 8px 0;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: start;
-            gap: 10px;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        .pricing-features li::before {
-            content: "✓";
-            color: var(--success);
+            color: var(--navy);
             font-weight: 700;
-            font-size: 16px;
-            flex-shrink: 0;
+            text-align: right;
+        }
+
+        .pricing-card .check-list {
+            flex: 1;
+        }
+
+        .pricing-card .check-list li {
+            font-size: 14px;
+            padding: 8px 0 8px 30px;
+        }
+
+        .pricing-card .check-list li::before {
+            top: 11px;
         }
 
         .pricing-note {
+            margin-top: 22px;
+            padding: 12px 14px;
+            border: 1px dashed var(--border);
+            border-radius: 4px;
+            color: var(--text-3);
+            background: var(--paper-2);
+            font-size: 12px;
+            line-height: 1.7;
             text-align: center;
-            font-size: 13px;
-            color: var(--text-muted);
-            padding-top: 16px;
-            border-top: 1px solid var(--border);
         }
 
-        /* App Delivery Pricing (small) */
-        .app-pricing {
-            max-width: 800px;
-            margin: 48px auto 0;
-            padding: 32px;
-            background: var(--bg-card);
-            border-radius: 16px;
+        .pricing-footer {
+            margin-top: 56px;
+            text-align: center;
+        }
+
+        .pricing-footer-lead {
+            margin-bottom: 8px;
+            color: var(--text-2);
+            font-size: 15px;
+        }
+
+        .pricing-footer-lead strong {
+            color: var(--vermillion);
+        }
+
+        .pricing-footer-sub {
+            margin-bottom: 26px;
+            color: var(--text-3);
+            font-size: 15px;
+        }
+
+        /* ============================================================
+           ROI
+           ============================================================ */
+        .roi-wrap {
+            max-width: 780px;
+            margin: 0 auto;
+        }
+
+        .roi-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            overflow: hidden;
             border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: #fff;
+            box-shadow: var(--shadow-sm);
+            font-size: 15px;
         }
 
-        .app-pricing h4 {
-            font-size: 20px;
-            margin-bottom: 16px;
-            color: var(--accent);
+        .roi-table thead th {
+            padding: 18px 22px;
+            color: #fff;
+            background: var(--navy);
+            font-size: 13px;
             font-weight: 700;
+            letter-spacing: 0.06em;
+            text-align: right;
+        }
+
+        .roi-table thead th:first-child {
+            text-align: left;
+        }
+
+        .roi-table thead th.roi-mf {
+            position: relative;
+            background: var(--navy-soft);
+        }
+
+        .roi-table thead th.roi-mf::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 3px;
+            background: var(--vermillion);
+        }
+
+        .roi-table thead th small {
+            display: block;
+            margin-top: 2px;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            opacity: 0.8;
+        }
+
+        .roi-table tbody td {
+            padding: 16px 22px;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text);
+            text-align: right;
+            line-height: 1.6;
+        }
+
+        .roi-table tbody td:first-child {
+            color: var(--text-2);
+            background: var(--paper-2);
+            text-align: left;
+        }
+
+        .roi-table tbody td.roi-mf {
+            color: var(--green);
+            background: var(--green-soft);
+            font-family: var(--serif);
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .roi-table tbody td.roi-mf small {
+            margin-left: 6px;
+            color: var(--text-3);
+            font-family: var(--sans);
+            font-size: 12px;
+            font-weight: 400;
+        }
+
+        .roi-table tbody tr.roi-total td {
+            border-top: 2px solid var(--navy);
+            border-bottom: 0;
+            font-weight: 700;
+        }
+
+        .roi-table tbody tr.roi-total td:first-child {
+            color: var(--navy);
+        }
+
+        .roi-table tbody tr.roi-total td.roi-mf {
+            font-size: 24px;
+        }
+
+        .roi-note {
+            margin-top: 24px;
+            color: var(--text-3);
+            font-size: 14px;
+            line-height: 1.9;
             text-align: center;
         }
 
-        .app-pricing-grid {
+        /* ============================================================
+           Process timeline
+           ============================================================ */
+        .process-steps {
+            position: relative;
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, minmax(0, 1fr));
             gap: 20px;
         }
 
-        .app-pricing-item {
-            text-align: center;
-            padding: 16px;
-            border-radius: 12px;
-            background: rgba(6, 182, 212, 0.04);
-        }
-
-        .app-pricing-item .size {
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 4px;
-        }
-
-        .app-pricing-item .range {
-            color: var(--accent);
-            font-weight: 600;
-            font-size: 18px;
-            margin-bottom: 4px;
-        }
-
-        .app-pricing-item .detail {
-            color: var(--text-muted);
-            font-size: 13px;
-        }
-
-        /* Process */
-        .process {
-            padding: 120px 0;
-            background: var(--bg-secondary);
-        }
-
-        .process-steps {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 28px;
-            position: relative;
-        }
-
         .process-steps::before {
-            content: '';
+            content: "";
             position: absolute;
-            top: 28px;
-            left: 8%;
-            right: 8%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent), var(--success));
-            z-index: 0;
-            border-radius: 2px;
+            top: 27px;
+            left: 12%;
+            right: 12%;
+            height: 1px;
+            background: var(--border);
         }
 
         .step {
-            background: var(--bg-card);
-            padding: 36px 28px;
-            border-radius: 20px;
-            border: 1px solid var(--border);
             position: relative;
-            z-index: 1;
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .step.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .step:hover {
-            background: var(--bg-card-hover);
-            transform: translateY(-8px);
-            box-shadow: 0 16px 48px var(--shadow);
+            padding-top: 0;
         }
 
         .step-number {
-            display: inline-block;
-            width: 56px;
-            height: 56px;
-            background: linear-gradient(135deg, var(--accent), var(--success));
-            color: white;
+            display: grid;
+            place-items: center;
+            width: 54px;
+            height: 54px;
+            margin-bottom: 22px;
+            border: 1px solid var(--navy);
             border-radius: 50%;
-            text-align: center;
-            line-height: 56px;
-            font-weight: 900;
-            font-size: 24px;
-            margin-bottom: 20px;
-            box-shadow: 0 6px 16px rgba(6, 182, 212, 0.4);
+            color: #fff;
+            background: var(--navy);
+            box-shadow: 0 0 0 8px var(--paper);
+            font-family: var(--serif);
+            font-size: 20px;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
         }
 
-        .step:hover .step-number {
-            transform: scale(1.1) rotate(5deg);
+        .step:last-child .step-number {
+            background: var(--vermillion);
+            border-color: var(--vermillion);
+        }
+
+        .step-body {
+            padding: 26px 24px 28px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--card);
+            box-shadow: var(--shadow-sm);
+            height: calc(100% - 76px);
         }
 
         .step h4 {
-            font-size: 20px;
-            margin-bottom: 14px;
-            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--navy);
+            font-family: var(--serif);
+            font-size: 19px;
+            font-weight: 600;
         }
 
         .step p {
-            font-size: 15px;
-            color: var(--text-secondary);
-            line-height: 1.7;
+            color: var(--text-2);
+            font-size: 14px;
+            line-height: 1.9;
         }
 
-        /* Trust */
-        .trust {
-            padding: 120px 0;
-        }
-
+        /* ============================================================
+           Trust / use-cases grid
+           ============================================================ */
         .trust-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 36px;
-            margin-top: 64px;
-        }
-
-
-        .deliverables-grid {
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
         }
 
         .trust-card {
-            background: var(--bg-card);
-            padding: 40px;
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 30px 28px;
         }
 
-        .trust-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .trust-card:hover {
-            background: var(--bg-card-hover);
-            transform: translateY(-8px);
-            box-shadow: 0 16px 48px var(--shadow);
-            border-color: var(--accent);
-        }
-
-        .trust-icon {
-            width: 64px;
-            height: 64px;
-            background: var(--accent-light);
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 24px;
-            font-size: 32px;
-            border: 1px solid var(--accent);
-        }
-
-        .trust-card:hover .trust-icon {
-            transform: scale(1.1) rotate(-5deg);
-            background: rgba(6, 182, 212, 0.2);
-        }
-
-        .trust-card h3 {
-            font-size: 22px;
+        .trust-card .card-head {
             margin-bottom: 14px;
-            font-weight: 700;
         }
 
-        .trust-card p {
-            color: var(--text-secondary);
-            line-height: 1.8;
-            font-size: 15px;
+        .trust-card .card-head h3 {
+            font-size: 18px;
+            line-height: 1.5;
         }
 
-        /* FAQ */
-        .faq {
-            padding: 120px 0;
-            background: var(--bg-secondary);
+        .trust-card p strong {
+            color: var(--navy);
         }
 
+        /* ============================================================
+           FAQ
+           ============================================================ */
         .faq-list {
-            max-width: 850px;
-            margin: 64px auto 0;
+            max-width: 920px;
+            border-top: 1px solid var(--border);
         }
 
         .faq-item {
-            background: var(--bg-card);
-            border-radius: 16px;
-            margin-bottom: 20px;
-            border: 1px solid var(--border);
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border-bottom: 1px solid var(--border);
+            background: transparent;
+            transition: background 0.25s var(--ease);
         }
 
-        .faq-item.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .faq-item:hover {
-            border-color: var(--accent);
+        .faq-item.active {
+            background: rgba(255, 255, 255, 0.6);
         }
 
         .faq-question {
-            padding: 28px;
-            font-weight: 600;
-            font-size: 18px;
-            cursor: pointer;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            transition: all 0.3s ease;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 24px 12px 24px 0;
+            color: var(--navy);
+            font-family: var(--serif);
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            user-select: none;
         }
 
         .faq-question:hover {
-            background: rgba(6, 182, 212, 0.05);
+            color: var(--vermillion);
         }
 
         .faq-icon {
-            font-size: 28px;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            color: var(--accent);
-            font-weight: 700;
+            display: grid;
+            place-items: center;
+            flex: 0 0 34px;
+            width: 34px;
+            height: 34px;
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            color: var(--vermillion);
+            background: #fff;
+            font-family: var(--sans);
+            font-size: 9px;
+            transition: transform 0.35s var(--ease), background 0.35s var(--ease), color 0.35s var(--ease);
         }
 
         .faq-item.active .faq-icon {
+            color: #fff;
+            background: var(--vermillion);
+            border-color: var(--vermillion);
             transform: rotate(180deg);
         }
 
         .faq-answer {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .faq-answer-content {
-            padding: 0 28px 28px;
-            color: var(--text-secondary);
-            line-height: 1.9;
-            font-size: 16px;
+            transition: max-height 0.45s var(--ease);
         }
 
         .faq-item.active .faq-answer {
             max-height: 600px;
         }
 
-        /* Profile */
-        .profile {
-            padding: 120px 0;
+        .faq-answer-content {
+            padding: 0 60px 28px 0;
+            color: var(--text-2);
+            font-size: 15px;
+            line-height: 2;
         }
 
+        .faq-answer-content strong {
+            color: var(--navy);
+        }
+
+        /* ============================================================
+           Profile
+           ============================================================ */
         .profile-content {
-            max-width: 750px;
-            margin: 0 auto;
-            background: var(--bg-card);
-            padding: 56px;
-            border-radius: 24px;
-            border: 2px solid var(--border);
-            text-align: center;
-            box-shadow: 0 8px 32px var(--shadow);
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 48px;
+            max-width: 1040px;
+            padding: 48px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--card);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .profile-side {
+            padding-right: 48px;
+            border-right: 1px solid var(--border-light);
         }
 
         .profile-name {
-            font-size: 36px;
-            font-weight: 800;
-            margin-bottom: 10px;
-            letter-spacing: -0.02em;
+            color: var(--navy);
+            font-family: var(--serif);
+            font-size: 34px;
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: 0.06em;
+        }
+
+        .profile-kana {
+            display: block;
+            margin-top: 6px;
+            color: var(--text-3);
+            font-family: var(--sans);
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 0.08em;
         }
 
         .profile-title {
-            font-size: 18px;
-            color: var(--accent);
-            margin-bottom: 28px;
-            font-weight: 600;
+            display: inline-block;
+            margin-top: 18px;
+            padding-top: 14px;
+            border-top: 2px solid var(--vermillion);
+            color: var(--vermillion);
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
         }
 
         .profile-description {
-            color: var(--text-secondary);
-            line-height: 1.9;
-            margin-bottom: 36px;
-            font-size: 17px;
+            margin-bottom: 26px;
+            color: var(--text-2);
+            font-size: 15px;
+            line-height: 2.05;
         }
 
         .profile-highlights {
-            list-style: none;
-            text-align: left;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0;
+            border-top: 1px solid var(--border-light);
         }
 
         .profile-highlights li {
-            padding: 16px 0;
-            color: var(--text-secondary);
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
-
-        .profile-highlights li:hover {
-            color: var(--text-primary);
-            padding-left: 8px;
-        }
-
-        .profile-highlights li:last-child {
-            border-bottom: none;
+            position: relative;
+            padding: 12px 0 12px 30px;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text-2);
+            font-size: 14px;
+            line-height: 1.8;
         }
 
         .profile-highlights li::before {
-            content: "→";
-            color: var(--accent);
-            font-weight: 700;
-            font-size: 20px;
+            content: "";
+            position: absolute;
+            top: 21px;
+            left: 2px;
+            width: 14px;
+            height: 2px;
+            background: var(--vermillion);
         }
 
-        /* Final CTA */
+        /* ============================================================
+           Final CTA
+           ============================================================ */
         .final-cta {
-            padding: 140px 0;
-            text-align: center;
-            background: radial-gradient(ellipse at 50% 50%, rgba(6, 182, 212, 0.12), transparent 70%);
-            position: relative;
+            padding: 120px 0;
+            color: #fff;
+            background:
+                linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px) 0 0 / 88px 88px,
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px) 0 0 / 88px 88px,
+                linear-gradient(132deg, #1f3049 0%, #263b57 100%);
             overflow: hidden;
         }
 
         .final-cta::before {
-            content: '';
+            content: "";
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 150%;
-            height: 150%;
-            background: radial-gradient(circle, rgba(6, 182, 212, 0.06) 0%, transparent 60%);
-            animation: ctaPulse 8s ease-in-out infinite;
-        }
-
-        @keyframes ctaPulse {
-
-            0%,
-            100% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 0.6;
-            }
-
-            50% {
-                transform: translate(-50%, -50%) scale(1.2);
-                opacity: 1;
-            }
+            right: -160px;
+            bottom: -260px;
+            width: 620px;
+            height: 620px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            pointer-events: none;
         }
 
         .final-cta-content {
             position: relative;
-            z-index: 1;
+            max-width: 900px;
+            padding-left: 26px;
+            border-left: 4px solid var(--vermillion);
         }
 
         .final-cta h2 {
-            font-size: 48px;
-            font-weight: 900;
-            margin-bottom: 28px;
-            line-height: 1.3;
-            letter-spacing: -0.03em;
+            margin-bottom: 26px;
+            color: #fffdf8;
+            font-family: var(--serif);
+            font-size: clamp(32px, 4.2vw, 52px);
+            font-weight: 600;
+            line-height: 1.5;
+            letter-spacing: 0.02em;
         }
 
-        .final-cta p {
-            font-size: 20px;
-            color: var(--text-secondary);
-            margin-bottom: 48px;
-            max-width: 650px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.7;
+        .final-cta-lead {
+            margin-bottom: 30px;
+            color: rgba(248, 244, 235, 0.78);
+            font-size: 16px;
+            line-height: 2;
         }
 
         .cta-benefits {
             display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-bottom: 48px;
             flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 36px;
         }
 
         .cta-benefit {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 10px;
-            color: var(--text-secondary);
-            font-size: 17px;
-            font-weight: 500;
+            padding: 9px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            border-radius: 3px;
+            color: #f8f4eb;
+            background: rgba(255, 255, 255, 0.05);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
         }
 
-        .cta-benefit::before {
-            content: "✓";
-            color: var(--success);
-            font-weight: 700;
-            font-size: 22px;
+        .cta-benefit .icon {
+            width: 14px;
+            height: 14px;
+            stroke-width: 2.4;
+            color: #8fc29d;
         }
 
         .final-cta-button {
-            background: var(--accent);
-            color: white;
-            padding: 24px 72px;
-            border-radius: 16px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 21px;
-            display: inline-block;
-            transition: all 0.4s ease;
-            box-shadow: 0 8px 32px rgba(6, 182, 212, 0.4);
-            border: 2px solid var(--accent);
-        }
-
-        .final-cta-button:hover {
-            background: var(--accent-hover);
-            transform: translateY(-6px) scale(1.02);
-            box-shadow: 0 16px 48px rgba(6, 182, 212, 0.6);
+            min-height: 60px;
+            padding: 0 36px;
+            font-size: 15px;
         }
 
         .final-cta-note {
-            margin-top: 32px;
-            font-size: 15px;
-            color: var(--text-muted);
+            margin-top: 34px;
+            color: rgba(248, 244, 235, 0.7);
+            font-size: 14px;
+            line-height: 2;
         }
 
         .final-cta-note a {
-            color: var(--accent);
-            text-decoration: none;
+            color: #fff;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
         }
 
         .final-cta-note a:hover {
-            text-decoration: underline;
+            border-bottom-color: var(--vermillion);
         }
 
+        /* ============================================================
+           Footer
+           ============================================================ */
         footer {
-            padding: 56px 0;
-            background: var(--bg-secondary);
-            border-top: 1px solid var(--border);
-            text-align: center;
+            padding: 34px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(248, 244, 235, 0.62);
+            background: #17253a;
+            font-size: 13px;
         }
 
         .footer-content {
-            color: var(--text-muted);
-            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 14px;
         }
 
         .footer-links {
-            margin-top: 20px;
             display: flex;
-            justify-content: center;
-            gap: 32px;
-            flex-wrap: wrap;
+            gap: 26px;
         }
 
         .footer-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-weight: 500;
+            color: rgba(248, 244, 235, 0.78);
+            font-weight: 700;
+            letter-spacing: 0.04em;
         }
 
         .footer-links a:hover {
-            color: var(--accent);
+            color: #fff;
         }
 
-
-
-        .model-focus-note {
-            max-width: 900px;
-            margin: 40px auto 0;
-            padding: 24px 28px;
-            background: rgba(6, 182, 212, 0.06);
-            border: 1px solid rgba(6, 182, 212, 0.18);
-            border-radius: 16px;
-            color: var(--text-secondary);
-            font-size: 15px;
-            line-height: 1.8;
-            text-align: center;
-        }
-
-        .roi,
-        .use-cases {
-            padding: 120px 0;
-        }
-
-        .model-price-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 28px;
-            max-width: 1100px;
-            margin: 0 auto 48px;
-        }
-
-        .model-price-card {
-            background: var(--bg-card);
-            padding: 36px;
-            border-radius: 20px;
-            border: 1px solid var(--border);
-        }
-
-        .model-price-card h3 {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-
-        .model-price-card .price-main {
-            color: var(--accent);
-            font-size: 28px;
-            font-weight: 800;
-            margin: 10px 0 8px;
-        }
-
-        .model-price-card p {
-            color: var(--text-secondary);
-            font-size: 15px;
-            line-height: 1.8;
-        }
-
-        @media (max-width: 768px) {
-            .model-price-grid {
+        /* ============================================================
+           Responsive
+           ============================================================ */
+        @media (max-width: 1080px) {
+            .hero-content {
                 grid-template-columns: 1fr;
-            }
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .hero-stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .diff-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero {
-                padding: 120px 0 80px;
-            }
-
-            .hero h1 {
-                font-size: 36px;
-            }
-
-            .hero-subtitle {
-                font-size: 17px;
+                row-gap: 56px;
             }
 
             .hero-stats {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                border-top: 1px solid rgba(255, 255, 255, 0.28);
             }
 
-            .section-title {
-                font-size: 32px;
+            .hero-stat {
+                border-bottom: 1px solid rgba(255, 255, 255, 0.14);
             }
 
-            .pain-grid,
-            .service-cards,
-            .pricing-grid,
+            .hero-stat:last-child {
+                border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+            }
+
+            .hero-stat:nth-child(3),
+            .hero-stat:nth-child(4) {
+                border-bottom: 0;
+            }
+
+            .diff-grid,
             .guide-grid,
             .trust-grid,
-            .standard-grid,
-            .app-pricing-grid {
-                grid-template-columns: 1fr;
+            .pricing-grid,
+            .standard-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .deliverables-grid > .card,
+            .deliverables-grid > .card:nth-child(4),
+            .deliverables-grid > .card:nth-child(5) {
+                grid-column: span 3;
             }
 
             .process-steps {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
 
             .process-steps::before {
                 display: none;
             }
 
+            .service-cards,
+            .model-price-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-content {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .profile-side {
+                padding-right: 0;
+                padding-bottom: 28px;
+                border-right: 0;
+                border-bottom: 1px solid var(--border-light);
+            }
+        }
+
+        @media (max-width: 760px) {
+            :root {
+                --header-h: 64px;
+            }
+
+            .container {
+                width: min(100% - 36px, 1180px);
+            }
+
+            .brand-logo {
+                width: 184px;
+            }
+
+            .cta-button {
+                padding: 9px 12px;
+                font-size: 11px;
+            }
+
+            .cta-button .icon {
+                display: none;
+            }
+
+            .hero {
+                padding: calc(var(--header-h) + 56px) 0 72px;
+            }
+
+            .hero::before,
+            .hero::after {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: clamp(30px, 8.4vw, 48px);
+                letter-spacing: 0.01em;
+            }
+
+            .hero-core-message br,
+            .hero-subtitle br,
+            .final-cta h2 br,
+            .final-cta-lead br,
+            .model-focus-note br,
+            .standard-lead br {
+                display: none;
+            }
+
+            .hero-cta-group .btn {
+                width: 100%;
+            }
+
+            .hero-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .hero-stat {
+                grid-template-columns: 1fr;
+                row-gap: 6px;
+                padding: 18px 8px 18px 18px;
+            }
+
+            .hero-stat-number {
+                font-size: 28px;
+                min-width: 0;
+            }
+
+            .hero-stat-label {
+                font-size: 12px;
+            }
+
+            section {
+                padding: 76px 0;
+            }
+
+            .section-header {
+                margin-bottom: 36px;
+            }
+
+            .section-title {
+                padding-left: 16px;
+                font-size: clamp(28px, 8vw, 38px);
+            }
+
+            .section-subtitle {
+                font-size: 15px;
+            }
+
+            .pain-grid,
+            .diff-grid,
+            .guide-grid,
+            .trust-grid,
+            .pricing-grid,
+            .standard-grid,
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .pain-card {
+                grid-template-columns: 1fr;
+                row-gap: 16px;
+                padding: 26px 24px 26px 26px;
+            }
+
+            .comparison-table {
+                overflow-x: auto;
+            }
+
             .comparison-header,
             .comparison-row {
-                grid-template-columns: 2fr 1fr 1fr;
+                grid-template-columns: 150px 200px 220px;
+                min-width: 570px;
                 font-size: 13px;
-                padding: 20px 16px;
             }
 
-            .hero-cta-group {
-                flex-direction: column;
+            .comparison-header > div,
+            .comparison-row > div {
+                padding: 16px 14px;
             }
 
-            .cta-primary,
-            .cta-secondary {
+            .deliverables-grid > .card,
+            .deliverables-grid > .card:nth-child(4),
+            .deliverables-grid > .card:nth-child(5) {
+                grid-column: span 6;
+                padding: 26px 22px;
+            }
+
+            .service-card,
+            .model-price-card,
+            .standard-features,
+            .profile-content {
+                padding: 28px 22px;
+            }
+
+            .service-card h3 {
+                font-size: 26px;
+            }
+
+            .service-foot .btn {
                 width: 100%;
-                padding: 18px 32px;
-                text-align: center;
             }
 
-            .cta-benefits {
-                flex-direction: column;
-                gap: 16px;
+            .pricing-card {
+                padding: 34px 22px 26px;
+            }
+
+            .roi-table {
+                font-size: 14px;
+            }
+
+            .roi-table thead th,
+            .roi-table tbody td {
+                padding: 14px 12px;
+            }
+
+            .roi-table tbody td.roi-mf {
+                font-size: 16px;
+            }
+
+            .roi-table tbody tr.roi-total td.roi-mf {
+                font-size: 20px;
+            }
+
+            .step-body {
+                height: auto;
+            }
+
+            .faq-question {
+                font-size: 16px;
+                padding: 20px 6px 20px 0;
+            }
+
+            .faq-answer-content {
+                padding-right: 0;
+            }
+
+            .profile-name {
+                font-size: 28px;
+            }
+
+            .final-cta {
+                padding: 84px 0;
+            }
+
+            .final-cta-content {
+                padding-left: 18px;
             }
 
             .final-cta h2 {
-                font-size: 32px;
+                font-size: clamp(28px, 8.5vw, 42px);
+            }
+
+            .final-cta-button {
+                width: 100%;
+            }
+
+            .footer-content {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .js .reveal {
+                opacity: 1;
+                transform: none;
             }
         }
     </style>
 </head>
 
 <body>
+    <!-- Line icon sprite (single source for every icon on the page) -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+        <symbol id="i-alert" viewBox="0 0 24 24">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+            <line x1="12" y1="9" x2="12" y2="13" />
+            <line x1="12" y1="17" x2="12.01" y2="17" />
+        </symbol>
+        <symbol id="i-link" viewBox="0 0 24 24">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+        </symbol>
+        <symbol id="i-flask" viewBox="0 0 24 24">
+            <path d="M9 3h6" />
+            <path d="M10 3v6.5L4.6 19a1.5 1.5 0 0 0 1.3 2.2h12.2a1.5 1.5 0 0 0 1.3-2.2L14 9.5V3" />
+            <path d="M7.4 15.5h9.2" />
+        </symbol>
+        <symbol id="i-layers" viewBox="0 0 24 24">
+            <polygon points="12 2 2 7 12 12 22 7 12 2" />
+            <polyline points="2 17 12 22 22 17" />
+            <polyline points="2 12 12 17 22 12" />
+        </symbol>
+        <symbol id="i-cap" viewBox="0 0 24 24">
+            <path d="M2 9l10-4 10 4-10 4L2 9z" />
+            <path d="M6 11v5c0 1.7 3 3 6 3s6-1.3 6-3v-5" />
+            <path d="M22 9v6" />
+        </symbol>
+        <symbol id="i-puzzle" viewBox="0 0 24 24">
+            <path d="M5 7h4a2.5 2.5 0 0 1 5 0h4v4a2.5 2.5 0 0 1 0 5v4h-4a2.5 2.5 0 0 1-5 0H5v-4a2.5 2.5 0 0 1 0-5V7z" />
+        </symbol>
+        <symbol id="i-shield" viewBox="0 0 24 24">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            <polyline points="9 12 11 14 15 10" />
+        </symbol>
+        <symbol id="i-rocket" viewBox="0 0 24 24">
+            <path d="M12 2.5c3 2.2 4.5 5.7 4.5 10L14 15h-4l-2.5-2.5C7.5 8.2 9 4.7 12 2.5z" />
+            <path d="M9.5 12.5L6 14.5l1.5 3" />
+            <path d="M14.5 12.5l3.5 2-1.5 3" />
+            <path d="M10.5 15L9 21l3-2 3 2-1.5-6" />
+            <circle cx="12" cy="9" r="1.6" />
+        </symbol>
+        <symbol id="i-sprout" viewBox="0 0 24 24">
+            <path d="M12 22v-8" />
+            <path d="M12 14c0-4.2 3.2-7.2 8-7.2 0 4.2-3.2 7.2-8 7.2z" />
+            <path d="M12 14c0-3.4-2.6-6-7-6 0 3.4 2.6 6 7 6z" />
+        </symbol>
+        <symbol id="i-gear" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="3" />
+            <circle cx="12" cy="12" r="7.2" />
+            <path
+                d="M12 2v2.8M12 19.2V22M2 12h2.8M19.2 12H22M4.93 4.93l1.98 1.98M17.09 17.09l1.98 1.98M4.93 19.07l1.98-1.98M17.09 6.91l1.98-1.98" />
+        </symbol>
+        <symbol id="i-target" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9" />
+            <circle cx="12" cy="12" r="5" />
+            <circle cx="12" cy="12" r="1.4" />
+        </symbol>
+        <symbol id="i-slides" viewBox="0 0 24 24">
+            <rect x="3" y="4" width="18" height="12" rx="1.5" />
+            <path d="M12 16v4M8 20h8" />
+            <polyline points="7 12.5 10 9.5 13 11.5 17 7.5" />
+        </symbol>
+        <symbol id="i-compass" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9" />
+            <polygon points="15.5 8.5 13.5 13.5 8.5 15.5 10.5 10.5 15.5 8.5" />
+        </symbol>
+        <symbol id="i-search" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="7" />
+            <line x1="21" y1="21" x2="16.5" y2="16.5" />
+        </symbol>
+        <symbol id="i-book" viewBox="0 0 24 24">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+        </symbol>
+        <symbol id="i-camera" viewBox="0 0 24 24">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+            <circle cx="12" cy="13" r="4" />
+        </symbol>
+        <symbol id="i-chart" viewBox="0 0 24 24">
+            <line x1="12" y1="20" x2="12" y2="10" />
+            <line x1="18" y1="20" x2="18" y2="4" />
+            <line x1="6" y1="20" x2="6" y2="16" />
+            <line x1="3" y1="20" x2="21" y2="20" />
+        </symbol>
+        <symbol id="i-users" viewBox="0 0 24 24">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        </symbol>
+        <symbol id="i-clipboard" viewBox="0 0 24 24">
+            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+            <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
+            <path d="M8 12h8M8 16h5" />
+        </symbol>
+        <symbol id="i-bolt" viewBox="0 0 24 24">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+        </symbol>
+        <symbol id="i-chat" viewBox="0 0 24 24">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+        </symbol>
+        <symbol id="i-check" viewBox="0 0 24 24">
+            <polyline points="20 6 9 17 4 12" />
+        </symbol>
+        <symbol id="i-arrow" viewBox="0 0 24 24">
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
+        </symbol>
+    </svg>
+
     <div class="progress-bar" id="progressBar"></div>
 
     <header id="header">
         <div class="container">
             <div class="header-content">
                 <a href="#" class="logo">
-                    <svg class="logo-mark" viewBox="0 0 130 130" aria-hidden="true">
-                        <defs>
-                            <linearGradient id="hgd" x1="0" y1="0" x2="1" y2="1">
-                                <stop offset="0%" stop-color="#06b6d4" />
-                                <stop offset="100%" stop-color="#10b981" />
-                            </linearGradient>
-                        </defs>
-                        <rect width="130" height="130" rx="22" fill="#1e293b" />
-                        <rect width="130" height="130" rx="22" fill="none" stroke="url(#hgd)" stroke-width="1.5" />
-                        <path d="M 12 33 L 12 12 L 33 12" fill="none" stroke="#06b6d4" stroke-width="1.5"
-                            stroke-linecap="round" opacity="0.5" />
-                        <path d="M 97 12 L 118 12 L 118 33" fill="none" stroke="#10b981" stroke-width="1.5"
-                            stroke-linecap="round" opacity="0.5" />
-                        <path d="M 12 97 L 12 118 L 33 118" fill="none" stroke="#06b6d4" stroke-width="1.5"
-                            stroke-linecap="round" opacity="0.35" />
-                        <path d="M 97 118 L 118 118 L 118 97" fill="none" stroke="#10b981" stroke-width="1.5"
-                            stroke-linecap="round" opacity="0.35" />
-                        <line x1="14" y1="100" x2="116" y2="100" stroke="url(#hgd)" stroke-width="6"
-                            stroke-linecap="round" />
-                        <polyline points="21,100 21,28 65,62 109,28 109,100" stroke="url(#hgd)" stroke-width="6"
-                            fill="none" stroke-linecap="round" stroke-linejoin="round" />
-                        <circle cx="21" cy="28" r="8" fill="#1e293b" />
-                        <circle cx="21" cy="28" r="5" fill="#06b6d4" />
-                        <circle cx="65" cy="62" r="7" fill="#1e293b" />
-                        <circle cx="65" cy="62" r="4" fill="#0891b2" />
-                        <circle cx="109" cy="28" r="8" fill="#1e293b" />
-                        <circle cx="109" cy="28" r="5" fill="#10b981" />
-                    </svg>
-                    metafactory agent studio
+                    <img class="brand-logo" src="metafactory_studio_logo_editorial.svg"
+                        alt="metafactory agent studio">
                 </a>
-                <a href="#contact" class="cta-button">無料診断する</a>
+                <a href="#contact" class="cta-button">無料診断する<svg class="icon" aria-hidden="true">
+                        <use href="#i-arrow" />
+                    </svg></a>
             </div>
         </div>
     </header>
@@ -1728,31 +2164,35 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <div class="hero-tag">AIアプリ納品 × 伴走支援 × 自走化</div>
-                <h1>AI活用を、<br><span class="highlight">現場の成果に変える。</span></h1>
-                <p class="hero-core-message">「AIツールを導入する」のではなく、<br>御社の業務をAIが手伝える形に作り替えます。</p>
-                <p class="hero-subtitle">
-                    欲しいのは、AIの説明ではなく、業務が変わること。<br>
-                    完成品としてのAIアプリ納品、またはAgent・教材・品質ガバナンス込みの伴走支援で、御社に「使える仕組み」と「自走できるチーム」を残します。
-                </p>
-                <div class="hero-cta-group">
-                    <a href="#contact" class="cta-primary">無料診断を受ける</a>
-                    <a href="#services" class="cta-secondary">2つのモデルを見る</a>
+                <div>
+                    <div class="hero-tag">AIアプリ納品 × 伴走支援 × 自走化</div>
+                    <h1>AI活用を、<br><span class="highlight">現場の成果に変える。</span></h1>
+                    <p class="hero-core-message">「AIツールを導入する」のではなく、<br>御社の業務をAIが手伝える形に作り替えます。</p>
+                    <p class="hero-subtitle">
+                        欲しいのは、AIの説明ではなく、業務が変わること。<br>
+                        完成品としてのAIアプリ納品、またはAgent・教材・品質ガバナンス込みの伴走支援で、御社に「使える仕組み」と「自走できるチーム」を残します。
+                    </p>
+                    <div class="hero-cta-group">
+                        <a href="#contact" class="btn btn-primary">無料診断を受ける<svg class="icon" aria-hidden="true">
+                                <use href="#i-arrow" />
+                            </svg></a>
+                        <a href="#services" class="btn btn-ghost-light">2つのモデルを見る</a>
+                    </div>
                 </div>
                 <div class="hero-stats">
-                    <div class="hero-stat">
+                    <div class="hero-stat reveal">
                         <div class="hero-stat-number">28年</div>
                         <div class="hero-stat-label">大規模開発の品質管理経験</div>
                     </div>
-                    <div class="hero-stat">
+                    <div class="hero-stat reveal">
                         <div class="hero-stat-number">300名+</div>
                         <div class="hero-stat-label">技術者の育成実績</div>
                     </div>
-                    <div class="hero-stat">
+                    <div class="hero-stat reveal">
                         <div class="hero-stat-number">2モデル</div>
                         <div class="hero-stat-label">納品型 / 伴走支援型</div>
                     </div>
-                    <div class="hero-stat">
+                    <div class="hero-stat reveal">
                         <div class="hero-stat-number">80万円〜</div>
                         <div class="hero-stat-label">アプリ納品から相談可能</div>
                     </div>
@@ -1762,7 +2202,7 @@
     </section>
 
     <!-- 2. Pain Points -->
-    <section class="pain-points">
+    <section class="pain-points alt">
         <div class="container">
             <div class="section-header">
                 <div class="section-tag">よくある失敗パターン</div>
@@ -1770,25 +2210,41 @@
                 <p class="section-subtitle">多くの企業がつまずくのは、ツール選びではなく「業務に定着する仕組み」がないことです。</p>
             </div>
             <div class="pain-grid">
-                <div class="pain-card">
-                    <div class="pain-icon">⚠️</div>
-                    <h3>出力品質がバラつく</h3>
-                    <p>同じ指示を出しても結果が毎回違う。「これ、本番で使って大丈夫？」——その不安が拭えないまま、プロジェクトが止まっている。</p>
+                <div class="card pain-card reveal">
+                    <div class="tile tile--warn"><svg class="icon" aria-hidden="true">
+                            <use href="#i-alert" />
+                        </svg></div>
+                    <div>
+                        <h3>出力品質がバラつく</h3>
+                        <p>同じ指示を出しても結果が毎回違う。「これ、本番で使って大丈夫？」——その不安が拭えないまま、プロジェクトが止まっている。</p>
+                    </div>
                 </div>
-                <div class="pain-card">
-                    <div class="pain-icon">🔗</div>
-                    <h3>ベンダーから抜け出せない</h3>
-                    <p>外注に頼んだAIアプリ。改修も保守も全部ベンダー任せ。毎月のコストは増え続け、社内には何も残らない。</p>
+                <div class="card pain-card reveal">
+                    <div class="tile tile--warn"><svg class="icon" aria-hidden="true">
+                            <use href="#i-link" />
+                        </svg></div>
+                    <div>
+                        <h3>ベンダーから抜け出せない</h3>
+                        <p>外注に頼んだAIアプリ。改修も保守も全部ベンダー任せ。毎月のコストは増え続け、社内には何も残らない。</p>
+                    </div>
                 </div>
-                <div class="pain-card">
-                    <div class="pain-icon">🧪</div>
-                    <h3>品質の担保ができない</h3>
-                    <p>AIの出力は毎回違う。「これ、お客様に出して大丈夫？」——その確信が持てないまま、誰も責任を取れる人がいない。</p>
+                <div class="card pain-card reveal">
+                    <div class="tile tile--warn"><svg class="icon" aria-hidden="true">
+                            <use href="#i-flask" />
+                        </svg></div>
+                    <div>
+                        <h3>品質の担保ができない</h3>
+                        <p>AIの出力は毎回違う。「これ、お客様に出して大丈夫？」——その確信が持てないまま、誰も責任を取れる人がいない。</p>
+                    </div>
                 </div>
-                <div class="pain-card">
-                    <div class="pain-icon">🏗️</div>
-                    <h3>試作止まりで本番に進めない</h3>
-                    <p>試作は動いた。でも本番環境への橋渡しができない。「試作疲れ」のまま、投資だけが積み上がっていく。</p>
+                <div class="card pain-card reveal">
+                    <div class="tile tile--warn"><svg class="icon" aria-hidden="true">
+                            <use href="#i-layers" />
+                        </svg></div>
+                    <div>
+                        <h3>試作止まりで本番に進めない</h3>
+                        <p>試作は動いた。でも本番環境への橋渡しができない。「試作疲れ」のまま、投資だけが積み上がっていく。</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1803,7 +2259,7 @@
                 <p class="section-subtitle">metafactory は、アプリを作るだけでも、研修だけでもありません。成果物・運用ルール・品質基準・教育をつなげて、社内で回る状態を設計します。
                 </p>
             </div>
-            <div class="comparison-table">
+            <div class="comparison-table reveal">
                 <div class="comparison-header">
                     <div>よくある課題</div>
                     <div>一般的なAI導入</div>
@@ -1839,7 +2295,7 @@
     </section>
 
     <!-- 4. Differentiation -->
-    <section class="differentiation">
+    <section class="differentiation alt">
         <div class="container">
             <div class="section-header">
                 <div class="section-tag">選ばれる理由</div>
@@ -1847,25 +2303,37 @@
                 <p class="section-subtitle">提供しているのは、単発の研修でも、単なる開発代行でもありません。御社に残る「AI活用の土台」まで設計します。</p>
             </div>
             <div class="diff-grid">
-                <div class="diff-card">
-                    <div class="diff-number">01</div>
-                    <div class="diff-icon">🎓</div>
+                <div class="card diff-card reveal">
+                    <div class="diff-head">
+                        <div class="tile"><svg class="icon" aria-hidden="true">
+                                <use href="#i-cap" />
+                            </svg></div>
+                        <div class="diff-number">01</div>
+                    </div>
                     <h3>「卒業」がゴール</h3>
                     <div class="diff-sub">ずっと依存させるのではなく、社内で回せる状態へ</div>
                     <p>伴走支援のゴールは、継続課金を増やすことではありません。AIを使う手順、判断基準、改善の進め方を御社に移し、自走できる状態を目指します。</p>
                     <div class="diff-evidence">自走後は月額終了 / ノウハウを社内に移管 / 段階的に卒業</div>
                 </div>
-                <div class="diff-card">
-                    <div class="diff-number">02</div>
-                    <div class="diff-icon">🧩</div>
+                <div class="card diff-card reveal">
+                    <div class="diff-head">
+                        <div class="tile"><svg class="icon" aria-hidden="true">
+                                <use href="#i-puzzle" />
+                            </svg></div>
+                        <div class="diff-number">02</div>
+                    </div>
                     <h3>Agent・教材・品質ルールまで同梱</h3>
                     <div class="diff-sub">研修だけではなく、使い続ける仕組みを渡す</div>
                     <p>パワポ自動作成、AIlearning、アプリ作成Agent、品質チェック、運用ルールを組み合わせて導入します。現場が迷わず使える環境を整えてから、伴走で定着させます。</p>
                     <div class="diff-evidence">同梱Agent / 教育コンテンツ / 品質ガバナンス / 運用設計</div>
                 </div>
-                <div class="diff-card">
-                    <div class="diff-number">03</div>
-                    <div class="diff-icon">🛡️</div>
+                <div class="card diff-card reveal">
+                    <div class="diff-head">
+                        <div class="tile"><svg class="icon" aria-hidden="true">
+                                <use href="#i-shield" />
+                            </svg></div>
+                        <div class="diff-number">03</div>
+                    </div>
                     <h3>28年 × 300名の現場経験</h3>
                     <div class="diff-sub">AIを品質管理・育成・開発プロセスの視点で扱う</div>
                     <p>大規模開発で品質とスケジュールを守り、300名以上を育成してきた経験を、AI活用支援に転用。人に依存しすぎない仕組みづくりを重視します。</p>
@@ -1876,21 +2344,23 @@
     </section>
 
     <!-- 4.5 Deliverables -->
-    <section class="trust" style="background: var(--bg-secondary);">
+    <section class="deliverables">
         <div class="container">
             <div class="section-header">
-                <div class="section-tag"
-                    style="background: rgba(6, 182, 212, 0.12); color: var(--accent); border-color: var(--accent);">成果物
-                </div>
+                <div class="section-tag">成果物</div>
                 <h2 class="section-title">御社に残るもの</h2>
                 <p class="section-subtitle">一時的な支援ではなく、納品物・Agent・教材・運用ルール・判断記録が残る設計にしています。</p>
             </div>
-            <div class="trust-grid deliverables-grid">
-                <div class="trust-card">
-                    <div class="trust-icon">🚀</div>
-                    <h3>モデル1：アプリ納品型</h3>
+            <div class="deliverables-grid">
+                <div class="card reveal">
+                    <div class="card-head">
+                        <div class="tile"><svg class="icon" aria-hidden="true">
+                                <use href="#i-rocket" />
+                            </svg></div>
+                        <h3>モデル1：アプリ納品型</h3>
+                    </div>
                     <p>業務を変えるAIアプリを、完成品として納品します。単に動くものではなく、引き継ぎや改修に耐えられる記録を残します。</p>
-                    <ul class="service-features" style="margin-bottom:0; margin-top:16px;">
+                    <ul class="check-list">
                         <li>ソースコード・実行環境一式</li>
                         <li>操作マニュアル</li>
                         <li>設計の判断記録</li>
@@ -1898,11 +2368,15 @@
                     </ul>
                 </div>
 
-                <div class="trust-card">
-                    <div class="trust-icon">🌱</div>
-                    <h3>モデル2：伴走支援型</h3>
+                <div class="card reveal">
+                    <div class="card-head">
+                        <div class="tile"><svg class="icon" aria-hidden="true">
+                                <use href="#i-sprout" />
+                            </svg></div>
+                        <h3>モデル2：伴走支援型</h3>
+                    </div>
                     <p>御社チームがAIを業務で使い続けられるように、環境・Agent・教材・品質ルール・運用手順をまとめて導入します。</p>
-                    <ul class="service-features" style="margin-bottom:0; margin-top:16px;">
+                    <ul class="check-list">
                         <li>AI活用環境の構築</li>
                         <li>パワポ自動作成 / AIlearning / アプリ作成Agent</li>
                         <li>業務テーマに合わせた活用テンプレート</li>
@@ -1910,11 +2384,15 @@
                     </ul>
                 </div>
 
-                <div class="trust-card">
-                    <div class="trust-icon">🛡️</div>
-                    <h3>品質とガバナンスの仕組み</h3>
+                <div class="card reveal">
+                    <div class="card-head">
+                        <div class="tile"><svg class="icon" aria-hidden="true">
+                                <use href="#i-shield" />
+                            </svg></div>
+                        <h3>品質とガバナンスの仕組み</h3>
+                    </div>
                     <p>AIの出力やAgentの実装が属人化しないように、品質基準・レビュー観点・変更記録を整備します。</p>
-                    <ul class="service-features" style="margin-bottom:0; margin-top:16px;">
+                    <ul class="check-list">
                         <li>品質の合格ライン</li>
                         <li>評価・検証の進め方</li>
                         <li>例外・変更時の運用ルール</li>
@@ -1922,13 +2400,17 @@
                     </ul>
                 </div>
 
-                <div class="trust-card">
-                    <div class="trust-icon">⚙️</div>
-                    <h3>Agentic開発基盤</h3>
+                <div class="card reveal">
+                    <div class="card-head">
+                        <div class="tile"><svg class="icon" aria-hidden="true">
+                                <use href="#i-gear" />
+                            </svg></div>
+                        <h3>Agentic開発基盤</h3>
+                    </div>
                     <p>AI Agentを開発作業に安全に組み込むための、環境・ガイドライン・品質ルールを一式納品します。御社のAI開発エコシステム（VS Code Copilot / Claude / Codex
                         等）に合わせて設定します。
                     </p>
-                    <ul class="service-features" style="margin-bottom:0; margin-top:16px;">
+                    <ul class="check-list">
                         <li>AI Agent対応の開発ガイドライン（御社環境に合わせて設定）</li>
                         <li>要求・設計・実装・テスト・記録をつなぐワークフロー</li>
                         <li>品質基準・レビュー観点・変更記録の体系</li>
@@ -1936,11 +2418,15 @@
                     </ul>
                 </div>
 
-                <div class="trust-card">
-                    <div class="trust-icon">🎓</div>
-                    <h3>「卒業」の定義（目安）</h3>
+                <div class="card reveal">
+                    <div class="card-head">
+                        <div class="tile"><svg class="icon" aria-hidden="true">
+                                <use href="#i-cap" />
+                            </svg></div>
+                        <h3>「卒業」の定義（目安）</h3>
+                    </div>
                     <p>支援を終えるのは、御社が「自分たちで回せる」状態になったときです。</p>
-                    <ul class="service-features" style="margin-bottom:0; margin-top:16px;">
+                    <ul class="check-list">
                         <li>担当者が交代しても、同じ手順で運用できる</li>
                         <li>品質の判断基準が社内で共有されている</li>
                         <li>例外・障害時の対応が決まっている（切り戻し/エスカレーション）</li>
@@ -1952,44 +2438,52 @@
     </section>
 
     <!-- 5. Services -->
-    <section id="services" class="services">
+    <section id="services" class="services alt">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">提供モデルは2つだけ</h2>
                 <p class="section-subtitle">小さなスポット作業を並べるのではなく、成果物として納品するか、御社に仕組みを移すか。選び方をシンプルにしています。</p>
             </div>
             <div class="service-cards">
-                <div class="service-card">
+                <div class="card service-card reveal">
                     <div class="service-badge">モデル1 <span class="service-chip">Build &amp; Deliver</span></div>
                     <h3>アプリ納品型</h3>
                     <p>AIアプリが欲しい。でも学ぶ時間はない。——それなら、品質の仕組みごと納品します。「なぜこう作ったか」の記録付きだから、ブラックボックスになりません。</p>
-                    <ul class="service-features">
+                    <ul class="check-list">
                         <li>業務課題に合わせたAIアプリを開発・納品</li>
                         <li>「なぜこう作ったか」の判断記録付き</li>
                         <li>動作確認・品質チェック・操作マニュアル込み</li>
                         <li>必要に応じて保守オプションを追加可能</li>
                         <li>後から伴走支援へ進む場合、モデル1費用は初期費用から全額差引</li>
                     </ul>
-                    <a href="#contact" class="service-cta">アプリ納品について相談する</a>
-                    <span class="service-price-note">80万円〜 / 内容に応じて個別見積</span>
+                    <div class="service-foot">
+                        <a href="#contact" class="btn btn-outline">アプリ納品について相談する<svg class="icon" aria-hidden="true">
+                                <use href="#i-arrow" />
+                            </svg></a>
+                        <span class="service-price-note">80万円〜 / 内容に応じて個別見積</span>
+                    </div>
                 </div>
-                <div class="service-card">
+                <div class="card service-card reveal">
                     <div class="service-badge">モデル2 <span class="service-chip">Coach &amp; Empower</span></div>
                     <h3>伴走支援型</h3>
                     <p>AI活用の環境と仕組みを御社に導入。Agent・教材・品質ガバナンス・Agentic開発基盤で、自社チームの「自走力」を育てます。自走できたら月額終了。ベンダー依存ではなく、自走をゴールにしたAI伴走支援です。
                     </p>
-                    <ul class="service-features">
+                    <ul class="check-list">
                         <li>AI活用環境・同梱Agent・教材を一括導入</li>
                         <li>パワポ自動作成 / AIlearning / アプリ作成Agent を標準搭載</li>
                         <li>品質基準・運用ルール・判断記録の仕組みを整備</li>
                         <li>Plan S / M / L に応じた伴走セッション</li>
                         <li>自走できる状態を確認できたら、月額伴走は終了可能</li>
                     </ul>
-                    <a href="#pricing" class="service-cta">伴走支援のプランを見る</a>
-                    <span class="service-price-note">Plan S / M / L から選択（初期250万円〜）</span>
+                    <div class="service-foot">
+                        <a href="#pricing" class="btn btn-outline">伴走支援のプランを見る<svg class="icon" aria-hidden="true">
+                                <use href="#i-arrow" />
+                            </svg></a>
+                        <span class="service-price-note">Plan S / M / L から選択（初期250万円〜）</span>
+                    </div>
                 </div>
             </div>
-            <div class="model-focus-note">
+            <div class="model-focus-note reveal">
                 metafactory は「安価な相談メニューを多数並べる」サービスではありません。<br>
                 完成品として成果を出すモデル1、または御社にAI活用の仕組みを移すモデル2に絞ることで、品質と引き継ぎ可能性を守ります。
             </div>
@@ -2004,20 +2498,26 @@
                 <p class="section-subtitle">目的によって、選ぶモデルは明確に分かれます。</p>
             </div>
             <div class="guide-grid">
-                <div class="guide-card">
-                    <div class="guide-icon">🚀</div>
+                <div class="card guide-card reveal">
+                    <div class="tile"><svg class="icon" aria-hidden="true">
+                            <use href="#i-rocket" />
+                        </svg></div>
                     <h3>まず完成品が欲しい</h3>
                     <p>AIを学ぶよりも、まず特定業務を改善するアプリが必要。要件を切り出し、品質チェック済みの成果物として受け取りたい。</p>
                     <div class="guide-rec">→ モデル1：アプリ納品型（80万円〜）</div>
                 </div>
-                <div class="guide-card">
-                    <div class="guide-icon">🌱</div>
+                <div class="card guide-card reveal">
+                    <div class="tile"><svg class="icon" aria-hidden="true">
+                            <use href="#i-sprout" />
+                        </svg></div>
                     <h3>社内にAI活用を定着させたい</h3>
                     <p>資料作成、調査、業務整理、アプリ作成などを、担当者がAIと一緒に進められる状態にしたい。</p>
                     <div class="guide-rec">→ モデル2：Plan S / M</div>
                 </div>
-                <div class="guide-card">
-                    <div class="guide-icon">⚙️</div>
+                <div class="card guide-card reveal">
+                    <div class="tile"><svg class="icon" aria-hidden="true">
+                            <use href="#i-gear" />
+                        </svg></div>
                     <h3>AIで開発・改善を回したい</h3>
                     <p>AI Agent に業務改善やアプリ構築を任せるため、仕様・設計・テスト・再利用ルールまで整えたい。</p>
                     <div class="guide-rec">→ モデル2：Plan L / 個別設計</div>
@@ -2027,7 +2527,7 @@
     </section>
 
     <!-- 7. Pricing -->
-    <section id="pricing" class="pricing">
+    <section id="pricing" class="pricing alt">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">料金体系</h2>
@@ -2036,13 +2536,13 @@
             </div>
 
             <div class="model-price-grid">
-                <div class="model-price-card">
+                <div class="card model-price-card reveal">
                     <div class="service-badge">モデル1 <span class="service-chip">Build &amp; Deliver</span></div>
                     <h3>アプリ納品型</h3>
                     <div class="price-main">80万円〜</div>
                     <p>業務課題に合わせたAIアプリを、完成品として納品します。規模・連携・運用要件に応じて個別見積。後から伴走支援へ進む場合、モデル1費用は初期費用から全額差引します。</p>
                 </div>
-                <div class="model-price-card">
+                <div class="card model-price-card reveal">
                     <div class="service-badge">モデル2 <span class="service-chip">Coach &amp; Empower</span></div>
                     <h3>伴走支援型</h3>
                     <div class="price-main">初期250万円〜 + 月額25万円〜</div>
@@ -2051,49 +2551,73 @@
             </div>
 
             <!-- 全プラン標準装備 -->
-            <div class="standard-features">
+            <div class="standard-features reveal">
                 <h3>伴走支援型の全プランに標準装備</h3>
                 <p class="standard-lead">
                     初期費用は「研修費」ではありません。<br>AIを業務で使い続けるための環境・Agent・教材・品質ガバナンスをまとめて導入します。
                 </p>
                 <div class="standard-grid">
                     <div class="standard-item">
-                        <span class="standard-icon">🎯</span>
-                        <h5>アプリ作成Agent</h5>
-                        <p>業務アプリや自動化のたたき台を、対話しながら作成・改善できるAgentを提供します。</p>
+                        <div class="tile"><svg class="icon" aria-hidden="true">
+                                <use href="#i-target" />
+                            </svg></div>
+                        <div>
+                            <h5>アプリ作成Agent</h5>
+                            <p>業務アプリや自動化のたたき台を、対話しながら作成・改善できるAgentを提供します。</p>
+                        </div>
                     </div>
                     <div class="standard-item">
-                        <span class="standard-icon">📊</span>
-                        <h5>スライド自動作成</h5>
-                        <p>報告書・提案書・社内説明資料を、企業ブランドに合わせた形で作成支援します。</p>
+                        <div class="tile"><svg class="icon" aria-hidden="true">
+                                <use href="#i-slides" />
+                            </svg></div>
+                        <div>
+                            <h5>スライド自動作成</h5>
+                            <p>報告書・提案書・社内説明資料を、企業ブランドに合わせた形で作成支援します。</p>
+                        </div>
                     </div>
                     <div class="standard-item">
-                        <span class="standard-icon">🧭</span>
-                        <h5>戦略立案アシスタント</h5>
-                        <p>複数視点で業務課題を整理し、施策・優先順位・実行案をまとめる支援をします。</p>
+                        <div class="tile"><svg class="icon" aria-hidden="true">
+                                <use href="#i-compass" />
+                            </svg></div>
+                        <div>
+                            <h5>戦略立案アシスタント</h5>
+                            <p>複数視点で業務課題を整理し、施策・優先順位・実行案をまとめる支援をします。</p>
+                        </div>
                     </div>
                     <div class="standard-item">
-                        <span class="standard-icon">🔍</span>
-                        <h5>品質・再現性チェック</h5>
-                        <p>AI出力の合格ライン、レビュー観点、検証手順を整え、属人的な判断を減らします。</p>
+                        <div class="tile"><svg class="icon" aria-hidden="true">
+                                <use href="#i-search" />
+                            </svg></div>
+                        <div>
+                            <h5>品質・再現性チェック</h5>
+                            <p>AI出力の合格ライン、レビュー観点、検証手順を整え、属人的な判断を減らします。</p>
+                        </div>
                     </div>
                     <div class="standard-item">
-                        <span class="standard-icon">📚</span>
-                        <h5>AIlearningコンテンツ</h5>
-                        <p>LLMの基本から業務活用、Agentic開発まで、チームの理解を段階的に底上げします。</p>
+                        <div class="tile"><svg class="icon" aria-hidden="true">
+                                <use href="#i-book" />
+                            </svg></div>
+                        <div>
+                            <h5>AIlearningコンテンツ</h5>
+                            <p>LLMの基本から業務活用、Agentic開発まで、チームの理解を段階的に底上げします。</p>
+                        </div>
                     </div>
                     <div class="standard-item">
-                        <span class="standard-icon">⚙️</span>
-                        <h5>Agentic開発基盤</h5>
-                        <p>要求・設計・実装・テスト・記録をつなぎ、AI Agentに安全に作業させる土台を整えます。</p>
+                        <div class="tile"><svg class="icon" aria-hidden="true">
+                                <use href="#i-gear" />
+                            </svg></div>
+                        <div>
+                            <h5>Agentic開発基盤</h5>
+                            <p>要求・設計・実装・テスト・記録をつなぎ、AI Agentに安全に作業させる土台を整えます。</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="pricing-grid">
                 <!-- Plan S -->
-                <div class="pricing-card featured">
-                    <div style="text-align:center;"><span class="pricing-badge">おすすめ</span></div>
+                <div class="card pricing-card featured reveal">
+                    <span class="pricing-badge">おすすめ</span>
                     <h4>Plan S</h4>
                     <div class="pricing-target">小さく始め、推進者を育てたいチーム向け</div>
                     <div class="pricing-price">初期 250万円</div>
@@ -2111,7 +2635,7 @@
                         <div class="pricing-meta-row"><span class="label">卒業目標</span><span class="value">3〜6ヶ月</span>
                         </div>
                     </div>
-                    <ul class="pricing-features">
+                    <ul class="check-list">
                         <li>AI活用環境の構築</li>
                         <li>同梱Agent・教材・品質チェックの初期導入</li>
                         <li>基礎教育と業務テーマ選定</li>
@@ -2122,8 +2646,8 @@
                 </div>
 
                 <!-- Plan M -->
-                <div class="pricing-card">
-                    <h4 style="margin-top:28px;">Plan M</h4>
+                <div class="card pricing-card reveal">
+                    <h4>Plan M</h4>
                     <div class="pricing-target">複数業務へAI活用を広げたい企業向け</div>
                     <div class="pricing-price">初期 500万円</div>
                     <div class="pricing-monthly">+ 月額 45万円</div>
@@ -2140,7 +2664,7 @@
                         <div class="pricing-meta-row"><span class="label">卒業目標</span><span class="value">4〜9ヶ月</span>
                         </div>
                     </div>
-                    <ul class="pricing-features">
+                    <ul class="check-list">
                         <li>Plan S の全内容に加え——</li>
                         <li>複数業務（3-5テーマ）のAI化ロードマップ策定</li>
                         <li>業務ごとのAI活用テンプレート作成</li>
@@ -2151,8 +2675,8 @@
                 </div>
 
                 <!-- Plan L -->
-                <div class="pricing-card">
-                    <h4 style="margin-top:28px;">Plan L</h4>
+                <div class="card pricing-card reveal">
+                    <h4>Plan L</h4>
                     <div class="pricing-target">AI活用を組織に深く根付かせ、御社仕様の基盤に育てたい企業向け</div>
                     <div class="pricing-price">初期 1,200万円〜</div>
                     <div class="pricing-monthly">+ 月額 120万円〜</div>
@@ -2169,7 +2693,7 @@
                         <div class="pricing-meta-row"><span class="label">卒業目標</span><span class="value">6〜12ヶ月</span>
                         </div>
                     </div>
-                    <ul class="pricing-features">
+                    <ul class="check-list">
                         <li>Plan M の全内容に加え——</li>
                         <li>AI活用基盤の本格カスタマイズ（重点領域に合わせて御社仕様で設計）</li>
                         <li>判断基準・品質ルール・再利用の仕組みを御社業務に合わせて整備</li>
@@ -2180,69 +2704,70 @@
                 </div>
             </div>
 
-            <div style="text-align:center; margin-top:48px;">
-                <p style="color:var(--text-secondary); font-size:15px; margin-bottom:12px;">
-                    ※ モデル1をご利用後にモデル2へ移行される場合、モデル1の費用を初期費用から<strong style="color:var(--accent);">全額差引</strong>します。
+            <div class="pricing-footer reveal">
+                <p class="pricing-footer-lead">
+                    ※ モデル1をご利用後にモデル2へ移行される場合、モデル1の費用を初期費用から<strong>全額差引</strong>します。
                 </p>
-                <p style="color:var(--text-muted); font-size:15px; margin-bottom:20px;">
+                <p class="pricing-footer-sub">
                     無料診断で、モデル1で完結するべきか、モデル2で社内定着まで進むべきかを整理します。
                 </p>
-                <a href="#contact" class="cta-primary">まずは無料診断から</a>
+                <a href="#contact" class="btn btn-primary">まずは無料診断から<svg class="icon" aria-hidden="true">
+                        <use href="#i-arrow" />
+                    </svg></a>
             </div>
         </div>
     </section>
 
     <!-- 7.5 ROI -->
-    <section class="roi" style="background: var(--bg-secondary);">
+    <section class="roi">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">卒業モデルの投資対効果</h2>
                 <p class="section-subtitle">「卒業＝月額終了」だから、3年で見ると圧倒的な差になります。</p>
             </div>
-            <div style="max-width: 700px; margin: 0 auto;">
-                <table style="width: 100%; border-collapse: collapse; font-size: 15px;">
+            <div class="roi-wrap reveal">
+                <table class="roi-table">
                     <thead>
-                        <tr style="border-bottom: 2px solid var(--accent);">
-                            <th style="text-align: left; padding: 12px 16px; color: var(--text-secondary);"></th>
-                            <th style="text-align: right; padding: 12px 16px; color: var(--text-secondary);">従来型AI外注
+                        <tr>
+                            <th></th>
+                            <th>従来型AI外注
                             </th>
-                            <th style="text-align: right; padding: 12px 16px; color: var(--accent); font-weight: 700;">
+                            <th class="roi-mf">
                                 metafactory<br><small>（Plan S）</small></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.06);">
-                            <td style="padding: 12px 16px; color: var(--text-secondary);">1年目</td>
-                            <td style="text-align: right; padding: 12px 16px; color: var(--text-primary);">600～1,200万円
+                        <tr>
+                            <td>1年目</td>
+                            <td>600～1,200万円
                             </td>
-                            <td style="text-align: right; padding: 12px 16px; color: var(--accent); font-weight: 600;">
+                            <td class="roi-mf">
                                 550万円</td>
                         </tr>
-                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.06);">
-                            <td style="padding: 12px 16px; color: var(--text-secondary);">2年目</td>
-                            <td style="text-align: right; padding: 12px 16px; color: var(--text-primary);">600～1,200万円
+                        <tr>
+                            <td>2年目</td>
+                            <td>600～1,200万円
                             </td>
-                            <td style="text-align: right; padding: 12px 16px; color: var(--accent); font-weight: 600;">
-                                0円<small style="color: var(--text-muted);">(卒業後)</small></td>
-                        </tr>
-                        <tr style="border-bottom: 2px solid var(--accent);">
-                            <td style="padding: 12px 16px; color: var(--text-secondary);">3年目</td>
-                            <td style="text-align: right; padding: 12px 16px; color: var(--text-primary);">600～1,200万円
-                            </td>
-                            <td style="text-align: right; padding: 12px 16px; color: var(--accent); font-weight: 600;">
-                                0円</td>
+                            <td class="roi-mf">
+                                0円<small>(卒業後)</small></td>
                         </tr>
                         <tr>
-                            <td style="padding: 16px; font-weight: 700; color: var(--text-primary);">3年合計</td>
-                            <td style="text-align: right; padding: 16px; font-weight: 700; color: var(--text-primary);">
+                            <td>3年目</td>
+                            <td>600～1,200万円
+                            </td>
+                            <td class="roi-mf">
+                                0円</td>
+                        </tr>
+                        <tr class="roi-total">
+                            <td>3年合計</td>
+                            <td>
                                 1,800～3,600万円</td>
-                            <td
-                                style="text-align: right; padding: 16px; font-weight: 700; color: var(--accent); font-size: 18px;">
+                            <td class="roi-mf">
                                 550万円</td>
                         </tr>
                     </tbody>
                 </table>
-                <p style="text-align: center; margin-top: 24px; color: var(--text-muted); font-size: 14px;">
+                <p class="roi-note">
                     ※ 従来型AI外注の費用は、AIコンサルティング市場の一般的な月額50～100万円をもとに算出。<br>
                     metafactory は卒業後の月額が発生しないため、長期的な総コストで大きな差が生まれます。
                 </p>
@@ -2251,59 +2776,79 @@
     </section>
 
     <!-- 8. Process -->
-    <section class="process">
+    <section class="process alt">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">導入の流れ</h2>
                 <p class="section-subtitle">最初にモデルを押し付けるのではなく、無料診断で「納品型で足りるか」「伴走支援が必要か」を整理します。</p>
             </div>
             <div class="process-steps">
-                <div class="step">
+                <div class="step reveal">
                     <div class="step-number">0</div>
-                    <h4>無料診断</h4>
-                    <p>現在の業務課題、AI活用の目的、社内体制を確認。モデル1で完結するか、モデル2で定着まで進めるべきかを整理します。</p>
+                    <div class="step-body">
+                        <h4>無料診断</h4>
+                        <p>現在の業務課題、AI活用の目的、社内体制を確認。モデル1で完結するか、モデル2で定着まで進めるべきかを整理します。</p>
+                    </div>
                 </div>
-                <div class="step">
+                <div class="step reveal">
                     <div class="step-number">1</div>
-                    <h4>要件整理・提案</h4>
-                    <p>対象業務、必要な成果物、運用イメージ、費用対効果を整理し、モデル1またはPlan S/M/Lの提案に落とし込みます。</p>
+                    <div class="step-body">
+                        <h4>要件整理・提案</h4>
+                        <p>対象業務、必要な成果物、運用イメージ、費用対効果を整理し、モデル1またはPlan S/M/Lの提案に落とし込みます。</p>
+                    </div>
                 </div>
 
-                <div class="step">
+                <div class="step reveal">
                     <div class="step-number">2</div>
-                    <h4>納品または基盤導入</h4>
-                    <p>モデル1はAIアプリを納品。モデル2はAI活用環境、Agent、教材、品質ルール、運用手順を導入します。</p>
+                    <div class="step-body">
+                        <h4>納品または基盤導入</h4>
+                        <p>モデル1はAIアプリを納品。モデル2はAI活用環境、Agent、教材、品質ルール、運用手順を導入します。</p>
+                    </div>
                 </div>
-                <div class="step">
+                <div class="step reveal">
                     <div class="step-number">3</div>
-                    <h4>伴走・定着・卒業</h4>
-                    <p>御社チームが自分たちで使い、改善し、引き継げる状態を目指します。自走が確認できたら、月額伴走は終了できます。</p>
+                    <div class="step-body">
+                        <h4>伴走・定着・卒業</h4>
+                        <p>御社チームが自分たちで使い、改善し、引き継げる状態を目指します。自走が確認できたら、月額伴走は終了できます。</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- 8.5 Use Cases -->
-    <section class="use-cases" style="background: var(--bg-secondary);">
+    <section class="use-cases">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">想定ユースケース</h2>
                 <p class="section-subtitle">非エンジニア部門の業務改善から、開発部門のAgentic開発基盤まで対応できます。</p>
             </div>
             <div class="trust-grid">
-                <div class="trust-card">
-                    <div class="trust-icon">📸</div>
-                    <h3>建設業 — 現場写真・報告書整理</h3>
+                <div class="card trust-card reveal">
+                    <div class="card-head">
+                        <div class="tile"><svg class="icon" aria-hidden="true">
+                                <use href="#i-camera" />
+                            </svg></div>
+                        <h3>建設業 — 現場写真・報告書整理</h3>
+                    </div>
                     <p>現場写真の分類、報告書の下書き、点検記録の整理をAIで支援。まずは<strong>モデル1</strong>で業務アプリとして納品。</p>
                 </div>
-                <div class="trust-card">
-                    <div class="trust-icon">📊</div>
-                    <h3>管理部門 — 資料作成・社内問い合わせ</h3>
+                <div class="card trust-card reveal">
+                    <div class="card-head">
+                        <div class="tile"><svg class="icon" aria-hidden="true">
+                                <use href="#i-chart" />
+                            </svg></div>
+                        <h3>管理部門 — 資料作成・社内問い合わせ</h3>
+                    </div>
                     <p>スライド作成、規程確認、社内FAQ、議事録整理などをAI活用環境に載せ、<strong>Plan S / M</strong> で現場に定着。</p>
                 </div>
-                <div class="trust-card">
-                    <div class="trust-icon">⚙️</div>
-                    <h3>開発部門 — Agentic開発基盤</h3>
+                <div class="card trust-card reveal">
+                    <div class="card-head">
+                        <div class="tile"><svg class="icon" aria-hidden="true">
+                                <use href="#i-gear" />
+                            </svg></div>
+                        <h3>開発部門 — Agentic開発基盤</h3>
+                    </div>
                     <p>AI AgentにUI構築や業務アプリ改善を任せるため、仕様・設計・テスト・再利用部品ルールを<strong>Plan L</strong>で整備。</p>
                 </div>
             </div>
@@ -2311,41 +2856,65 @@
     </section>
 
     <!-- 9. Trust -->
-    <section class="trust">
+    <section class="trust alt">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">なぜ信頼できるのか</h2>
                 <p class="section-subtitle">派手なAIデモではなく、品質・引き継ぎ・自走化を重視します。</p>
             </div>
             <div class="trust-grid">
-                <div class="trust-card">
-                    <div class="trust-icon">🛡️</div>
-                    <h3>品質を仕組みで守る</h3>
+                <div class="card trust-card reveal">
+                    <div class="card-head">
+                        <div class="tile"><svg class="icon" aria-hidden="true">
+                                <use href="#i-shield" />
+                            </svg></div>
+                        <h3>品質を仕組みで守る</h3>
+                    </div>
                     <p>AIの出力やAgentの実装を、担当者の勘だけに任せません。基準、レビュー観点、記録を整えます。</p>
                 </div>
-                <div class="trust-card">
-                    <div class="trust-icon">📋</div>
-                    <h3>ブラックボックスにしない</h3>
+                <div class="card trust-card reveal">
+                    <div class="card-head">
+                        <div class="tile"><svg class="icon" aria-hidden="true">
+                                <use href="#i-clipboard" />
+                            </svg></div>
+                        <h3>ブラックボックスにしない</h3>
+                    </div>
                     <p>「なぜこう作ったのか」「どこを確認すべきか」を残します。担当者が代わっても、引き継ぎや改善ができる状態を目指します。</p>
                 </div>
-                <div class="trust-card">
-                    <div class="trust-icon">👥</div>
-                    <h3>28年 × 300名の育成実績</h3>
+                <div class="card trust-card reveal">
+                    <div class="card-head">
+                        <div class="tile"><svg class="icon" aria-hidden="true">
+                                <use href="#i-users" />
+                            </svg></div>
+                        <h3>28年 × 300名の育成実績</h3>
+                    </div>
                     <p>大規模開発で品質と育成に向き合ってきた経験を、AI活用の定着支援に転用しています。</p>
                 </div>
-                <div class="trust-card">
-                    <div class="trust-icon">🎓</div>
-                    <h3>卒業したら、月額終了</h3>
+                <div class="card trust-card reveal">
+                    <div class="card-head">
+                        <div class="tile"><svg class="icon" aria-hidden="true">
+                                <use href="#i-cap" />
+                            </svg></div>
+                        <h3>卒業したら、月額終了</h3>
+                    </div>
                     <p>御社が自分たちで回せるようになったら、月額伴走は終了できます。継続依存ではなく、自走をゴールにします。</p>
                 </div>
-                <div class="trust-card">
-                    <div class="trust-icon">⚡</div>
-                    <h3>成果物まで持っていく</h3>
+                <div class="card trust-card reveal">
+                    <div class="card-head">
+                        <div class="tile"><svg class="icon" aria-hidden="true">
+                                <use href="#i-bolt" />
+                            </svg></div>
+                        <h3>成果物まで持っていく</h3>
+                    </div>
                     <p>研修で終わらせず、業務アプリ、Agent、教材、運用ルール、判断記録といった形に残します。</p>
                 </div>
-                <div class="trust-card">
-                    <div class="trust-icon">💬</div>
-                    <h3>責任者が直接対応</h3>
+                <div class="card trust-card reveal">
+                    <div class="card-head">
+                        <div class="tile"><svg class="icon" aria-hidden="true">
+                                <use href="#i-chat" />
+                            </svg></div>
+                        <h3>責任者が直接対応</h3>
+                    </div>
                     <p>初回相談から設計・伴走まで、責任者が直接対応します。成果が見込める範囲を明確にし、無理な提案はしません。</p>
                 </div>
             </div>
@@ -2360,44 +2929,44 @@
                 <p class="section-subtitle">モデルと料金の考え方を整理しました。</p>
             </div>
             <div class="faq-list">
-                <div class="faq-item">
-                    <div class="faq-question"><span>アプリ納品だけでも依頼できますか？</span><span class="faq-icon">▼</span></div>
+                <div class="faq-item reveal">
+                    <div class="faq-question" role="button" tabindex="0"><span>アプリ納品だけでも依頼できますか？</span><span class="faq-icon">▼</span></div>
                     <div class="faq-answer">
                         <div class="faq-answer-content">
                             はい。モデル1（アプリ納品型）をご利用ください。AIの学習や内製化よりも、まず完成品が必要な企業向けです。設計記録・品質チェック・操作マニュアル付きで納品します。</div>
                     </div>
                 </div>
-                <div class="faq-item">
-                    <div class="faq-question"><span>Plan S/M/L は研修費ですか？</span><span class="faq-icon">▼</span></div>
+                <div class="faq-item reveal">
+                    <div class="faq-question" role="button" tabindex="0"><span>Plan S/M/L は研修費ですか？</span><span class="faq-icon">▼</span></div>
                     <div class="faq-answer">
                         <div class="faq-answer-content">
                             いいえ。伴走支援型の初期費用には、AI活用環境の構築、同梱Agent、教材、品質ルール、運用設計、初期教育が含まれます。研修だけではなく、御社にAI活用の土台を移すための費用です。
                         </div>
                     </div>
                 </div>
-                <div class="faq-item">
-                    <div class="faq-question"><span>同梱Agent・教材とは何ですか？</span><span class="faq-icon">▼</span></div>
+                <div class="faq-item reveal">
+                    <div class="faq-question" role="button" tabindex="0"><span>同梱Agent・教材とは何ですか？</span><span class="faq-icon">▼</span></div>
                     <div class="faq-answer">
                         <div class="faq-answer-content">パワポ自動作成、AIlearningコンテンツ、アプリ作成Agentなど、業務でAIを使い続けるための道具です。Plan
                             Sから標準搭載され、プランの違いは主に対象範囲と伴走の深さです。</div>
                     </div>
                 </div>
-                <div class="faq-item">
-                    <div class="faq-question"><span>モデル1からモデル2へ移行できますか？</span><span class="faq-icon">▼</span></div>
+                <div class="faq-item reveal">
+                    <div class="faq-question" role="button" tabindex="0"><span>モデル1からモデル2へ移行できますか？</span><span class="faq-icon">▼</span></div>
                     <div class="faq-answer">
                         <div class="faq-answer-content">
                             はい。モデル1でアプリ納品後に、モデル2で社内定着・内製化へ進むことができます。その場合、モデル1の費用はモデル2の初期費用から全額差し引きます。</div>
                     </div>
                 </div>
-                <div class="faq-item">
-                    <div class="faq-question"><span>途中でプランを変更できますか？</span><span class="faq-icon">▼</span></div>
+                <div class="faq-item reveal">
+                    <div class="faq-question" role="button" tabindex="0"><span>途中でプランを変更できますか？</span><span class="faq-icon">▼</span></div>
                     <div class="faq-answer">
                         <div class="faq-answer-content">はい。Plan S → M、Plan M → L
                             へのアップグレードは可能です。対象業務や伴走範囲が広がったタイミングで、差分を整理してご提案します。</div>
                     </div>
                 </div>
-                <div class="faq-item">
-                    <div class="faq-question"><span>Plan L の伴走は、Plan M と何が違いますか？</span><span class="faq-icon">▼</span>
+                <div class="faq-item reveal">
+                    <div class="faq-question" role="button" tabindex="0"><span>Plan L の伴走は、Plan M と何が違いますか？</span><span class="faq-icon">▼</span>
                     </div>
                     <div class="faq-answer">
                         <div class="faq-answer-content">
@@ -2408,22 +2977,22 @@
                         </div>
                     </div>
                 </div>
-                <div class="faq-item">
-                    <div class="faq-question"><span>「卒業」した後も使い続けられますか？</span><span class="faq-icon">▼</span></div>
+                <div class="faq-item reveal">
+                    <div class="faq-question" role="button" tabindex="0"><span>「卒業」した後も使い続けられますか？</span><span class="faq-icon">▼</span></div>
                     <div class="faq-answer">
                         <div class="faq-answer-content">はい。卒業後も導入した環境・Agent・教材・運用ルールは残ります。必要に応じて、保守契約や追加支援を個別にご相談いただけます。
                         </div>
                     </div>
                 </div>
-                <div class="faq-item">
-                    <div class="faq-question"><span>どんな規模の企業が対象ですか？</span><span class="faq-icon">▼</span></div>
+                <div class="faq-item reveal">
+                    <div class="faq-question" role="button" tabindex="0"><span>どんな規模の企業が対象ですか？</span><span class="faq-icon">▼</span></div>
                     <div class="faq-answer">
                         <div class="faq-answer-content">企業規模よりも、目的が重要です。完成品が必要ならモデル1、社内定着を目指すならPlan S/M、AI
                             Agentで改善・開発まで回したい場合はPlan Lが適しています。</div>
                     </div>
                 </div>
-                <div class="faq-item">
-                    <div class="faq-question"><span>対応体制はどうなっていますか？</span><span class="faq-icon">▼</span></div>
+                <div class="faq-item reveal">
+                    <div class="faq-question" role="button" tabindex="0"><span>対応体制はどうなっていますか？</span><span class="faq-icon">▼</span></div>
                     <div class="faq-answer">
                         <div class="faq-answer-content">初回相談から設計・伴走まで、責任者が直接対応します。品質を守るため、対象範囲と進め方を無料診断で確認したうえでご提案します。
                         </div>
@@ -2434,28 +3003,31 @@
     </section>
 
     <!-- 11. Profile -->
-    <section class="profile">
+    <section class="profile alt">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">開発者について</h2>
             </div>
-            <div class="profile-content">
-                <div class="profile-name">柴田 朝史<span
-                        style="font-size:16px; color:var(--text-muted); font-weight:400; margin-left:12px;">（しばた
-                        ともふみ）</span></div>
-                <div class="profile-title">metafactory agent studio 代表</div>
-                <p class="profile-description">
-                    大規模ソフトウェア開発の現場で、28年間「品質とスケジュールを守り抜く」ことに向き合ってきました。延べ300名以上の技術者を育て、自走できる組織を作ってきた経験を、AI活用支援に転用しています。<br><br>
-                    C/C++による設計・実装、UI設計、レビュー、教育支援、プロセス改善の経験をベースに、生成AI・LLM
-                    を用いたAgent設計、AI基盤設計、教育AIシナリオ設計、コード診断を実施。「品質は仕組みで守る」という考え方から、AI活用にも再現性・記録・引き継ぎ可能性を重視しています。
-                </p>
-                <ul class="profile-highlights">
-                    <li>組込み・制御系ソフトウェア開発 28年 — C/C++・設計・実装・UI・レビュー・教育</li>
-                    <li>生成AI・LLMを活用したプロンプト設計・Agent設計・AI基盤設計（複数LLMエコシステム対応）</li>
-                    <li>技術者育成 — 延べ300名以上を「自走できる人材」に</li>
-                    <li>AI活用の品質ガバナンス — 人に依存しすぎない仕組み化</li>
-                    <li>「卒業がゴール」を前提にした伴走支援</li>
-                </ul>
+            <div class="profile-content reveal">
+                <div class="profile-side">
+                    <div class="profile-name">柴田 朝史<span class="profile-kana">（しばた
+                            ともふみ）</span></div>
+                    <div class="profile-title">metafactory agent studio 代表</div>
+                </div>
+                <div class="profile-main">
+                    <p class="profile-description">
+                        大規模ソフトウェア開発の現場で、28年間「品質とスケジュールを守り抜く」ことに向き合ってきました。延べ300名以上の技術者を育て、自走できる組織を作ってきた経験を、AI活用支援に転用しています。<br><br>
+                        C/C++による設計・実装、UI設計、レビュー、教育支援、プロセス改善の経験をベースに、生成AI・LLM
+                        を用いたAgent設計、AI基盤設計、教育AIシナリオ設計、コード診断を実施。「品質は仕組みで守る」という考え方から、AI活用にも再現性・記録・引き継ぎ可能性を重視しています。
+                    </p>
+                    <ul class="profile-highlights">
+                        <li>組込み・制御系ソフトウェア開発 28年 — C/C++・設計・実装・UI・レビュー・教育</li>
+                        <li>生成AI・LLMを活用したプロンプト設計・Agent設計・AI基盤設計（複数LLMエコシステム対応）</li>
+                        <li>技術者育成 — 延べ300名以上を「自走できる人材」に</li>
+                        <li>AI活用の品質ガバナンス — 人に依存しすぎない仕組み化</li>
+                        <li>「卒業がゴール」を前提にした伴走支援</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
@@ -2465,15 +3037,25 @@
         <div class="container">
             <div class="final-cta-content">
                 <h2>まずは無料診断から。<br>AIで変えるべき業務と、<br>選ぶべきモデルを整理します。</h2>
-                <p>完成品としてアプリを作るべきか。伴走支援で社内に仕組みを移すべきか。<br>30分の無料診断で、御社に合う進め方を一緒に整理します。</p>
+                <p class="final-cta-lead">完成品としてアプリを作るべきか。伴走支援で社内に仕組みを移すべきか。<br>30分の無料診断で、御社に合う進め方を一緒に整理します。</p>
                 <div class="cta-benefits">
-                    <div class="cta-benefit">診断無料</div>
-                    <div class="cta-benefit">オンライン完結</div>
-                    <div class="cta-benefit">30分で整理</div>
-                    <div class="cta-benefit">押し売りなし</div>
+                    <div class="cta-benefit"><svg class="icon" aria-hidden="true">
+                            <use href="#i-check" />
+                        </svg>診断無料</div>
+                    <div class="cta-benefit"><svg class="icon" aria-hidden="true">
+                            <use href="#i-check" />
+                        </svg>オンライン完結</div>
+                    <div class="cta-benefit"><svg class="icon" aria-hidden="true">
+                            <use href="#i-check" />
+                        </svg>30分で整理</div>
+                    <div class="cta-benefit"><svg class="icon" aria-hidden="true">
+                            <use href="#i-check" />
+                        </svg>押し売りなし</div>
                 </div>
                 <a href="mailto:meta.tsfactory@gmail.com?subject=無料診断希望&body=お名前：%0A会社名：%0A従業員数：%0A%0A【興味のあるモデル】%0A□ モデル1（アプリ納品型）%0A□ モデル2（伴走支援型 Plan S/M/L）%0A□ まだ決まっていない%0A%0Aご相談内容："
-                    class="final-cta-button">無料診断を予約する</a>
+                    class="btn btn-primary final-cta-button">無料診断を予約する<svg class="icon" aria-hidden="true">
+                        <use href="#i-arrow" />
+                    </svg></a>
                 <p class="final-cta-note">
                     モデル1（アプリ納品型・80万円〜）のご利用実績がある場合、伴走支援型（モデル2）の初期費用から全額差引。段階的に始められます。<br>
                     メール: meta.tsfactory@gmail.com<br>
@@ -2496,44 +3078,56 @@
     </footer>
 
     <script>
+        document.documentElement.classList.add('js');
+
         // Progress Bar
         window.addEventListener('scroll', () => {
             const h = document.documentElement.scrollHeight - window.innerHeight;
-            document.getElementById('progressBar').style.transform = `scaleX(${window.scrollY / h})`;
-        });
+            document.getElementById('progressBar').style.transform = `scaleX(${h > 0 ? window.scrollY / h : 0})`;
+        }, { passive: true });
 
         // Header Shadow
         const header = document.getElementById('header');
         window.addEventListener('scroll', () => {
             header.classList.toggle('scrolled', window.scrollY > 50);
-        });
+        }, { passive: true });
 
-        // Intersection Observer
+        // Intersection Observer — staggered reveal within each batch
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry, i) => {
                 if (entry.isIntersecting) {
-                    setTimeout(() => entry.target.classList.add('visible'), i * 80);
+                    setTimeout(() => entry.target.classList.add('visible'), i * 70);
+                    observer.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
 
-        document.querySelectorAll('.hero-stat,.pain-card,.service-card,.pricing-card,.step,.trust-card,.faq-item,.comparison-table,.diff-card,.guide-card').forEach(el => observer.observe(el));
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // FAQ Toggle
+        // FAQ Toggle (click + keyboard)
         document.querySelectorAll('.faq-item').forEach(item => {
-            item.querySelector('.faq-question').addEventListener('click', () => {
+            const q = item.querySelector('.faq-question');
+            const toggle = () => {
                 const wasActive = item.classList.contains('active');
                 document.querySelectorAll('.faq-item').forEach(f => f.classList.remove('active'));
                 if (!wasActive) item.classList.add('active');
+            };
+            q.addEventListener('click', toggle);
+            q.addEventListener('keydown', e => {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
             });
         });
 
         // Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(a => {
             a.addEventListener('click', e => {
-                e.preventDefault();
-                const t = document.querySelector(a.getAttribute('href'));
-                if (t) window.scrollTo({ top: t.getBoundingClientRect().top + window.pageYOffset - 90, behavior: 'smooth' });
+                const href = a.getAttribute('href');
+                if (href === '#') { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+                const t = document.querySelector(href);
+                if (t) {
+                    e.preventDefault();
+                    window.scrollTo({ top: t.getBoundingClientRect().top + window.pageYOffset - 88, behavior: 'smooth' });
+                }
             });
         });
     </script>
